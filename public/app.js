@@ -53,9 +53,29 @@ const DUMMY_KANJI = ["新", "大", "初", "発", "開", "生", "最", "美", "�
 const DUMMY_KANA = ["あ", "い", "う", "え", "お", "か", "き", "く", "け", "こ", "さ", "し", "す", "せ", "そ", "た", "ち", "つ", "て", "と", "な", "に", "ぬ", "ね", "の"];
 const DUMMY_KATAKANA = ["ア", "イ", "ウ", "エ", "オ", "カ", "キ", "ク", "ケ", "コ", "サ", "シ", "ス", "セ", "ソ", "タ", "チ", "ツ", "テ", "ト", "ナ", "ニ", "ヌ", "ネ", "ノ"];
 
+// ブラウザの言語環境から初期表示言語を判定（日本語環境なら ja、それ以外なら en）
+function detectInitialLanguage() {
+  // 1. URLパラメータ (?lang=ja または ?lang=en) が指定されていれば最優先
+  const params = new URLSearchParams(window.location.search);
+  const langParam = (params.get("lang") || "").toLowerCase();
+  if (langParam === "ja" || langParam === "en") {
+    return langParam;
+  }
+
+  // 2. 過去にユーザーが言語ボタンを手動で切り替えた保存値があれば優先
+  const saved = localStorage.getItem("prquiz_lang");
+  if (saved === "ja" || saved === "en") {
+    return saved;
+  }
+
+  // 3. ブラウザの言語設定を確認 (日本語環境なら ja、日本語以外なら en)
+  const browserLang = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+  return browserLang.toLowerCase().startsWith("ja") ? "ja" : "en";
+}
+
 class PRQuizApp {
   constructor() {
-    this.currentLang = localStorage.getItem("prquiz_lang") || "ja";
+    this.currentLang = detectInitialLanguage();
     this.releases = [];
     this.currentIndex = 0;
     this.currentQuestion = null;
@@ -129,12 +149,16 @@ class PRQuizApp {
   updateLanguageUI() {
     // ページ全体の言語属性を現在選択されている言語に同期
     document.documentElement.lang = this.currentLang;
+    const isEn = this.currentLang === "en";
+
+    document.title = isEn
+      ? "PR Quiz (prquiz.com) - Press Release Quiz"
+      : "PR Quiz (prquiz.com) - プレスリリース伏字クイズ";
 
     this.langBtns.forEach(btn => {
       btn.classList.toggle("active", btn.dataset.lang === this.currentLang);
     });
 
-    const isEn = this.currentLang === "en";
     this.updateHintButtonText();
     document.getElementById("hint-notice").textContent = isEn
       ? "Hint (Original release URL):"

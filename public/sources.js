@@ -48,9 +48,29 @@ const FALLBACK_RELEASES = {
   ]
 };
 
+// ブラウザの言語環境から初期表示言語を判定（日本語環境なら ja、それ以外なら en）
+function detectInitialLanguage() {
+  // 1. URLパラメータ (?lang=ja または ?lang=en) が指定されていれば最優先
+  const params = new URLSearchParams(window.location.search);
+  const langParam = (params.get("lang") || "").toLowerCase();
+  if (langParam === "ja" || langParam === "en") {
+    return langParam;
+  }
+
+  // 2. 過去にユーザーが言語ボタンを手動で切り替えた保存値があれば優先
+  const saved = localStorage.getItem("prquiz_lang");
+  if (saved === "ja" || saved === "en") {
+    return saved;
+  }
+
+  // 3. ブラウザの言語設定を確認 (日本語環境なら ja、日本語以外なら en)
+  const browserLang = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+  return browserLang.toLowerCase().startsWith("ja") ? "ja" : "en";
+}
+
 class PRSourcesApp {
   constructor() {
-    this.currentLang = localStorage.getItem("prquiz_lang") || "ja";
+    this.currentLang = detectInitialLanguage();
     this.langBtns = document.querySelectorAll(".lang-btn");
     this.sourcesListEl = document.getElementById("sources-list");
     this.pageTitleEl = document.getElementById("page-title");
@@ -107,6 +127,11 @@ class PRSourcesApp {
   updateLanguageUI() {
     // ページ全体の言語属性を現在選択されている言語に同期
     document.documentElement.lang = this.currentLang;
+    const isEn = this.currentLang === "en";
+
+    document.title = isEn
+      ? "Press Release Sources | PR Quiz"
+      : "プレスリリース ソース元一覧 | PR Quiz";
 
     this.langBtns.forEach(btn => {
       btn.classList.toggle("active", btn.dataset.lang === this.currentLang);
