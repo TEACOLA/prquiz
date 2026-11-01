@@ -86,20 +86,22 @@ function parseRssItems(xml) {
       title = cleanText(titleMatch[1]);
     }
 
-    // リンク抽出 (<link>タグまたは rdf:about 属性)
+    // リンク抽出 (個別記事URL: rdf:about 属性または <link> タグ)
     let link = "";
-    const linkMatch = itemBlock.match(/<link(?:\s[^>]*)?>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/i);
-    if (linkMatch && linkMatch[1]) {
-      link = cleanText(linkMatch[1]);
-    } else {
-      const rdfAboutMatch = itemBlock.match(/<item\s+[^>]*rdf:about=["']([^"']+)["']/i);
-      if (rdfAboutMatch && rdfAboutMatch[1]) {
-        link = cleanText(rdfAboutMatch[1]);
+    const rdfAboutMatch = itemBlock.match(/<item\s+[^>]*rdf:about=["']([^"']+)["']/i);
+    if (rdfAboutMatch && rdfAboutMatch[1] && rdfAboutMatch[1].startsWith("http")) {
+      link = cleanText(rdfAboutMatch[1]);
+    }
+
+    if (!link) {
+      const linkMatch = itemBlock.match(/<link(?:\s[^>]*)?>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/i);
+      if (linkMatch && linkMatch[1]) {
+        link = cleanText(linkMatch[1]);
       }
     }
 
-    // タイトルとリンクが両方取れた場合のみ追加
-    if (title && link) {
+    // タイトルと記事個別リンクが両方取れた場合のみ追加
+    if (title && link && link.startsWith("http")) {
       items.push({ title, link });
     }
   }
