@@ -16,30 +16,20 @@ export async function onRequest(context) {
       items = nwItems.slice(0, 10);
     } else {
       sourceName = "PR TIMES / サイエンスポータル";
-      // 日本語フィードを並行取得（PR TIMES と サイエンスポータル）
+      // 日本語フィードを並行取得（各ソースから最新10件ずつ取得）
       const [prItems, spItems] = await Promise.all([
         fetchFeedItems("https://prtimes.jp/index.rdf", "PR TIMES"),
         fetchFeedItems("https://scienceportal.jst.go.jp/feed/rss.xml", "サイエンスポータル")
       ]);
 
-      const prSlice = prItems.slice(0, 5);
-      const spSlice = spItems.slice(0, 5);
+      const prSlice = prItems.slice(0, 10);
+      const spSlice = spItems.slice(0, 10);
 
-      if (prSlice.length === 5 && spSlice.length === 5) {
-        // 交互にバランスよくインターリーブ
-        for (let i = 0; i < 5; i++) {
-          items.push(prSlice[i]);
-          items.push(spSlice[i]);
-        }
-      } else {
-        // 片方が不足している場合はあるだけ結合し、残りを補充
-        items = [...prSlice, ...spSlice];
-        if (items.length < 10 && prItems.length > prSlice.length) {
-          items = [...items, ...prItems.slice(5, 5 + (10 - items.length))];
-        }
-        if (items.length < 10 && spItems.length > spSlice.length) {
-          items = [...items, ...spItems.slice(5, 5 + (10 - items.length))];
-        }
+      // 交互にバランスよくインターリーブして結合
+      const maxLen = Math.max(prSlice.length, spSlice.length);
+      for (let i = 0; i < maxLen; i++) {
+        if (i < prSlice.length) items.push(prSlice[i]);
+        if (i < spSlice.length) items.push(spSlice[i]);
       }
     }
 

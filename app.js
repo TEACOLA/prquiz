@@ -12,7 +12,17 @@ const FALLBACK_RELEASES = {
     { title: "環境負荷を最大70%削減する新型エコパッケージを開発、全国の主要コンビニで順次導入開始", link: "https://prtimes.jp/main/html/rd/p/000000029.000076123.html", source: "PR TIMES" },
     { title: "「59分60秒、やめます」うるう秒廃止を決議 国際度量衡総会", link: "https://scienceportal.jst.go.jp/newsflash/20261027_n01/", source: "サイエンスポータル" },
     { title: "国内最大規模のスタートアップカンファレンスが東京で開催決定！注目の登壇者50名を先行発表", link: "https://prtimes.jp/main/html/rd/p/000000088.000063450.html", source: "PR TIMES" },
-    { title: "火星衛星フォボスの試料回収へ旅立ち MMX打ち上げ成功 種子島", link: "https://scienceportal.jst.go.jp/newsflash/20261021_n01/", source: "サイエンスポータル" }
+    { title: "プログラミング言語「PHP」に重大欠陥 ネット社会のもろさ浮き彫り", link: "https://scienceportal.jst.go.jp/stories/20261026_s01/", source: "サイエンスポータル" },
+    { title: "創業100周年記念！幻の復刻ブレンドコーヒーが数量限定で全国の直営店舗にて販売開始", link: "https://prtimes.jp/main/html/rd/p/000000007.000091204.html", source: "PR TIMES" },
+    { title: "「多文化共生」のため、科学技術どう活用？ サイエンスアゴラin前橋", link: "https://scienceportal.jst.go.jp/stories/20261023_s01/", source: "サイエンスポータル" },
+    { title: "睡眠の質を可視化するスマート快眠デバイス『SleepFit』の先行予約販売を開始", link: "https://prtimes.jp/main/html/rd/p/000000034.000048911.html", source: "PR TIMES" },
+    { title: "火星衛星フォボスの試料回収へ旅立ち MMX打ち上げ成功 種子島", link: "https://scienceportal.jst.go.jp/newsflash/20261021_n01/", source: "サイエンスポータル" },
+    { title: "日本の伝統工芸と現代デザインが融合した新しい陶器ブランド『美織』が誕生", link: "https://prtimes.jp/main/html/rd/p/000000015.000082341.html", source: "PR TIMES" },
+    { title: "この卵はプリンに？茶碗蒸しに？ 鶏の飼い方で味が変わる 農工大など", link: "https://scienceportal.jst.go.jp/stories/20261020_s01/", source: "サイエンスポータル" },
+    { title: "大人気アニメとの特別コラボカフェが期間限定オープン！限定描き下ろしグッズも多数登場", link: "https://prtimes.jp/main/html/rd/p/000000056.000037192.html", source: "PR TIMES" },
+    { title: "打ち上げ迫る「MMX」 火星衛星フォボスから、どんなお土産を？", link: "https://scienceportal.jst.go.jp/stories/20261019_s01/", source: "サイエンスポータル" },
+    { title: "全自動で窓掃除をこなす最新スマート家電ロボットが登場、クラウドファンディングで目標達成", link: "https://prtimes.jp/main/html/rd/p/000000023.000069418.html", source: "PR TIMES" },
+    { title: "産業革命前からの気温上昇、数年以内に「1.5度」を超過 国連が警告", link: "https://scienceportal.jst.go.jp/stories/20261016_s01/", source: "サイエンスポータル" }
   ],
   en: [
     { title: "Global Tech Innovator Announces Revolutionary Clean Energy Storage Solution for Commercial Use", link: "https://www.newswire.com/news/global-tech-innovator-announces-clean-energy-storage-solution-2189401" },
@@ -197,15 +207,14 @@ class PRQuizApp {
       if (!res.ok) throw new Error("API response not ok");
       const data = await res.json();
       if (data.items && data.items.length > 0) {
-        // 1フィードにつき10問（10件）
-        this.releases = this.shuffleArray(data.items).slice(0, 10);
+        this.releases = this.shuffleArray(data.items);
         this.lastUpdatedAt = data.updatedAt || new Date().toISOString();
       } else {
         throw new Error("No items in feed");
       }
     } catch (err) {
       console.warn("Using fallback releases due to API fetch failure:", err);
-      this.releases = this.shuffleArray(FALLBACK_RELEASES[lang] || FALLBACK_RELEASES.ja).slice(0, 10);
+      this.releases = this.shuffleArray(FALLBACK_RELEASES[lang] || FALLBACK_RELEASES.ja);
       this.lastUpdatedAt = this.lastUpdatedAt || new Date().toISOString();
     }
 
