@@ -29,9 +29,9 @@ export async function onRequest(context) {
     // 1フィードにつき10問（10件）を取得
     const items = allItems.slice(0, 10);
 
-    // 次のJST毎時1分までのキャッシュ秒数を算出（PRサイトへの負荷を最小限に抑制）
-    const ttlSeconds = getSecondsUntilNextHourlyUpdate();
-    const updatedAt = getLastHourlyUpdateJst();
+    // 次の64分更新タイミングまでのキャッシュ秒数を算出（PRサイトへの負荷を最小限に抑制）
+    const ttlSeconds = getSecondsUntilNext64MinUpdate();
+    const updatedAt = getLast64MinUpdate();
 
     return new Response(
       JSON.stringify({
@@ -46,7 +46,7 @@ export async function onRequest(context) {
         headers: {
           "Content-Type": "application/json; charset=utf-8",
           "Access-Control-Allow-Origin": "*",
-          // 次の毎時1分までエッジキャッシュ（1時間1回のみの取得を保証）
+          // 64分周期でエッジキャッシュ（配信元へのアクセスは64分に1回のみ）
           "Cache-Control": `public, max-age=${ttlSeconds}, s-maxage=${ttlSeconds}`
         }
       }
@@ -132,44 +132,22 @@ function cleanText(text) {
     .trim();
 }
 
-// 次の毎時11分（JST XX:11）までの残り秒数を算出
-function getSecondsUntilNextHourlyUpdate() {
-  const now = new Date();
-  const minutes = now.getMinutes();
-  const seconds = now.getSeconds();
+const INTERVAL_SECONDS = 64 * 60; // 64分周期（3,840秒）
 
-  let minutesUntil;
-  if (minutes < 11) {
-    minutesUntil = 11 - minutes;
-  } else {
-    minutesUntil = 60 - minutes + 11;
-  }
-  const secondsUntil = (minutesUntil * 60) - seconds;
-  return Math.max(60, secondsUntil); // 最低60秒
+// 次の64分更新タイミングまでの残り秒数を算出
+function getSecondsUntilNext64MinUpdate() {
+  const nowSec = Math.floor(Date.now() / 1000);
+  const currentBatch = Math.floor(nowSec / INTERVAL_SECONDS);
+  const nextBatchSec = (currentBatch + 1) * INTERVAL_SECONDS;
+  const remaining = nextBatchSec - nowSec;
+  return Math.max(60, remaining); // 最低60秒
 }
 
-// 直近の毎時11分（JST）の日時文字列を取得
-function getLastHourlyUpdateJst() {
-  const now = new Date();
-  // JST は UTC+9
-  const jstMs = now.getTime() + (9 * 60 * 60 * 1000);
-  const jstDate = new Date(jstMs);
-
-  let year = jstDate.getUTCFullYear();
-  let month = jstDate.getUTCMonth();
-  let day = jstDate.getUTCDate();
-  let hours = jstDate.getUTCHours();
-  let min = jstDate.getUTCMinutes();
-
-  if (min < 11) {
-    const prevHourDate = new Date(jstMs - (60 * 60 * 1000));
-    year = prevHourDate.getUTCFullYear();
-    month = prevHourDate.getUTCMonth();
-    day = prevHourDate.getUTCDate();
-    hours = prevHourDate.getUTCHours();
-  }
-
-  const pad = (n) => String(n).padStart(2, "0");
-  return `${year}-${pad(month + 1)}-${pad(day)}T${pad(hours)}:11:00+09:00`;
+// 直近の64分更新タイミングのISO日時文字列を取得
+function getLast64MinUpdate() {
+  const nowSec = Math.floor(Date.now() / 1000);
+  const currentBatch = Math.floor(nowSec / INTERVAL_SECONDS);
+  const lastBatchSec = currentBatch * INTERVAL_SECONDS;
+  return new Date(lastBatchSec * 1000).toISOString();
 }
 

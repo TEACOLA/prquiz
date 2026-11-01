@@ -170,42 +170,28 @@ class PRQuizApp {
     if (!this.updateTimeTextEl) return;
     const isEn = this.currentLang === "en";
 
-    // JSTの日時（西暦含む）をフォーマット
-    const now = new Date();
-    let year, month, day, hours;
-
-    if (this.lastUpdatedAt && this.lastUpdatedAt.includes("+09:00")) {
-      const parts = this.lastUpdatedAt.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
-      if (parts) {
-        year = parts[1];
-        month = parseInt(parts[2], 10);
-        day = parseInt(parts[3], 10);
-        hours = parts[4];
-      }
+    let d;
+    if (this.lastUpdatedAt) {
+      d = new Date(this.lastUpdatedAt);
+    } else {
+      const nowSec = Math.floor(Date.now() / 1000);
+      const batchSec = Math.floor(nowSec / (64 * 60)) * (64 * 60);
+      d = new Date(batchSec * 1000);
     }
 
-    if (!year) {
-      const jstNow = new Date(now.getTime() + (9 * 60 * 60 * 1000));
-      let min = jstNow.getUTCMinutes();
-      let h = jstNow.getUTCHours();
-      year = jstNow.getUTCFullYear();
-      month = jstNow.getUTCMonth() + 1;
-      day = jstNow.getUTCDate();
-      if (min < 11) {
-        const prev = new Date(now.getTime() + (9 * 60 * 60 * 1000) - (60 * 60 * 1000));
-        year = prev.getUTCFullYear();
-        month = prev.getUTCMonth() + 1;
-        day = prev.getUTCDate();
-        h = prev.getUTCHours();
-      }
-      hours = String(h).padStart(2, "0");
-    }
+    // JST (+9時間)
+    const jstTime = new Date(d.getTime() + (9 * 60 * 60 * 1000));
+    const year = jstTime.getUTCFullYear();
+    const month = jstTime.getUTCMonth() + 1;
+    const day = jstTime.getUTCDate();
+    const hours = String(jstTime.getUTCHours()).padStart(2, "0");
+    const minutes = String(jstTime.getUTCMinutes()).padStart(2, "0");
 
     if (isEn) {
       const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-      this.updateTimeTextEl.textContent = `Updated: ${months[month - 1]} ${day}, ${year} ${hours}:11 JST`;
+      this.updateTimeTextEl.textContent = `Updated: ${months[month - 1]} ${day}, ${year} ${hours}:${minutes} JST`;
     } else {
-      this.updateTimeTextEl.textContent = `問題更新日時: ${year}年${month}月${day}日 ${hours}:11`;
+      this.updateTimeTextEl.textContent = `問題更新日時: ${year}年${month}月${day}日 ${hours}:${minutes}`;
     }
   }
 
