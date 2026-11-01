@@ -120,7 +120,8 @@ class PRQuizApp {
     });
 
     // 次の問題へボタン
-    this.nextBtn.addEventListener("click", () => {
+    this.nextBtn.addEventListener("click", (e) => {
+      if (e) e.preventDefault();
       this.nextQuestion();
     });
   }
@@ -444,9 +445,37 @@ class PRQuizApp {
   }
 
   nextQuestion() {
+    // ボタンのフォーカスを解除（ブラウザがボタン位置にスクロールを留めようとするのを防ぐ）
+    if (document.activeElement && typeof document.activeElement.blur === "function") {
+      document.activeElement.blur();
+    }
+
     this.currentIndex = (this.currentIndex + 1) % this.releases.length;
     this.showQuestion();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    // ページ最上部（ヘッダー）へスクロール
+    const header = document.querySelector(".site-header");
+    if (header && typeof header.scrollIntoView === "function") {
+      header.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    try {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    } catch (e) {
+      window.scrollTo(0, 0);
+    }
+
+    // レイアウト変更（結果表示エリアの非表示）直後にスクロールが中断された場合のフォールバック
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      setTimeout(() => {
+        if (window.scrollY > 10) {
+          window.scrollTo(0, 0);
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+        }
+      }, 150);
+    });
   }
 
   // 右上の正解率バッジを2秒間輝かせる演出
