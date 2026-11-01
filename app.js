@@ -146,6 +146,10 @@ class PRQuizApp {
     if (this.footerSourcesLink) {
       this.footerSourcesLink.textContent = isEn ? "Press Release Sources List" : "プレスリリースのソース元サイト一覧";
     }
+    const originalLabel = document.getElementById("result-original-label");
+    if (originalLabel) {
+      originalLabel.textContent = isEn ? "▼ Original Title:" : "▼ 元のタイトル:";
+    }
     this.renderUpdateTime();
   }
 
