@@ -137,10 +137,6 @@ class PRQuizApp {
     if (this.footerSourcesLink) {
       this.footerSourcesLink.textContent = isEn ? "Press Release Sources List" : "プレスリリースのソース元サイト一覧";
     }
-    const headerNavLink = document.getElementById("header-nav-link");
-    if (headerNavLink) {
-      headerNavLink.innerHTML = isEn ? "📰 <span>Sources</span>" : "📰 <span>ソース元一覧</span>";
-    }
   }
 
   async loadFeed(lang) {
