@@ -100,9 +100,16 @@ function parseRssItems(xml) {
       }
     }
 
+    // 配信日時抽出 (<dc:date> または <pubDate>)
+    let date = "";
+    const dateMatch = itemBlock.match(/<(?:dc:date|pubDate)(?:\s[^>]*)?>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/(?:dc:date|pubDate)>/i);
+    if (dateMatch && dateMatch[1]) {
+      date = cleanText(dateMatch[1]);
+    }
+
     // タイトルと記事個別リンクが両方取れた場合のみ追加
     if (title && link && link.startsWith("http")) {
-      items.push({ title, link });
+      items.push({ title, link, date });
     }
   }
 
