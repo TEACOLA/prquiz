@@ -386,12 +386,21 @@ class PRQuizApp {
   handleAnswer(selectedChoice, clickedBtn) {
     if (this.hasAnswered) return;
     this.hasAnswered = true;
+
+    const prevRate = this.totalAnswered > 0 ? Math.round((this.score / this.totalAnswered) * 100) : 0;
     this.totalAnswered++;
 
     const isCorrect = selectedChoice === this.currentQuestion.correctChar;
     if (isCorrect) this.score++;
 
+    const newRate = Math.round((this.score / this.totalAnswered) * 100);
+
     this.updateScoreUI();
+
+    // 正解率が上昇した場合（初回正解の0%→100%含む）、ヘッダー正解率を2秒間輝かせる
+    if (isCorrect && (newRate > prevRate || (prevRate === 100 && newRate === 100))) {
+      this.triggerAccuracyGlow();
+    }
 
     // 選択肢ボタンのスタイル更新
     const buttons = this.choicesContainer.querySelectorAll(".choice-btn");
@@ -438,6 +447,22 @@ class PRQuizApp {
     this.currentIndex = (this.currentIndex + 1) % this.releases.length;
     this.showQuestion();
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // 右上の正解率バッジを2秒間輝かせる演出
+  triggerAccuracyGlow() {
+    if (!this.headerAccuracyEl) return;
+    this.headerAccuracyEl.classList.remove("shining");
+    // リフローを発生させてアニメーションを確実に再始動
+    void this.headerAccuracyEl.offsetWidth;
+    this.headerAccuracyEl.classList.add("shining");
+
+    if (this._glowTimer) clearTimeout(this._glowTimer);
+    this._glowTimer = setTimeout(() => {
+      if (this.headerAccuracyEl) {
+        this.headerAccuracyEl.classList.remove("shining");
+      }
+    }, 2000);
   }
 
   updateScoreUI() {

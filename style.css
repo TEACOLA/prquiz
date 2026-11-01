@@ -71,6 +71,79 @@ body {
   border: 1px solid #e2e8f0;
   white-space: nowrap;
   letter-spacing: 0.02em;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* 正解率上昇時の輝きアニメーション（2秒間） */
+.header-accuracy.shining {
+  animation: accuracyGlow 2s ease-in-out forwards;
+}
+
+.header-accuracy.shining::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  animation: shimmerSweep 1.2s ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes accuracyGlow {
+  0% {
+    transform: scale(1);
+    color: #475569;
+    background: #f1f5f9;
+    border-color: #e2e8f0;
+    box-shadow: none;
+  }
+  15% {
+    transform: scale(1.14);
+    color: #92400e;
+    background: #fef3c7;
+    border-color: #f59e0b;
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.7), 0 0 30px rgba(251, 191, 36, 0.45);
+  }
+  45% {
+    transform: scale(1.1);
+    color: #92400e;
+    background: #fef08a;
+    border-color: #eab308;
+    box-shadow: 0 0 22px rgba(234, 179, 8, 0.85), 0 0 38px rgba(245, 158, 11, 0.55);
+  }
+  75% {
+    transform: scale(1.04);
+    color: #92400e;
+    background: #fef3c7;
+    border-color: #f59e0b;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
+  }
+  100% {
+    transform: scale(1);
+    color: #475569;
+    background: #f1f5f9;
+    border-color: #e2e8f0;
+    box-shadow: none;
+  }
+}
+
+@keyframes shimmerSweep {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 160%;
+  }
 }
 
 .logo-area {
