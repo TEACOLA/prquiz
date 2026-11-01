@@ -100,8 +100,8 @@ class PRSourcesApp {
       ? "📰 Press Release Sources"
       : "📰 プレスリリース ソース元一覧";
     this.pageDescEl.textContent = isEn
-      ? "Here is the list of recent press releases and articles featured in PR Quiz. Click any article to read the full story on PR TIMES, Science Portal, or Newswire."
-      : "PR Quizで出題されている最新のプレスリリース一覧です。気になるタイトルの記事は、元サイト（PR TIMES / サイエンスポータル / Newswire）で全文をお読みいただけます。";
+      ? "Here is the list of recent press releases and articles featured in PR Quiz. Click any article to read the full story on the original site."
+      : "PR Quizで出題されている最新のプレスリリース一覧です。気になるタイトルの記事は、元サイトで全文をお読みいただけます。";
     if (this.footerSourcesLink) {
       this.footerSourcesLink.textContent = isEn ? "Press Release Sources List" : "プレスリリースのソース元サイト一覧";
     }
