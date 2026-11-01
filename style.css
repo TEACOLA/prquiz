@@ -63,20 +63,14 @@ body {
 .logo-area {
   display: flex;
   align-items: center;
-  gap: 8px;
   text-decoration: none;
   color: var(--text-main);
 }
 
-.logo-icon {
-  font-size: 1.6rem;
-  line-height: 1;
-}
-
 .logo-text {
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .logo-text span {
