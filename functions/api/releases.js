@@ -26,8 +26,12 @@ export async function onRequest(context) {
 
     const xmlText = await response.text();
     const allItems = parseRssItems(xmlText);
-    // 最新のプレスリリースから20件を取得
-    const items = allItems.slice(0, 20);
+    // 1フィードにつき10問（10件）を取得
+    const items = allItems.slice(0, 10);
+
+    // 次のJST毎時1分までのキャッシュ秒数を算出（PRサイトへの負荷を最小限に抑制）
+    const ttlSeconds = getSecondsUntilNextHourlyUpdate();
+    const updatedAt = getLastHourlyUpdateJst();
 
     return new Response(
       JSON.stringify({
@@ -35,14 +39,15 @@ export async function onRequest(context) {
         source: sourceName,
         lang: isEn ? "en" : "ja",
         count: items.length,
+        updatedAt,
         items
       }),
       {
         headers: {
           "Content-Type": "application/json; charset=utf-8",
           "Access-Control-Allow-Origin": "*",
-          // 5分間キャッシュ（配信元への負荷軽減と高速化）
-          "Cache-Control": "public, max-age=300, s-maxage=300"
+          // 次の毎時1分までエッジキャッシュ（1時間1回のみの取得を保証）
+          "Cache-Control": `public, max-age=${ttlSeconds}, s-maxage=${ttlSeconds}`
         }
       }
     );
@@ -116,5 +121,39 @@ function cleanText(text) {
     .replace(/&nbsp;/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+// 次の毎時1分（JST XX:01）までの残り秒数を算出
+function getSecondsUntilNextHourlyUpdate() {
+  const now = new Date();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+
+  let minutesUntil;
+  if (minutes < 1) {
+    minutesUntil = 1 - minutes;
+  } else {
+    minutesUntil = 60 - minutes + 1;
+  }
+  const secondsUntil = (minutesUntil * 60) - seconds;
+  return Math.max(60, secondsUntil); // 最低60秒
+}
+
+// 直近の毎時1分（JST）の日時文字列を取得
+function getLastHourlyUpdateJst() {
+  const now = new Date();
+  // JST は UTC+9
+  const jstTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
+  let y = jstTime.getUTCFullYear();
+  let m = jstTime.getUTCMonth();
+  let d = jstTime.getUTCDate();
+  let h = jstTime.getUTCHours();
+  let min = jstTime.getUTCMinutes();
+
+  if (min < 1) {
+    h -= 1;
+  }
+  const lastHourDate = new Date(Date.UTC(y, m, d, h, 1, 0));
+  return lastHourDate.toISOString();
 }
 

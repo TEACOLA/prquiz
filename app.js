@@ -80,6 +80,8 @@ class PRQuizApp {
     this.nextBtn = document.getElementById("next-btn");
     this.footerScoreEl = document.getElementById("footer-score");
     this.footerSourcesLink = document.getElementById("footer-sources-link");
+    this.updateTimeTextEl = document.getElementById("update-time-text");
+    this.lastUpdatedAt = null;
 
     // 保存されているスコアがあれば復元
     this.score = parseInt(localStorage.getItem("prquiz_score") || "0", 10);
@@ -144,6 +146,29 @@ class PRQuizApp {
     if (this.footerSourcesLink) {
       this.footerSourcesLink.textContent = isEn ? "Press Release Sources List" : "プレスリリースのソース元サイト一覧";
     }
+    this.renderUpdateTime();
+  }
+
+  renderUpdateTime() {
+    if (!this.updateTimeTextEl) return;
+    const isEn = this.currentLang === "en";
+
+    // JSTの日時（西暦含む）をフォーマット
+    const d = this.lastUpdatedAt ? new Date(this.lastUpdatedAt) : new Date();
+    // JST (+9時間)
+    const jstTime = new Date(d.getTime() + (9 * 60 * 60 * 1000));
+    const year = jstTime.getUTCFullYear();
+    const month = jstTime.getUTCMonth() + 1;
+    const day = jstTime.getUTCDate();
+    const hours = String(jstTime.getUTCHours()).padStart(2, "0");
+    const minutes = "01";
+
+    if (isEn) {
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      this.updateTimeTextEl.textContent = `Updated: ${months[month - 1]} ${day}, ${year} ${hours}:${minutes} JST (Hourly at :01)`;
+    } else {
+      this.updateTimeTextEl.textContent = `問題更新日時: ${year}年${month}月${day}日 ${hours}:${minutes}（毎時01分更新）`;
+    }
   }
 
   async loadFeed(lang) {
@@ -158,15 +183,19 @@ class PRQuizApp {
       if (!res.ok) throw new Error("API response not ok");
       const data = await res.json();
       if (data.items && data.items.length > 0) {
-        this.releases = this.shuffleArray(data.items).slice(0, 20);
+        // 1フィードにつき10問（10件）
+        this.releases = this.shuffleArray(data.items).slice(0, 10);
+        this.lastUpdatedAt = data.updatedAt || new Date().toISOString();
       } else {
         throw new Error("No items in feed");
       }
     } catch (err) {
       console.warn("Using fallback releases due to API fetch failure:", err);
-      this.releases = this.shuffleArray(FALLBACK_RELEASES[lang] || FALLBACK_RELEASES.ja).slice(0, 20);
+      this.releases = this.shuffleArray(FALLBACK_RELEASES[lang] || FALLBACK_RELEASES.ja).slice(0, 10);
+      this.lastUpdatedAt = this.lastUpdatedAt || new Date().toISOString();
     }
 
+    this.renderUpdateTime();
     this.currentIndex = 0;
     this.showQuestion();
   }

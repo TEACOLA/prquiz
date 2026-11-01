@@ -57,6 +57,8 @@ class PRSourcesApp {
     this.pageDescEl = document.getElementById("page-desc");
     this.footerScoreEl = document.getElementById("footer-score");
     this.footerSourcesLink = document.getElementById("footer-sources-link");
+    this.updateTimeTextEl = document.getElementById("update-time-text");
+    this.lastUpdatedAt = null;
 
     this.init();
   }
@@ -114,6 +116,27 @@ class PRSourcesApp {
       this.footerSourcesLink.textContent = isEn ? "Press Release Sources List" : "プレスリリースのソース元サイト一覧";
     }
     this.updateFooterScore();
+    this.renderUpdateTime();
+  }
+
+  renderUpdateTime() {
+    if (!this.updateTimeTextEl) return;
+    const isEn = this.currentLang === "en";
+
+    const d = this.lastUpdatedAt ? new Date(this.lastUpdatedAt) : new Date();
+    const jstTime = new Date(d.getTime() + (9 * 60 * 60 * 1000));
+    const year = jstTime.getUTCFullYear();
+    const month = jstTime.getUTCMonth() + 1;
+    const day = jstTime.getUTCDate();
+    const hours = String(jstTime.getUTCHours()).padStart(2, "0");
+    const minutes = "01";
+
+    if (isEn) {
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      this.updateTimeTextEl.textContent = `Updated: ${months[month - 1]} ${day}, ${year} ${hours}:${minutes} JST (Hourly at :01)`;
+    } else {
+      this.updateTimeTextEl.textContent = `問題更新日時: ${year}年${month}月${day}日 ${hours}:${minutes}（毎時01分更新）`;
+    }
   }
 
   async loadSources(lang) {
@@ -132,16 +155,20 @@ class PRSourcesApp {
       if (!res.ok) throw new Error("API response not ok");
       const data = await res.json();
       if (data.items && data.items.length > 0) {
-        items = data.items.slice(0, 20);
+        // 1フィードにつき10件
+        items = data.items.slice(0, 10);
+        this.lastUpdatedAt = data.updatedAt || new Date().toISOString();
         if (data.source) sourceName = data.source;
       } else {
         throw new Error("No items");
       }
     } catch (err) {
       console.warn("Using fallback releases:", err);
-      items = (FALLBACK_RELEASES[lang] || FALLBACK_RELEASES.ja).slice(0, 20);
+      items = (FALLBACK_RELEASES[lang] || FALLBACK_RELEASES.ja).slice(0, 10);
+      this.lastUpdatedAt = this.lastUpdatedAt || new Date().toISOString();
     }
 
+    this.renderUpdateTime();
     this.renderList(items, sourceName);
   }
 
