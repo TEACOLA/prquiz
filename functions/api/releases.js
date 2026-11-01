@@ -13,10 +13,17 @@ export async function onRequest(context) {
   const sourceName = isEn ? "Newswire" : "PR TIMES";
 
   try {
+    // 配信元へのリクエスト時はキャッシュを完全にバイパスし、その瞬間の最新フィードを取得
     const response = await fetch(feedUrl, {
       headers: {
         "User-Agent": "Mozilla/5.0 (compatible; PRQuizBot/1.0; +https://prquiz.com)",
-        "Accept": "application/rss+xml, application/rdf+xml, application/xml, text/xml, */*"
+        "Accept": "application/rss+xml, application/rdf+xml, application/xml, text/xml, */*",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache"
+      },
+      cf: {
+        cacheTtl: 0,
+        cacheEverything: false
       }
     });
 
@@ -26,7 +33,20 @@ export async function onRequest(context) {
 
     const xmlText = await response.text();
     const allItems = parseRssItems(xmlText);
-    // 1フィードにつき10問（10件）を取得
+
+    // 配信日時がある場合は最新順（降順）にソートを確実に保証
+    allItems.sort((a, b) => {
+      if (a.date && b.date) {
+        const timeA = new Date(a.date).getTime();
+        const timeB = new Date(b.date).getTime();
+        if (!isNaN(timeA) && !isNaN(timeB)) {
+          return timeB - timeA;
+        }
+      }
+      return 0;
+    });
+
+    // 更新時点での最新10件を抽出
     const items = allItems.slice(0, 10);
 
     // 次の64分更新タイミングまでのキャッシュ秒数を算出（PRサイトへの負荷を最小限に抑制）
