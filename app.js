@@ -437,6 +437,7 @@ class PRQuizApp {
   nextQuestion() {
     this.currentIndex = (this.currentIndex + 1) % this.releases.length;
     this.showQuestion();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   updateScoreUI() {
