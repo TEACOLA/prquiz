@@ -220,11 +220,11 @@ body {
 .question-text {
   font-size: 1.35rem;
   font-weight: 700;
-  line-height: 1.6;
+  line-height: 1.85;
   color: var(--text-main);
   word-break: break-word;
   background: #fcfcfc;
-  padding: 20px 22px;
+  padding: 24px 26px;
   border-radius: var(--radius-md);
   border: 1px dashed var(--border-focus);
 }
@@ -234,14 +234,15 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 44px;
-  height: 44px;
+  min-width: 48px;
+  height: 48px;
   background: var(--primary-light);
   border: 2px dashed var(--primary);
-  border-radius: 10px;
-  padding: 0 6px;
-  margin: 0 3px;
-  font-size: 1.3rem;
+  border-radius: 12px;
+  padding: 0 8px;
+  margin: 0 8px;
+  font-size: 1.45rem;
+  line-height: 1;
   vertical-align: middle;
   animation: pulse-apple 2s infinite ease-in-out;
 }
@@ -714,7 +715,15 @@ body {
 
   .question-text {
     font-size: 1.15rem;
-    padding: 16px;
+    line-height: 1.75;
+    padding: 18px 16px;
+  }
+
+  .masked-char {
+    min-width: 42px;
+    height: 42px;
+    margin: 0 5px;
+    font-size: 1.25rem;
   }
 
   .logo-text {
