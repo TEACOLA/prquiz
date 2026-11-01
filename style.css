@@ -525,9 +525,9 @@ body {
 }
 
 .page-title {
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   margin-bottom: 8px;
 }
 
@@ -567,16 +567,19 @@ body {
 
 .source-item-title {
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--text-main);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   line-height: 1.5;
   display: block;
   margin-bottom: 6px;
+  transition: color 0.2s ease;
 }
 
 .source-item-title:hover {
   color: var(--primary);
+  text-decoration: none;
 }
 
 .source-item-meta {
