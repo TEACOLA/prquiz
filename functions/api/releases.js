@@ -123,37 +123,44 @@ function cleanText(text) {
     .trim();
 }
 
-// 次の毎時1分（JST XX:01）までの残り秒数を算出
+// 次の毎時11分（JST XX:11）までの残り秒数を算出
 function getSecondsUntilNextHourlyUpdate() {
   const now = new Date();
   const minutes = now.getMinutes();
   const seconds = now.getSeconds();
 
   let minutesUntil;
-  if (minutes < 1) {
-    minutesUntil = 1 - minutes;
+  if (minutes < 11) {
+    minutesUntil = 11 - minutes;
   } else {
-    minutesUntil = 60 - minutes + 1;
+    minutesUntil = 60 - minutes + 11;
   }
   const secondsUntil = (minutesUntil * 60) - seconds;
   return Math.max(60, secondsUntil); // 最低60秒
 }
 
-// 直近の毎時1分（JST）の日時文字列を取得
+// 直近の毎時11分（JST）の日時文字列を取得
 function getLastHourlyUpdateJst() {
   const now = new Date();
   // JST は UTC+9
-  const jstTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
-  let y = jstTime.getUTCFullYear();
-  let m = jstTime.getUTCMonth();
-  let d = jstTime.getUTCDate();
-  let h = jstTime.getUTCHours();
-  let min = jstTime.getUTCMinutes();
+  const jstMs = now.getTime() + (9 * 60 * 60 * 1000);
+  const jstDate = new Date(jstMs);
 
-  if (min < 1) {
-    h -= 1;
+  let year = jstDate.getUTCFullYear();
+  let month = jstDate.getUTCMonth();
+  let day = jstDate.getUTCDate();
+  let hours = jstDate.getUTCHours();
+  let min = jstDate.getUTCMinutes();
+
+  if (min < 11) {
+    const prevHourDate = new Date(jstMs - (60 * 60 * 1000));
+    year = prevHourDate.getUTCFullYear();
+    month = prevHourDate.getUTCMonth();
+    day = prevHourDate.getUTCDate();
+    hours = prevHourDate.getUTCHours();
   }
-  const lastHourDate = new Date(Date.UTC(y, m, d, h, 1, 0));
-  return lastHourDate.toISOString();
+
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${year}-${pad(month + 1)}-${pad(day)}T${pad(hours)}:11:00+09:00`;
 }
 
