@@ -10,8 +10,14 @@ export default {
       return handleReleases(request);
     }
 
-    // /sources または /sources/ のURLルーティング（sources.html を配信）
-    if (url.pathname === "/sources" || url.pathname === "/sources/") {
+    // /sources/ の末尾スラッシュ付きアクセスは /sources へ正規化リダイレクト
+    if (url.pathname === "/sources/") {
+      url.pathname = "/sources";
+      return Response.redirect(url.toString(), 301);
+    }
+
+    // /sources へのアクセスは sources.html を配信
+    if (url.pathname === "/sources") {
       const sourcesReq = new Request(new URL("/sources.html", request.url), request);
       return env.ASSETS.fetch(sourcesReq);
     }
