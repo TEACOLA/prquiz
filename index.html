@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PR Quiz (prquiz.com) - Press Release Character Quiz</title>
-  <meta name="description" content="Guess the missing character (🍎) from latest press releases! Click hint to view the original release.">
+  <title>PR Quiz (prquiz.com) - プレスリリース伏字クイズ</title>
+  <meta name="description" content="最新のプレスリリースから1文字が🍎に伏字化されたクイズに挑戦！ヒントを押せば元記事へアクセスできます。">
+  <!-- ブラウザによる自動翻訳でクイズが破綻するのを防ぐ -->
+  <meta name="google" content="notranslate">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍎</text></svg>">
 </head>
@@ -21,20 +23,20 @@
 
   <!-- メインコンテンツ -->
   <main class="main-content">
-    <div class="quiz-card">
+    <div class="quiz-card notranslate" translate="no">
       <!-- メタ情報（配信元・スコア） -->
       <div class="quiz-meta">
-        <div id="source-badge" class="quiz-source-badge">📰 Loading...</div>
-        <div id="score-badge" class="score-badge">Score: 0 / 0</div>
+        <div id="source-badge" class="quiz-source-badge">📰 読み込み中...</div>
+        <div id="score-badge" class="score-badge">スコア: 0 / 0</div>
       </div>
 
       <!-- 問題文表示エリア -->
       <div class="question-container">
-        <span id="question-label" class="question-label">QUESTION (Fill the 🍎)</span>
+        <span id="question-label" class="question-label">問題（🍎に入る文字は？）</span>
         <div id="question-text" class="question-text">
           <div class="loading-indicator">
             <div class="spinner"></div>
-            <p>Fetching press releases...</p>
+            <p>プレスリリースを取得しています...</p>
           </div>
         </div>
       </div>
@@ -42,13 +44,13 @@
       <!-- ヒントエリア -->
       <div class="hint-area">
         <button id="hint-toggle-btn" class="hint-toggle-btn" type="button">
-          💡 Show Hint
+          💡 ヒントを見る
         </button>
         <div id="hint-box" class="hint-box">
-          <div id="hint-notice" style="font-weight: 700; margin-bottom: 4px;">Hint (Original release URL):</div>
-          <p id="hint-subtext" style="font-size: 0.88rem; margin-bottom: 6px;">The answer is in this press release!</p>
+          <div id="hint-notice" style="font-weight: 700; margin-bottom: 4px;">ヒント（元記事はこちら）:</div>
+          <p id="hint-subtext" style="font-size: 0.88rem; margin-bottom: 6px;">プレスリリースの元記事に答えが載っています！</p>
           <a id="hint-link" class="hint-link" href="#" target="_blank" rel="noopener noreferrer">
-            Open original release ↗
+            元記事を開く ↗
           </a>
         </div>
       </div>
@@ -62,11 +64,11 @@
       <div id="result-box" class="result-box">
         <div id="result-title" class="result-title"></div>
         <div id="result-detail" class="result-detail"></div>
-        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">▼ Original Title:</div>
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">▼ 元のタイトル:</div>
         <div id="result-original-title" class="result-original-title"></div>
         <div style="margin-top: 14px;">
           <a id="result-link" class="result-link" href="#" target="_blank" rel="noopener noreferrer">
-            Read full press release on source site ↗
+            プレスリリースの全文を元サイトで読む ↗
           </a>
         </div>
       </div>
@@ -74,7 +76,7 @@
       <!-- 「次の問題へ」ボタン -->
       <div class="action-area">
         <button id="next-btn" class="next-btn" type="button" disabled>
-          Next Question &rarr;
+          次の問題へ &rarr;
         </button>
       </div>
     </div>
@@ -89,15 +91,15 @@
     <div class="footer-item">
       <!-- 言語切り替え -->
       <div class="lang-switch" role="group" aria-label="Language selection">
-        <button class="lang-btn active" data-lang="en">🇺🇸 English</button>
-        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+        <button class="lang-btn active" data-lang="ja">🇯🇵 日本語</button>
       </div>
     </div>
     <div class="footer-item">
-      <a href="sources.html" id="footer-sources-link" class="footer-link-sub">Press Release Sources List</a>
+      <a href="sources.html" id="footer-sources-link" class="footer-link-sub">プレスリリースのソース元サイト一覧</a>
     </div>
     <div class="footer-item footer-score" id="footer-score">
-      Score: 0 / Answers: 0 (Accuracy: 0%)
+      正解数: 0 / 回答数: 0（正解率: 0%）
     </div>
   </footer>
 

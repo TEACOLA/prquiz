@@ -45,7 +45,7 @@ const FALLBACK_RELEASES = {
 
 class PRSourcesApp {
   constructor() {
-    this.currentLang = localStorage.getItem("prquiz_lang") || "en";
+    this.currentLang = localStorage.getItem("prquiz_lang") || "ja";
     this.langBtns = document.querySelectorAll(".lang-btn");
     this.sourcesListEl = document.getElementById("sources-list");
     this.pageTitleEl = document.getElementById("page-title");
@@ -91,6 +91,9 @@ class PRSourcesApp {
   }
 
   updateLanguageUI() {
+    // ページ全体の言語属性を現在選択されている言語に同期
+    document.documentElement.lang = this.currentLang;
+
     this.langBtns.forEach(btn => {
       btn.classList.toggle("active", btn.dataset.lang === this.currentLang);
     });

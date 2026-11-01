@@ -51,7 +51,7 @@ const DUMMY_KATAKANA = ["ア", "イ", "ウ", "エ", "オ", "カ", "キ", "ク", 
 
 class PRQuizApp {
   constructor() {
-    this.currentLang = localStorage.getItem("prquiz_lang") || "en";
+    this.currentLang = localStorage.getItem("prquiz_lang") || "ja";
     this.releases = [];
     this.currentIndex = 0;
     this.currentQuestion = null;
@@ -120,6 +120,9 @@ class PRQuizApp {
   }
 
   updateLanguageUI() {
+    // ページ全体の言語属性を現在選択されている言語に同期
+    document.documentElement.lang = this.currentLang;
+
     this.langBtns.forEach(btn => {
       btn.classList.toggle("active", btn.dataset.lang === this.currentLang);
     });
