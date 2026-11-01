@@ -624,7 +624,7 @@ body {
   color: var(--text-muted);
   text-decoration: underline;
   text-underline-offset: 3px;
-  margin-left: 6px;
+  margin-left: 14px;
   transition: color 0.2s ease;
 }
 
