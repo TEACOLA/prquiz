@@ -655,8 +655,7 @@ body {
 
 .footer-link-sub {
   color: var(--text-muted);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  text-decoration: none;
   font-weight: 600;
   font-size: 0.85rem;
   transition: color 0.2s ease;
@@ -664,6 +663,7 @@ body {
 
 .footer-link-sub:hover {
   color: var(--primary);
+  text-decoration: underline;
 }
 
 .footer-score {
