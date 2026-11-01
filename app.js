@@ -307,16 +307,12 @@ class PRQuizApp {
 
   renderChoices(choices) {
     this.choicesContainer.innerHTML = "";
-    const letters = ["A", "B", "C"];
 
-    choices.forEach((choice, index) => {
+    choices.forEach((choice) => {
       const btn = document.createElement("button");
       btn.className = "choice-btn";
       btn.dataset.choice = choice;
-      btn.innerHTML = `
-        <span class="choice-letter">${letters[index]}</span>
-        <span class="choice-value">${this.escapeHtml(choice)}</span>
-      `;
+      btn.innerHTML = `<span class="choice-value">${this.escapeHtml(choice)}</span>`;
 
       btn.addEventListener("click", () => this.handleAnswer(choice, btn));
       this.choicesContainer.appendChild(btn);
