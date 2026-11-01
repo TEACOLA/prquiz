@@ -656,14 +656,15 @@ body {
 
 .footer-link-sub {
   color: var(--text-muted);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   font-weight: 600;
   font-size: 0.85rem;
+  transition: color 0.2s ease;
 }
 
 .footer-link-sub:hover {
   color: var(--primary);
-  text-decoration: underline;
 }
 
 .footer-score {
