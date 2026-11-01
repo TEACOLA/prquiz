@@ -74,13 +74,18 @@ body {
 
 .logo-text {
   font-family: "Georgia", "Baskerville", "Times New Roman", "Yu Mincho", "Hiragino Mincho ProN", serif;
-  font-size: 1.22rem;
+  font-size: 1.18rem;
   font-weight: 600;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
   color: #334155;
 }
 
-.logo-text span {
+.logo-text .logo-initial {
+  font-size: 1.25em;
+  font-weight: 700;
+}
+
+.logo-text .logo-quiz {
   color: var(--primary);
   font-weight: 700;
 }
