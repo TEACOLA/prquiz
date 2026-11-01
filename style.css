@@ -608,12 +608,14 @@ body {
   font-weight: 800;
   font-size: 0.95rem;
   color: var(--primary);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   letter-spacing: -0.01em;
+  transition: color 0.2s ease;
 }
 
 .footer-link-main:hover {
-  text-decoration: underline;
+  color: var(--primary-hover);
 }
 
 .footer-link-sub {
