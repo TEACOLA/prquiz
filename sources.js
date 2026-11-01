@@ -1,45 +1,50 @@
 // PR Quiz - Sources List Page Logic
 
+// ローカル検証やオフライン時用のフォールバックデータ（各20件）
 const FALLBACK_RELEASES = {
   ja: [
-    {
-      title: "【新商品】老舗和菓子店が本気で作った極上生どら焼きが新登場！素材へのこだわりと職人技の結晶",
-      link: "https://prtimes.jp/"
-    },
-    {
-      title: "次世代AIプラットフォーム『SmartAssist』正式リリース、業務効率化を劇的に推進",
-      link: "https://prtimes.jp/"
-    },
-    {
-      title: "秋の味覚を満喫！旬の栗とシャインマスカットを贅沢に使った限定アフタヌーンティーを開催",
-      link: "https://prtimes.jp/"
-    },
-    {
-      title: "環境負荷を最大70%削減する新型エコパッケージを開発、全国の主要コンビニで順次導入開始",
-      link: "https://prtimes.jp/"
-    },
-    {
-      title: "国内最大規模のスタートアップカンファレンスが東京で開催決定！注目の登壇者50名を先行発表",
-      link: "https://prtimes.jp/"
-    }
+    { title: "【新商品】老舗和菓子店が本気で作った極上生どら焼きが新登場！素材へのこだわりと職人技の結晶", link: "https://prtimes.jp/" },
+    { title: "次世代AIプラットフォーム『SmartAssist』正式リリース、業務効率化を劇的に推進", link: "https://prtimes.jp/" },
+    { title: "秋の味覚を満喫！旬の栗とシャインマスカットを贅沢に使った限定アフタヌーンティーを開催", link: "https://prtimes.jp/" },
+    { title: "環境負荷を最大70%削減する新型エコパッケージを開発、全国の主要コンビニで順次導入開始", link: "https://prtimes.jp/" },
+    { title: "国内最大規模のスタートアップカンファレンスが東京で開催決定！注目の登壇者50名を先行発表", link: "https://prtimes.jp/" },
+    { title: "創業100周年記念！幻の復刻ブレンドコーヒーが数量限定で全国の直営店舗にて販売開始", link: "https://prtimes.jp/" },
+    { title: "睡眠の質を可視化するスマート快眠デバイス『SleepFit』の先行予約販売を開始", link: "https://prtimes.jp/" },
+    { title: "日本の伝統工芸と現代デザインが融合した新しい陶器ブランド『美織』が誕生", link: "https://prtimes.jp/" },
+    { title: "大人気アニメとの特別コラボカフェが期間限定オープン！限定描き下ろしグッズも多数登場", link: "https://prtimes.jp/" },
+    { title: "全自動で窓掃除をこなす最新スマート家電ロボットが登場、クラウドファンディングで目標達成", link: "https://prtimes.jp/" },
+    { title: "全国10都市を巡る大型アートフェスティバルが開幕！光と音が織りなす没入型体験を提供", link: "https://prtimes.jp/" },
+    { title: "糖質80%オフでも本格派！罪悪感ゼロのクラフトチョコレートが新発売", link: "https://prtimes.jp/" },
+    { title: "クラウド型勤怠管理システムの新機能としてAIシフト自動作成ツールを提供開始", link: "https://prtimes.jp/" },
+    { title: "北海道産厳選ミルクを使用した濃厚プレミアムソフトクリーム専門店が原宿にオープン", link: "https://prtimes.jp/" },
+    { title: "企業の温室効果ガス排出量をリアルタイムで算定・可視化する新サービスを発表", link: "https://prtimes.jp/" },
+    { title: "自宅で本格的なピラティスを体験できるオンライン受講プログラムが今冬スタート", link: "https://prtimes.jp/" },
+    { title: "プロ仕様の音質を手のひらサイズで実現したワイヤレスイヤホン『SoundAir Pro』発売", link: "https://prtimes.jp/" },
+    { title: "地方創生プロジェクト！古民家を再生した一日一組限定のプライベートヴィラが開業", link: "https://prtimes.jp/" },
+    { title: "子どもの論理的思考力を楽しく育む知育プログラミングトイ『ロボキッズ』を新発売", link: "https://prtimes.jp/" },
+    { title: "日本全国の隠れた名酒を毎月お届けする日本酒サブスクリプションサービスが会員1万人突破", link: "https://prtimes.jp/" }
   ],
   en: [
-    {
-      title: "Global Tech Innovator Announces Revolutionary Clean Energy Storage Solution for Commercial Use",
-      link: "https://www.newswire.com/newsroom/all"
-    },
-    {
-      title: "Leading Healthcare Startup Secures Series B Funding to Expand AI-Powered Diagnostic Platform",
-      link: "https://www.newswire.com/newsroom/all"
-    },
-    {
-      title: "Annual Cybersecurity Report Reveals 40% Increase in Enterprise Cloud Vulnerabilities",
-      link: "https://www.newswire.com/newsroom/all"
-    },
-    {
-      title: "Pioneering Sustainable Fashion Brand Expands Global Retail Presence with New Flagship Stores",
-      link: "https://www.newswire.com/newsroom/all"
-    }
+    { title: "Global Tech Innovator Announces Revolutionary Clean Energy Storage Solution for Commercial Use", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Leading Healthcare Startup Secures Series B Funding to Expand AI-Powered Diagnostic Platform", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Annual Cybersecurity Report Reveals 40% Increase in Enterprise Cloud Vulnerabilities", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Pioneering Sustainable Fashion Brand Expands Global Retail Presence with New Flagship Stores", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Breakthrough Quantum Computing Architecture Demonstrates 50x Processing Speed Enhancement", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Premier EV Manufacturer Unveils Long-Range Electric SUV Designed for Extreme Weather Conditions", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Global Coffee Roaster Launches Fully Biodegradable Plant-Based Capsules Nationwide", link: "https://www.newswire.com/newsroom/all" },
+    { title: "New Remote Collaboration Platform Integrates Immersive 3D Spatial Audio and Virtual Whiteboards", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Biotech Firm Receives FDA Approval for Rapid Non-Invasive Diagnostic Blood Test", link: "https://www.newswire.com/newsroom/all" },
+    { title: "International Aerospace Company Successfully Completes First Autonomous Cargo Drone Flight", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Urban Mobility Startup Launches Solar-Powered Micro-Fleet Across Five Major Metropolitan Cities", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Comprehensive Global Travel Survey Highlights Surge in Eco-Friendly Adventure Tourism", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Cutting-Edge Smart Home Hub Automates Residential Energy Management to Cut Utility Costs", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Leading Fintech Enterprise Introduces Instant Cross-Border Payment System with Zero Fees", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Marine Conservation Organization Launches Global Initiative to Restore Degraded Coral Reefs", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Advanced Robotics Developer Introduces Next-Gen Warehouse Automation Fleet", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Premier Audio Brand Unveils Studio-Grade Wireless Headphones with Spatial ANC Technology", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Digital Health Pioneer Launches Personalized Nutrition Platform Powered by Biomarker Tracking", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Educational Technology Provider Expands Free Coding Curriculum to Over One Million Students", link: "https://www.newswire.com/newsroom/all" },
+    { title: "Cloud Infrastructure Leader Announces Carbon-Negative Data Centers by End of Decade", link: "https://www.newswire.com/newsroom/all" }
   ]
 };
 
@@ -127,14 +132,14 @@ class PRSourcesApp {
       if (!res.ok) throw new Error("API response not ok");
       const data = await res.json();
       if (data.items && data.items.length > 0) {
-        items = data.items;
+        items = data.items.slice(0, 20);
         if (data.source) sourceName = data.source;
       } else {
         throw new Error("No items");
       }
     } catch (err) {
       console.warn("Using fallback releases:", err);
-      items = FALLBACK_RELEASES[lang] || FALLBACK_RELEASES.ja;
+      items = (FALLBACK_RELEASES[lang] || FALLBACK_RELEASES.ja).slice(0, 20);
     }
 
     this.renderList(items, sourceName);

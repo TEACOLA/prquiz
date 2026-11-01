@@ -25,7 +25,9 @@ export async function onRequest(context) {
     }
 
     const xmlText = await response.text();
-    const items = parseRssItems(xmlText);
+    const allItems = parseRssItems(xmlText);
+    // 最新のプレスリリースから20件を取得
+    const items = allItems.slice(0, 20);
 
     return new Response(
       JSON.stringify({
