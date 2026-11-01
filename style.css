@@ -618,6 +618,20 @@ body {
   color: var(--primary-hover);
 }
 
+.footer-link-author {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-left: 6px;
+  transition: color 0.2s ease;
+}
+
+.footer-link-author:hover {
+  color: var(--primary);
+}
+
 .footer-link-sub {
   color: var(--text-muted);
   text-decoration: none;
