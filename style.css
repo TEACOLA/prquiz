@@ -39,9 +39,11 @@ body {
   flex-direction: column;
 }
 
-/* ヘッダー */
+/* ヘッダー（スクロールに追従） */
 .site-header {
-  background: var(--card-bg);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -138,7 +140,7 @@ body {
   max-width: 860px;
   width: 100%;
   margin: 0 auto;
-  padding: 24px 16px 130px; /* 3行フッターと重ならないよう下部に十分な余白を確保 */
+  padding: 24px 16px 40px;
 }
 
 /* クイズカード */
@@ -577,34 +579,27 @@ body {
   background: #fecdd3;
 }
 
-/* フッター（画面下部へ常に追従・固定表示） */
+/* フッター（ページの最下部に配置） */
 .site-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 40;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  margin-top: auto;
+  background: var(--card-bg);
   border-top: 1px solid var(--border);
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
-  padding: 8px 16px;
+  padding: 24px 20px;
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  font-size: 0.82rem;
+  gap: 8px;
+  font-size: 0.85rem;
   color: var(--text-muted);
 }
 
 .footer-item {
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .footer-link-main {
   font-weight: 800;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   color: var(--primary);
   text-decoration: none;
   letter-spacing: -0.01em;
@@ -618,7 +613,7 @@ body {
   color: var(--text-muted);
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
 }
 
 .footer-link-sub:hover {
@@ -629,7 +624,7 @@ body {
 .footer-score {
   font-weight: 700;
   color: #334155;
-  font-size: 0.82rem;
+  font-size: 0.88rem;
 }
 
 /* レスポンシブ対応 */
