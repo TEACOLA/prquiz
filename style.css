@@ -643,7 +643,7 @@ body {
 .footer-link-author {
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--primary);
   text-decoration: underline;
   text-underline-offset: 3px;
   margin-left: 14px;
@@ -651,7 +651,7 @@ body {
 }
 
 .footer-link-author:hover {
-  color: var(--primary);
+  color: var(--primary-hover);
 }
 
 .footer-link-sub {
