@@ -610,70 +610,82 @@ body {
   margin-top: auto;
   background: var(--card-bg);
   border-top: 1px solid var(--border);
-  padding: 24px 20px;
+  padding: 32px 20px 40px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
   font-size: 0.85rem;
   color: var(--text-muted);
 }
 
 .site-footer .lang-switch {
-  margin: 2px auto;
+  margin: 4px auto;
 }
 
 .footer-item {
-  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .footer-link-main {
   font-weight: 800;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--primary);
   text-decoration: underline;
   text-underline-offset: 3px;
   letter-spacing: -0.01em;
-  transition: color 0.2s ease;
+  padding: 6px 16px;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
 }
 
 .footer-link-main:hover {
   color: var(--primary-hover);
   text-decoration: none;
+  background: var(--primary-light);
 }
 
 .footer-link-author {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 600;
   color: var(--primary);
   text-decoration: underline;
   text-underline-offset: 3px;
-  transition: color 0.2s ease;
+  padding: 6px 16px;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
 }
 
 .footer-link-author:hover {
   color: var(--primary-hover);
   text-decoration: none;
+  background: var(--primary-light);
 }
 
 .footer-link-sub {
   color: var(--text-muted);
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.85rem;
-  transition: color 0.2s ease;
+  font-size: 0.88rem;
+  padding: 6px 16px;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
 }
 
 .footer-link-sub:hover {
   color: var(--primary);
   text-decoration: none;
+  background: #f1f5f9;
 }
 
 .footer-score {
   font-weight: 700;
   color: #334155;
   font-size: 0.88rem;
+  padding-top: 4px;
 }
 
 /* レスポンシブ対応 */
