@@ -249,8 +249,10 @@ class PRQuizApp {
     this.hasAnswered = false;
 
     // ソース元バッジ更新
-    const sourceName = this.currentLang === "en" ? "Newswire" : "PR TIMES";
-    this.sourceBadgeEl.innerHTML = `📰 ${sourceName} (${this.currentIndex + 1}/${this.releases.length})`;
+    if (this.sourceBadgeEl) {
+      const sourceName = this.currentLang === "en" ? "Newswire" : "PR TIMES";
+      this.sourceBadgeEl.innerHTML = `📰 ${sourceName} (${this.currentIndex + 1}/${this.releases.length})`;
+    }
 
     // 問題文（🍎伏字）表示
     this.questionTextEl.innerHTML = this.currentQuestion.maskedHtml;
@@ -441,8 +443,10 @@ class PRQuizApp {
 
   updateScoreUI() {
     const isEn = this.currentLang === "en";
-    const label = isEn ? "Score" : "スコア";
-    this.scoreBadgeEl.textContent = `${label}: ${this.score} / ${this.totalAnswered}`;
+    if (this.scoreBadgeEl) {
+      const label = isEn ? "Score" : "スコア";
+      this.scoreBadgeEl.textContent = `${label}: ${this.score} / ${this.totalAnswered}`;
+    }
 
     const rate = this.totalAnswered > 0 ? Math.round((this.score / this.totalAnswered) * 100) : 0;
     localStorage.setItem("prquiz_score", this.score);
