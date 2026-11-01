@@ -419,12 +419,14 @@ body {
   gap: 6px;
   color: var(--primary);
   font-weight: 700;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   font-size: 0.95rem;
+  transition: color 0.2s ease;
 }
 
 .result-link:hover {
-  text-decoration: underline;
+  color: var(--primary-hover);
 }
 
 /* 「次の問題へ」アクション */
