@@ -78,7 +78,6 @@ class PRQuizApp {
     this.resultOriginalTitle = document.getElementById("result-original-title");
     this.resultLink = document.getElementById("result-link");
     this.nextBtn = document.getElementById("next-btn");
-    this.skipBtn = document.getElementById("skip-btn");
     this.footerScoreEl = document.getElementById("footer-score");
     this.footerSourcesLink = document.getElementById("footer-sources-link");
     this.updateTimeTextEl = document.getElementById("update-time-text");
@@ -125,13 +124,6 @@ class PRQuizApp {
     this.nextBtn.addEventListener("click", () => {
       this.nextQuestion();
     });
-
-    // 他の問題へ変えるボタン（未回答でもスキップ・変更可能）
-    if (this.skipBtn) {
-      this.skipBtn.addEventListener("click", () => {
-        this.nextQuestion();
-      });
-    }
   }
 
   updateLanguageUI() {
@@ -151,9 +143,6 @@ class PRQuizApp {
       ? "The answer is in this press release!"
       : "プレスリリースの元記事に答えが載っています！";
     this.nextBtn.innerHTML = isEn ? 'Next Question &rarr;' : '次の問題へ &rarr;';
-    if (this.skipBtn) {
-      this.skipBtn.innerHTML = isEn ? '&#8634; Change Question' : '&#8634; 他の問題にする';
-    }
     document.getElementById("question-label").textContent = isEn ? "QUESTION (Fill the 🍎)" : "問題（🍎に入る文字は？）";
     if (this.footerSourcesLink) {
       this.footerSourcesLink.textContent = isEn ? "Press Release Sources List" : "プレスリリースのソース元サイト一覧";
@@ -226,7 +215,6 @@ class PRQuizApp {
     this.resultBox.classList.remove("active");
     this.hintBox.classList.remove("active");
     this.updateHintButtonText();
-    this.nextBtn.disabled = true;
 
     try {
       const res = await fetch(`/api/releases?lang=${lang}`);
@@ -294,9 +282,6 @@ class PRQuizApp {
 
     // 選択肢（3択）生成
     this.renderChoices(this.currentQuestion.choices);
-
-    // 次へボタン無効化（回答するまで進めない）
-    this.nextBtn.disabled = true;
   }
 
   createQuizFromTitle(title, lang) {
@@ -431,9 +416,6 @@ class PRQuizApp {
 
     // 結果表示
     this.showResult(isCorrect);
-
-    // 次へボタンを活性化
-    this.nextBtn.disabled = false;
   }
 
   showResult(isCorrect) {
