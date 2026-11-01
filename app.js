@@ -117,6 +117,7 @@ class PRQuizApp {
     // ヒントトグル
     this.hintToggleBtn.addEventListener("click", () => {
       this.hintBox.classList.toggle("active");
+      this.updateHintButtonText();
     });
 
     // 次の問題へボタン
@@ -134,7 +135,7 @@ class PRQuizApp {
     });
 
     const isEn = this.currentLang === "en";
-    this.hintToggleBtn.innerHTML = isEn ? "💡 Show Hint" : "💡 ヒントを見る";
+    this.updateHintButtonText();
     document.getElementById("hint-notice").textContent = isEn
       ? "Hint (Original release URL):"
       : "ヒント（元記事はこちら）:";
@@ -151,6 +152,18 @@ class PRQuizApp {
       originalLabel.textContent = isEn ? "▼ Original Title:" : "▼ 元のタイトル:";
     }
     this.renderUpdateTime();
+  }
+
+  updateHintButtonText() {
+    if (!this.hintToggleBtn) return;
+    const isEn = this.currentLang === "en";
+    const isOpen = this.hintBox && this.hintBox.classList.contains("active");
+
+    if (isOpen) {
+      this.hintToggleBtn.innerHTML = isEn ? "✖ Hide Hint" : "✖ ヒントを閉じる";
+    } else {
+      this.hintToggleBtn.innerHTML = isEn ? "💡 Show Hint" : "💡 ヒントを見る";
+    }
   }
 
   renderUpdateTime() {
@@ -201,6 +214,7 @@ class PRQuizApp {
     this.choicesContainer.innerHTML = "";
     this.resultBox.classList.remove("active");
     this.hintBox.classList.remove("active");
+    this.updateHintButtonText();
     this.nextBtn.disabled = true;
 
     try {
@@ -261,6 +275,7 @@ class PRQuizApp {
     this.hintLinkEl.href = item.link;
     this.hintLinkEl.innerHTML = `${item.link.substring(0, 50)}... ↗`;
     this.hintBox.classList.remove("active");
+    this.updateHintButtonText();
 
     // 結果ボックス初期化
     this.resultBox.className = "result-box";
