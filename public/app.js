@@ -232,14 +232,20 @@ class PRQuizApp {
       if (!res.ok) throw new Error("API response not ok");
       const data = await res.json();
       if (data.items && data.items.length > 0) {
-        this.releases = this.shuffleArray(data.items);
+        this.releases = this.shuffleArray(data.items.map(item => ({
+          ...item,
+          title: this.decodeHtml(item.title)
+        })));
         this.lastUpdatedAt = data.updatedAt || new Date().toISOString();
       } else {
         throw new Error("No items in feed");
       }
     } catch (err) {
       console.warn("Using fallback releases due to API fetch failure:", err);
-      this.releases = this.shuffleArray(FALLBACK_RELEASES[lang] || FALLBACK_RELEASES.ja);
+      this.releases = this.shuffleArray((FALLBACK_RELEASES[lang] || FALLBACK_RELEASES.ja).map(item => ({
+        ...item,
+        title: this.decodeHtml(item.title)
+      })));
       this.lastUpdatedAt = this.lastUpdatedAt || new Date().toISOString();
     }
 
@@ -338,7 +344,7 @@ class PRQuizApp {
   // 伏字対象として適切な文字か判定（記号・句読点・空白は除外）
   isValidChar(char, lang) {
     if (/\s/.test(char)) return false;
-    const ignoredSymbols = /[【】『』「」（）()［］\[\]・、。！？!?：:；;〜~／/\-_+=*&^%$#@!\\|`"'<>]/;
+    const ignoredSymbols = /[【】『』「」（）()［］\[\]・、。！？!?：:；;〜~／/\-_+=*&^%$#@!\\|`"'<>’‘“”–—…¥$€£]/;
     if (ignoredSymbols.test(char)) return false;
 
     if (lang === "en") {
@@ -549,6 +555,17 @@ class PRQuizApp {
       [arr[i], arr[j]] = [arr[j], arr[i]];
     }
     return arr;
+  }
+
+  decodeHtml(str) {
+    if (!str) return "";
+    try {
+      const txt = document.createElement("textarea");
+      txt.innerHTML = str;
+      return txt.value;
+    } catch (e) {
+      return str;
+    }
   }
 
   escapeHtml(str) {

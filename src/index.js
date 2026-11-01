@@ -192,20 +192,53 @@ function parseRssItems(xml, defaultSource = "") {
   return items;
 }
 
-// HTML特殊文字（実体参照）のデコードとトリム
+// HTML特殊文字（実体参照・数値文字参照）の完全デコードとトリム
 function cleanText(text) {
   if (!text) return "";
-  return text
-    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#039;/g, "'")
-    .replace(/&apos;/g, "'")
-    .replace(/&nbsp;/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+  let result = text.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1");
+
+  // 二重エンコード対策を含めて最大2回デコード
+  for (let i = 0; i < 2; i++) {
+    if (!result.includes("&")) break;
+    result = result
+      // 名前付き実体参照
+      .replace(/&lsquo;/gi, "‘")
+      .replace(/&rsquo;/gi, "’")
+      .replace(/&ldquo;/gi, "“")
+      .replace(/&rdquo;/gi, "”")
+      .replace(/&ndash;/gi, "–")
+      .replace(/&mdash;/gi, "—")
+      .replace(/&hellip;/gi, "…")
+      .replace(/&bull;/gi, "•")
+      .replace(/&trade;/gi, "™")
+      .replace(/&reg;/gi, "®")
+      .replace(/&copy;/gi, "©")
+      .replace(/&quot;/gi, '"')
+      .replace(/&apos;/gi, "'")
+      .replace(/&lt;/gi, "<")
+      .replace(/&gt;/gi, ">")
+      .replace(/&nbsp;/gi, " ")
+      // 16進数文字参照 &#xHHHH;
+      .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => {
+        try {
+          return String.fromCodePoint(parseInt(hex, 16));
+        } catch (e) {
+          return "";
+        }
+      })
+      // 10進数文字参照 &#DDDD; (例: &#8217; -> ’, &#039; -> ', &#038; -> &)
+      .replace(/&#([0-9]+);/g, (_, dec) => {
+        try {
+          return String.fromCodePoint(parseInt(dec, 10));
+        } catch (e) {
+          return "";
+        }
+      })
+      // &amp; は他の参照を展開した後にデコード
+      .replace(/&amp;/gi, "&");
+  }
+
+  return result.replace(/\s+/g, " ").trim();
 }
 
 const INTERVAL_SECONDS = 64 * 60; // 64分周期（3,840秒）
@@ -226,3 +259,4 @@ function getLast64MinUpdate() {
   const lastBatchSec = currentBatch * INTERVAL_SECONDS;
   return new Date(lastBatchSec * 1000).toISOString();
 }
+

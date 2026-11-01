@@ -196,7 +196,10 @@ class PRSourcesApp {
       if (!res.ok) throw new Error("API response not ok");
       const data = await res.json();
       if (data.items && data.items.length > 0) {
-        items = data.items;
+        items = data.items.map(item => ({
+          ...item,
+          title: this.decodeHtml(item.title)
+        }));
         this.lastUpdatedAt = data.updatedAt || new Date().toISOString();
         if (data.source) sourceName = data.source;
       } else {
@@ -204,7 +207,10 @@ class PRSourcesApp {
       }
     } catch (err) {
       console.warn("Using fallback releases:", err);
-      items = FALLBACK_RELEASES[lang] || FALLBACK_RELEASES.ja;
+      items = (FALLBACK_RELEASES[lang] || FALLBACK_RELEASES.ja).map(item => ({
+        ...item,
+        title: this.decodeHtml(item.title)
+      }));
       this.lastUpdatedAt = this.lastUpdatedAt || new Date().toISOString();
     }
 
@@ -273,6 +279,17 @@ class PRSourcesApp {
       }
     } catch (e) {
       return dateStr;
+    }
+  }
+
+  decodeHtml(str) {
+    if (!str) return "";
+    try {
+      const txt = document.createElement("textarea");
+      txt.innerHTML = str;
+      return txt.value;
+    } catch (e) {
+      return str;
     }
   }
 
