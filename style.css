@@ -456,11 +456,35 @@ body {
   text-decoration: none;
 }
 
-/* 「次の問題へ」アクション */
+/* アクションボタンエリア（左右配置） */
 .action-area {
   margin-top: 24px;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.skip-btn {
+  background: transparent;
+  color: #64748b;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.skip-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: var(--text-main);
+  transform: translateY(-1px);
 }
 
 .next-btn {
@@ -468,7 +492,7 @@ body {
   color: #fff;
   border: none;
   border-radius: var(--radius-md);
-  padding: 14px 28px;
+  padding: 13px 26px;
   font-size: 1.05rem;
   font-weight: 700;
   cursor: pointer;
@@ -486,9 +510,10 @@ body {
 }
 
 .next-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 
 /* ローディング & エラー表示 */
@@ -734,6 +759,20 @@ body {
 
   .header-inner {
     padding: 10px 14px;
+  }
+
+  .action-area {
+    gap: 8px;
+  }
+
+  .skip-btn {
+    padding: 10px 14px;
+    font-size: 0.86rem;
+  }
+
+  .next-btn {
+    padding: 11px 18px;
+    font-size: 0.95rem;
   }
 }
 
