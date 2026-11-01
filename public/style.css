@@ -491,6 +491,7 @@ body {
   margin-top: 16px;
   display: none;
   animation: slideDown 0.35s ease;
+  scroll-margin-top: 80px;
 }
 
 .result-box.active {

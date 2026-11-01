@@ -472,6 +472,13 @@ class PRQuizApp {
     this.resultLink.innerHTML = isEn
       ? "Read full article on original site ↗"
       : "記事の全文を元サイトで読む ↗";
+
+    // 3択ボタンを押した後に result-box までスムーズにスクロール
+    setTimeout(() => {
+      if (this.resultBox && typeof this.resultBox.scrollIntoView === "function") {
+        this.resultBox.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 60);
   }
 
   nextQuestion() {
