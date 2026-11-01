@@ -1,8 +1,26 @@
-// Cloudflare Pages Functions: /api/releases
-// 日本語（PR TIMES・サイエンスポータル）または英語（Newswire・NASA）の RSS をサーバー側で取得・パースして JSON を返す API
+// Cloudflare Workers with Static Assets: Entry point
+// 静的ファイル（public/）の配信と /api/releases エンドポイントの処理を担当
 
-export async function onRequest(context) {
-  const url = new URL(context.request.url);
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+
+    // API リクエスト: /api/releases
+    if (url.pathname === "/api/releases") {
+      return handleReleases(request);
+    }
+
+    // 静的アセット（HTML, CSS, JS等）へのフォールバック
+    if (env.ASSETS) {
+      return env.ASSETS.fetch(request);
+    }
+
+    return new Response("Not Found", { status: 404 });
+  }
+};
+
+async function handleReleases(request) {
+  const url = new URL(request.url);
   const lang = (url.searchParams.get("lang") || "ja").toLowerCase();
   const isEn = lang === "en";
 
