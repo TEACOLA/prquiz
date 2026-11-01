@@ -74,6 +74,12 @@ class PRQuizApp {
     this.resultOriginalTitle = document.getElementById("result-original-title");
     this.resultLink = document.getElementById("result-link");
     this.nextBtn = document.getElementById("next-btn");
+    this.footerScoreEl = document.getElementById("footer-score");
+    this.footerSourcesLink = document.getElementById("footer-sources-link");
+
+    // 保存されているスコアがあれば復元
+    this.score = parseInt(localStorage.getItem("prquiz_score") || "0", 10);
+    this.totalAnswered = parseInt(localStorage.getItem("prquiz_total") || "0", 10);
 
     this.init();
   }
@@ -81,6 +87,7 @@ class PRQuizApp {
   async init() {
     this.bindEvents();
     this.updateLanguageUI();
+    this.updateScoreUI();
     await this.loadFeed(this.currentLang);
   }
 
@@ -127,6 +134,9 @@ class PRQuizApp {
       : "プレスリリースの元記事に答えが載っています！";
     this.nextBtn.innerHTML = isEn ? 'Next Question &rarr;' : '次の問題へ &rarr;';
     document.getElementById("question-label").textContent = isEn ? "QUESTION (Fill the 🍎)" : "問題（🍎に入る文字は？）";
+    if (this.footerSourcesLink) {
+      this.footerSourcesLink.textContent = isEn ? "Press Release Sources List" : "プレスリリースのソース元サイト一覧";
+    }
   }
 
   async loadFeed(lang) {
@@ -373,8 +383,19 @@ class PRQuizApp {
   }
 
   updateScoreUI() {
-    const label = this.currentLang === "en" ? "Score" : "スコア";
+    const isEn = this.currentLang === "en";
+    const label = isEn ? "Score" : "スコア";
     this.scoreBadgeEl.textContent = `${label}: ${this.score} / ${this.totalAnswered}`;
+
+    const rate = this.totalAnswered > 0 ? Math.round((this.score / this.totalAnswered) * 100) : 0;
+    localStorage.setItem("prquiz_score", this.score);
+    localStorage.setItem("prquiz_total", this.totalAnswered);
+
+    if (this.footerScoreEl) {
+      this.footerScoreEl.textContent = isEn
+        ? `Score: ${this.score} / Answers: ${this.totalAnswered} (Accuracy: ${rate}%)`
+        : `正解数: ${this.score} / 回答数: ${this.totalAnswered}（正解率: ${rate}%）`;
+    }
   }
 
   shuffleArray(array) {

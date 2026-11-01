@@ -50,6 +50,8 @@ class PRSourcesApp {
     this.sourcesListEl = document.getElementById("sources-list");
     this.pageTitleEl = document.getElementById("page-title");
     this.pageDescEl = document.getElementById("page-desc");
+    this.footerScoreEl = document.getElementById("footer-score");
+    this.footerSourcesLink = document.getElementById("footer-sources-link");
 
     this.init();
   }
@@ -57,7 +59,21 @@ class PRSourcesApp {
   init() {
     this.bindEvents();
     this.updateLanguageUI();
+    this.updateFooterScore();
     this.loadSources(this.currentLang);
+  }
+
+  updateFooterScore() {
+    const score = parseInt(localStorage.getItem("prquiz_score") || "0", 10);
+    const total = parseInt(localStorage.getItem("prquiz_total") || "0", 10);
+    const rate = total > 0 ? Math.round((score / total) * 100) : 0;
+    const isEn = this.currentLang === "en";
+
+    if (this.footerScoreEl) {
+      this.footerScoreEl.textContent = isEn
+        ? `Score: ${score} / Answers: ${total} (Accuracy: ${rate}%)`
+        : `正解数: ${score} / 回答数: ${total}（正解率: ${rate}%）`;
+    }
   }
 
   bindEvents() {
@@ -86,6 +102,10 @@ class PRSourcesApp {
     this.pageDescEl.textContent = isEn
       ? "Here is the list of recent press releases used in PR Quiz. Click any article to read the full story on Newswire."
       : "PR Quizで出題されている最新のプレスリリース一覧です。気になるタイトルの記事は、元サイト（PR TIMES）で全文をお読みいただけます。";
+    if (this.footerSourcesLink) {
+      this.footerSourcesLink.textContent = isEn ? "Press Release Sources List" : "プレスリリースのソース元サイト一覧";
+    }
+    this.updateFooterScore();
   }
 
   async loadSources(lang) {
