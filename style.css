@@ -312,6 +312,7 @@ body {
 
 .hint-link:hover {
   color: #78350f;
+  text-decoration: none;
 }
 
 /* 3択選択肢エリア */
@@ -449,6 +450,7 @@ body {
 
 .result-link:hover {
   color: var(--primary-hover);
+  text-decoration: none;
 }
 
 /* 「次の問題へ」アクション */
@@ -638,6 +640,7 @@ body {
 
 .footer-link-main:hover {
   color: var(--primary-hover);
+  text-decoration: none;
 }
 
 .footer-link-author {
@@ -651,6 +654,7 @@ body {
 
 .footer-link-author:hover {
   color: var(--primary-hover);
+  text-decoration: none;
 }
 
 .footer-link-sub {
@@ -663,7 +667,7 @@ body {
 
 .footer-link-sub:hover {
   color: var(--primary);
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .footer-score {
