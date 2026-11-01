@@ -107,8 +107,6 @@ class PRQuizApp {
           this.currentLang = selectedLang;
           localStorage.setItem("prquiz_lang", this.currentLang);
           this.updateLanguageUI();
-          this.score = 0;
-          this.totalAnswered = 0;
           this.updateScoreUI();
           await this.loadFeed(this.currentLang);
         }
