@@ -78,6 +78,7 @@ class PRQuizApp {
     this.resultOriginalTitle = document.getElementById("result-original-title");
     this.resultLink = document.getElementById("result-link");
     this.nextBtn = document.getElementById("next-btn");
+    this.headerAccuracyEl = document.getElementById("header-accuracy");
     this.footerScoreEl = document.getElementById("footer-score");
     this.footerSourcesLink = document.getElementById("footer-sources-link");
     this.updateTimeTextEl = document.getElementById("update-time-text");
@@ -151,6 +152,7 @@ class PRQuizApp {
     if (originalLabel) {
       originalLabel.textContent = isEn ? "▼ Original Title:" : "▼ 元のタイトル:";
     }
+    this.updateScoreUI();
     this.renderUpdateTime();
   }
 
@@ -449,6 +451,12 @@ class PRQuizApp {
     const rate = this.totalAnswered > 0 ? Math.round((this.score / this.totalAnswered) * 100) : 0;
     localStorage.setItem("prquiz_score", this.score);
     localStorage.setItem("prquiz_total", this.totalAnswered);
+
+    if (this.headerAccuracyEl) {
+      this.headerAccuracyEl.textContent = isEn
+        ? `Accuracy: ${rate}%`
+        : `正解率: ${rate}%`;
+    }
 
     if (this.footerScoreEl) {
       this.footerScoreEl.textContent = isEn

@@ -57,7 +57,20 @@ body {
   padding: 12px 20px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.header-accuracy {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #475569;
+  background: #f1f5f9;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
 }
 
 .logo-area {
@@ -735,6 +748,11 @@ body {
 
   .logo-text {
     font-size: 1.05rem;
+  }
+
+  .header-accuracy {
+    font-size: 0.8rem;
+    padding: 3px 8px;
   }
 
   .header-inner {

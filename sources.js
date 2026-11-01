@@ -56,6 +56,7 @@ class PRSourcesApp {
     this.pageTitleEl = document.getElementById("page-title");
     this.pageDescEl = document.getElementById("page-desc");
     this.footerScoreEl = document.getElementById("footer-score");
+    this.headerAccuracyEl = document.getElementById("header-accuracy");
     this.footerSourcesLink = document.getElementById("footer-sources-link");
     this.updateTimeTextEl = document.getElementById("update-time-text");
     this.lastUpdatedAt = null;
@@ -75,6 +76,12 @@ class PRSourcesApp {
     const total = parseInt(localStorage.getItem("prquiz_total") || "0", 10);
     const rate = total > 0 ? Math.round((score / total) * 100) : 0;
     const isEn = this.currentLang === "en";
+
+    if (this.headerAccuracyEl) {
+      this.headerAccuracyEl.textContent = isEn
+        ? `Accuracy: ${rate}%`
+        : `正解率: ${rate}%`;
+    }
 
     if (this.footerScoreEl) {
       this.footerScoreEl.textContent = isEn
