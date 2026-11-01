@@ -218,8 +218,6 @@ class PRSourcesApp {
             <div class="source-item-meta">
               <span>📰 ${sourceName}</span>
               ${dateHtml}
-              <span>•</span>
-              <span>#${index + 1}</span>
             </div>
           </div>
           <a href="${linkEscaped}" target="_blank" rel="noopener noreferrer" class="source-open-btn">
