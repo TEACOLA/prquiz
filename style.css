@@ -646,7 +646,6 @@ body {
   color: var(--primary);
   text-decoration: underline;
   text-underline-offset: 3px;
-  margin-left: 14px;
   transition: color 0.2s ease;
 }
 
