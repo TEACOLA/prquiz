@@ -1,5 +1,5 @@
 // Cloudflare Pages Functions: /api/releases
-// 日本語（PR TIMES・サイエンスポータル）または英語（Newswire）の RSS をサーバー側で取得・パースして JSON を返す API
+// 日本語（PR TIMES・サイエンスポータル）または英語（Newswire・NASA）の RSS をサーバー側で取得・パースして JSON を返す API
 
 export async function onRequest(context) {
   const url = new URL(context.request.url);
@@ -11,9 +11,22 @@ export async function onRequest(context) {
     let sourceName = "";
 
     if (isEn) {
-      sourceName = "Newswire";
-      const nwItems = await fetchFeedItems("https://www.newswire.com/newsroom/rss/all", "Newswire");
-      items = nwItems.slice(0, 10);
+      sourceName = "Newswire / NASA";
+      // 英語フィードを並行取得（各ソースから最新10件ずつ取得）
+      const [nwItems, nasaItems] = await Promise.all([
+        fetchFeedItems("https://www.newswire.com/newsroom/rss/all", "Newswire"),
+        fetchFeedItems("https://www.nasa.gov/news-release/feed/", "NASA")
+      ]);
+
+      const nwSlice = nwItems.slice(0, 10);
+      const nasaSlice = nasaItems.slice(0, 10);
+
+      // 交互にバランスよくインターリーブして結合
+      const maxLen = Math.max(nwSlice.length, nasaSlice.length);
+      for (let i = 0; i < maxLen; i++) {
+        if (i < nwSlice.length) items.push(nwSlice[i]);
+        if (i < nasaSlice.length) items.push(nasaSlice[i]);
+      }
     } else {
       sourceName = "PR TIMES / サイエンスポータル";
       // 日本語フィードを並行取得（各ソースから最新10件ずつ取得）
@@ -59,7 +72,7 @@ export async function onRequest(context) {
     return new Response(
       JSON.stringify({
         ok: false,
-        source: isEn ? "Newswire" : "PR TIMES / サイエンスポータル",
+        source: isEn ? "Newswire / NASA" : "PR TIMES / サイエンスポータル",
         error: error.message || "Unknown error",
         items: []
       }),

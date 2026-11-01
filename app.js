@@ -25,16 +25,26 @@ const FALLBACK_RELEASES = {
     { title: "打ち上げ迫る「MMX」 火星衛星フォボスから、どんなお土産を？", link: "https://scienceportal.jst.go.jp/stories/20261019_s01/", source: "サイエンスポータル" }
   ],
   en: [
-    { title: "A New Chapter in America's Lithium Story: Elektros (OTC:ELEK) Advances Its Review of a Northern New York Opportunity", link: "https://www.newswire.com/news/see-2277941" },
-    { title: "Positioning for America's Next Lithium Opportunity: Elektros (OTC:ELEK) Evaluates Northern New York Potential", link: "https://www.newswire.com/news/see-1194908" },
-    { title: "The Domestic Lithium Landscape Is Evolving: Elektros (OTC:ELEK) Studies a Northern New York Possibility", link: "https://www.newswire.com/news/see-3262995" },
-    { title: "Glioblastoma Foundation's Genomic Testing & Research Laboratory Now Accepting Patient Samples for Genomic Testing", link: "https://www.newswire.com/news/glioblastoma-foundation-s-genomic-testing-research-laboratory-now-22880316" },
-    { title: "From Global Private Credit to Programmable Securities: New to The Street Show #778 Premieres Tonight on Bloomberg Television", link: "https://www.newswire.com/news/from-global-private-credit-to-programmable-securities-new-to-the-street-show" },
-    { title: "Commercial Cleaning Business Funding: How Established Cleaning Companies Can Take On Bigger Contracts Before the First Invoice Pays", link: "https://www.newswire.com/news/commercial-cleaning-business-funding-how-established-cleaning-22878435" },
-    { title: "How to Repurpose Old Furniture into New Treasures", link: "https://www.newswire.com/news/how-to-repurpose-old-furniture-into-new-treasures" },
-    { title: "Villora Reviews and Complaints 2026: No Scoops, No Mixing-Is This Your Next Daily Gut Routine?", link: "https://www.newswire.com/news/villora-reviews-and-complaints-2026-no-scoops-no-mixing-is-this-your-next-daily" },
-    { title: "Oilume Customer Reviews and Complaints 2026: The 80% Hair-Removal Oil Pitch-What to Know Before Ordering", link: "https://www.newswire.com/news/oilume-customer-reviews-and-complaints-2026-the-80-hair-removal-oil-pitch-what" },
-    { title: "KensaiChef Titanium Cutting Board Reviews & Complaints 2026: Two Prep Surfaces, Built-In Tools-Your Next Kitchen Upgrade?", link: "https://www.newswire.com/news/kensaichef-titanium-cutting-board-reviews-complaints-2026-two-prep-surfaces" }
+    { title: "A New Chapter in America's Lithium Story: Elektros (OTC:ELEK) Advances Its Review of a Northern New York Opportunity", link: "https://www.newswire.com/news/see-2277941", source: "Newswire" },
+    { title: "APOD: 2026 November 1 – Colors of the Moon", link: "https://science.nasa.gov/image-article/apod-2026-november-1-colors-of-the-moon/", source: "NASA" },
+    { title: "Positioning for America's Next Lithium Opportunity: Elektros (OTC:ELEK) Evaluates Northern New York Potential", link: "https://www.newswire.com/news/see-1194908", source: "Newswire" },
+    { title: "APOD: 2026 October 31 – Night on a Spooky Planet", link: "https://science.nasa.gov/image-article/apod-2026-october-31-night-on-a-spooky-planet/", source: "NASA" },
+    { title: "The Domestic Lithium Landscape Is Evolving: Elektros (OTC:ELEK) Studies a Northern New York Possibility", link: "https://www.newswire.com/news/see-3262995", source: "Newswire" },
+    { title: "NASA Releases MAX POWER Key Events for Media, Participants", link: "https://www.nasa.gov/news-release/nasa-releases-max-power-key-events-for-media-participants/", source: "NASA" },
+    { title: "Glioblastoma Foundation's Genomic Testing & Research Laboratory Now Accepting Patient Samples for Genomic Testing", link: "https://www.newswire.com/news/glioblastoma-foundation-s-genomic-testing-research-laboratory-now-22880316", source: "Newswire" },
+    { title: "NASA’s James Webb Space Telescope Captures Eerie Cat’s Head", link: "https://www.nasa.gov/image-article/nasas-james-webb-space-telescope-captures-eerie-cats-head/", source: "NASA" },
+    { title: "From Global Private Credit to Programmable Securities: New to The Street Show #778 Premieres Tonight on Bloomberg Television", link: "https://www.newswire.com/news/from-global-private-credit-to-programmable-securities-new-to-the-street-show", source: "Newswire" },
+    { title: "NASA Explores Potential Commercial Servicing for Hubble Telescope", link: "https://science.nasa.gov/missions/hubble/nasa-explores-potential-commercial-servicing-for-hubble-telescope/", source: "NASA" },
+    { title: "Commercial Cleaning Business Funding: How Established Cleaning Companies Can Take On Bigger Contracts Before the First Invoice Pays", link: "https://www.newswire.com/news/commercial-cleaning-business-funding-how-established-cleaning-22878435", source: "Newswire" },
+    { title: "November’s Night Sky Notes: Light-Day Away", link: "https://science.nasa.gov/solar-system/skywatching/night-sky-network/novembers-night-sky-notes-light-day-away/", source: "NASA" },
+    { title: "How to Repurpose Old Furniture into New Treasures", link: "https://www.newswire.com/news/how-to-repurpose-old-furniture-into-new-treasures", source: "Newswire" },
+    { title: "APOD: 2026 October 30 – Haunting the Cepheus Flare", link: "https://science.nasa.gov/image-article/apod-2026-october-30-haunting-the-cepheus-flare/", source: "NASA" },
+    { title: "Villora Reviews and Complaints 2026: No Scoops, No Mixing-Is This Your Next Daily Gut Routine?", link: "https://www.newswire.com/news/villora-reviews-and-complaints-2026-no-scoops-no-mixing-is-this-your-next-daily", source: "Newswire" },
+    { title: "Vega Island Frozen in Fright", link: "https://science.nasa.gov/earth/earth-observatory/vega-island-frozen-in-fright/", source: "NASA" },
+    { title: "Oilume Customer Reviews and Complaints 2026: The 80% Hair-Removal Oil Pitch-What to Know Before Ordering", link: "https://www.newswire.com/news/oilume-customer-reviews-and-complaints-2026-the-80-hair-removal-oil-pitch-what", source: "Newswire" },
+    { title: "Map Showing Potential Origins of Martian Meteorite Teghaza 001", link: "https://science.nasa.gov/photojournal/map-showing-potential-origins-of-martian-meteorite-teghaza-001/", source: "NASA" },
+    { title: "KensaiChef Titanium Cutting Board Reviews & Complaints 2026: Two Prep Surfaces, Built-In Tools-Your Next Kitchen Upgrade?", link: "https://www.newswire.com/news/kensaichef-titanium-cutting-board-reviews-complaints-2026-two-prep-surfaces", source: "Newswire" },
+    { title: "Slice of Martian Meteorite Teghaza 001", link: "https://science.nasa.gov/photojournal/slice-of-martian-meteorite-teghaza-001/", source: "NASA" }
   ]
 };
 
@@ -240,7 +250,10 @@ class PRQuizApp {
     // ソース元バッジ更新
     if (this.sourceBadgeEl) {
       const itemSource = item.source || (this.currentLang === "en" ? "Newswire" : "PR TIMES");
-      const icon = itemSource.includes("サイエンス") ? "🔬" : (itemSource === "Newswire" ? "🌐" : "📰");
+      let icon = "📰";
+      if (itemSource.includes("サイエンス")) icon = "🔬";
+      else if (itemSource.includes("NASA")) icon = "🚀";
+      else if (itemSource === "Newswire") icon = "🌐";
       this.sourceBadgeEl.innerHTML = `${icon} ${itemSource} (${this.currentIndex + 1}/${this.releases.length})`;
     }
 

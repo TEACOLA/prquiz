@@ -25,16 +25,26 @@ const FALLBACK_RELEASES = {
     { title: "打ち上げ迫る「MMX」 火星衛星フォボスから、どんなお土産を？", link: "https://scienceportal.jst.go.jp/stories/20261019_s01/", date: "2026-10-19T14:50:09+09:00", source: "サイエンスポータル" }
   ],
   en: [
-    { title: "A New Chapter in America's Lithium Story: Elektros (OTC:ELEK) Advances Its Review of a Northern New York Opportunity", link: "https://www.newswire.com/news/see-2277941", date: "Sun, 01 Nov 2026 00:12:00 +0000" },
-    { title: "Positioning for America's Next Lithium Opportunity: Elektros (OTC:ELEK) Evaluates Northern New York Potential", link: "https://www.newswire.com/news/see-1194908", date: "Sun, 01 Nov 2026 00:00:00 +0000" },
-    { title: "The Domestic Lithium Landscape Is Evolving: Elektros (OTC:ELEK) Studies a Northern New York Possibility", link: "https://www.newswire.com/news/see-3262995", date: "Sat, 31 Oct 2026 23:47:00 +0000" },
-    { title: "Glioblastoma Foundation's Genomic Testing & Research Laboratory Now Accepting Patient Samples for Genomic Testing", link: "https://www.newswire.com/news/glioblastoma-foundation-s-genomic-testing-research-laboratory-now-22880316", date: "Sat, 31 Oct 2026 15:55:00 +0000" },
-    { title: "From Global Private Credit to Programmable Securities: New to The Street Show #778 Premieres Tonight on Bloomberg Television", link: "https://www.newswire.com/news/from-global-private-credit-to-programmable-securities-new-to-the-street-show", date: "Sat, 31 Oct 2026 15:00:00 +0000" },
-    { title: "Commercial Cleaning Business Funding: How Established Cleaning Companies Can Take On Bigger Contracts Before the First Invoice Pays", link: "https://www.newswire.com/news/commercial-cleaning-business-funding-how-established-cleaning-22878435", date: "Sat, 31 Oct 2026 13:00:00 +0000" },
-    { title: "How to Repurpose Old Furniture into New Treasures", link: "https://www.newswire.com/news/how-to-repurpose-old-furniture-into-new-treasures", date: "Sat, 31 Oct 2026 04:00:00 +0000" },
-    { title: "Villora Reviews and Complaints 2026: No Scoops, No Mixing-Is This Your Next Daily Gut Routine?", link: "https://www.newswire.com/news/villora-reviews-and-complaints-2026-no-scoops-no-mixing-is-this-your-next-daily", date: "Sat, 31 Oct 2026 01:05:00 +0000" },
-    { title: "Oilume Customer Reviews and Complaints 2026: The 80% Hair-Removal Oil Pitch-What to Know Before Ordering", link: "https://www.newswire.com/news/oilume-customer-reviews-and-complaints-2026-the-80-hair-removal-oil-pitch-what", date: "Sat, 31 Oct 2026 00:30:00 +0000" },
-    { title: "KensaiChef Titanium Cutting Board Reviews & Complaints 2026: Two Prep Surfaces, Built-In Tools-Your Next Kitchen Upgrade?", link: "https://www.newswire.com/news/kensaichef-titanium-cutting-board-reviews-complaints-2026-two-prep-surfaces", date: "Sat, 31 Oct 2026 00:30:00 +0000" }
+    { title: "A New Chapter in America's Lithium Story: Elektros (OTC:ELEK) Advances Its Review of a Northern New York Opportunity", link: "https://www.newswire.com/news/see-2277941", date: "Sun, 01 Nov 2026 00:12:00 +0000", source: "Newswire" },
+    { title: "APOD: 2026 November 1 – Colors of the Moon", link: "https://science.nasa.gov/image-article/apod-2026-november-1-colors-of-the-moon/", date: "Sun, 01 Nov 2026 04:05:00 +0000", source: "NASA" },
+    { title: "Positioning for America's Next Lithium Opportunity: Elektros (OTC:ELEK) Evaluates Northern New York Potential", link: "https://www.newswire.com/news/see-1194908", date: "Sun, 01 Nov 2026 00:00:00 +0000", source: "Newswire" },
+    { title: "APOD: 2026 October 31 – Night on a Spooky Planet", link: "https://science.nasa.gov/image-article/apod-2026-october-31-night-on-a-spooky-planet/", date: "Sat, 31 Oct 2026 04:05:00 +0000", source: "NASA" },
+    { title: "The Domestic Lithium Landscape Is Evolving: Elektros (OTC:ELEK) Studies a Northern New York Possibility", link: "https://www.newswire.com/news/see-3262995", date: "Sat, 31 Oct 2026 23:47:00 +0000", source: "Newswire" },
+    { title: "NASA Releases MAX POWER Key Events for Media, Participants", link: "https://www.nasa.gov/news-release/nasa-releases-max-power-key-events-for-media-participants/", date: "Fri, 30 Oct 2026 19:31:02 +0000", source: "NASA" },
+    { title: "Glioblastoma Foundation's Genomic Testing & Research Laboratory Now Accepting Patient Samples for Genomic Testing", link: "https://www.newswire.com/news/glioblastoma-foundation-s-genomic-testing-research-laboratory-now-22880316", date: "Sat, 31 Oct 2026 15:55:00 +0000", source: "Newswire" },
+    { title: "NASA’s James Webb Space Telescope Captures Eerie Cat’s Head", link: "https://www.nasa.gov/image-article/nasas-james-webb-space-telescope-captures-eerie-cats-head/", date: "Fri, 30 Oct 2026 15:56:26 +0000", source: "NASA" },
+    { title: "From Global Private Credit to Programmable Securities: New to The Street Show #778 Premieres Tonight on Bloomberg Television", link: "https://www.newswire.com/news/from-global-private-credit-to-programmable-securities-new-to-the-street-show", date: "Sat, 31 Oct 2026 15:00:00 +0000", source: "Newswire" },
+    { title: "NASA Explores Potential Commercial Servicing for Hubble Telescope", link: "https://science.nasa.gov/missions/hubble/nasa-explores-potential-commercial-servicing-for-hubble-telescope/", date: "Fri, 30 Oct 2026 14:51:21 +0000", source: "NASA" },
+    { title: "Commercial Cleaning Business Funding: How Established Cleaning Companies Can Take On Bigger Contracts Before the First Invoice Pays", link: "https://www.newswire.com/news/commercial-cleaning-business-funding-how-established-cleaning-22878435", date: "Sat, 31 Oct 2026 13:00:00 +0000", source: "Newswire" },
+    { title: "November’s Night Sky Notes: Light-Day Away", link: "https://science.nasa.gov/solar-system/skywatching/night-sky-network/novembers-night-sky-notes-light-day-away/", date: "Fri, 30 Oct 2026 10:00:00 +0000", source: "NASA" },
+    { title: "How to Repurpose Old Furniture into New Treasures", link: "https://www.newswire.com/news/how-to-repurpose-old-furniture-into-new-treasures", date: "Sat, 31 Oct 2026 04:00:00 +0000", source: "Newswire" },
+    { title: "APOD: 2026 October 30 – Haunting the Cepheus Flare", link: "https://science.nasa.gov/image-article/apod-2026-october-30-haunting-the-cepheus-flare/", date: "Fri, 30 Oct 2026 04:05:00 +0000", source: "NASA" },
+    { title: "Villora Reviews and Complaints 2026: No Scoops, No Mixing-Is This Your Next Daily Gut Routine?", link: "https://www.newswire.com/news/villora-reviews-and-complaints-2026-no-scoops-no-mixing-is-this-your-next-daily", date: "Sat, 31 Oct 2026 01:05:00 +0000", source: "Newswire" },
+    { title: "Vega Island Frozen in Fright", link: "https://science.nasa.gov/earth/earth-observatory/vega-island-frozen-in-fright/", date: "Fri, 30 Oct 2026 04:01:00 +0000", source: "NASA" },
+    { title: "Oilume Customer Reviews and Complaints 2026: The 80% Hair-Removal Oil Pitch-What to Know Before Ordering", link: "https://www.newswire.com/news/oilume-customer-reviews-and-complaints-2026-the-80-hair-removal-oil-pitch-what", date: "Sat, 31 Oct 2026 00:30:00 +0000", source: "Newswire" },
+    { title: "Map Showing Potential Origins of Martian Meteorite Teghaza 001", link: "https://science.nasa.gov/photojournal/map-showing-potential-origins-of-martian-meteorite-teghaza-001/", date: "Fri, 30 Oct 2026 00:07:39 +0000", source: "NASA" },
+    { title: "KensaiChef Titanium Cutting Board Reviews & Complaints 2026: Two Prep Surfaces, Built-In Tools-Your Next Kitchen Upgrade?", link: "https://www.newswire.com/news/kensaichef-titanium-cutting-board-reviews-complaints-2026-two-prep-surfaces", date: "Sat, 31 Oct 2026 00:30:00 +0000", source: "Newswire" },
+    { title: "Slice of Martian Meteorite Teghaza 001", link: "https://science.nasa.gov/photojournal/slice-of-martian-meteorite-teghaza-001/", date: "Thu, 29 Oct 2026 23:32:35 +0000", source: "NASA" }
   ]
 };
 
@@ -147,7 +157,7 @@ class PRSourcesApp {
     `;
 
     let items = [];
-    let sourceName = lang === "en" ? "Newswire" : "PR TIMES / サイエンスポータル";
+    let sourceName = lang === "en" ? "Newswire / NASA" : "PR TIMES / サイエンスポータル";
 
     try {
       const res = await fetch(`/api/releases?lang=${lang}`);
@@ -183,7 +193,10 @@ class PRSourcesApp {
       const titleEscaped = this.escapeHtml(item.title);
       const linkEscaped = this.escapeHtml(item.link);
       const itemSource = item.source || sourceName;
-      const sourceIcon = itemSource.includes("サイエンス") ? "🔬" : (itemSource === "Newswire" ? "🌐" : "📰");
+      let sourceIcon = "📰";
+      if (itemSource.includes("サイエンス")) sourceIcon = "🔬";
+      else if (itemSource.includes("NASA")) sourceIcon = "🚀";
+      else if (itemSource === "Newswire") sourceIcon = "🌐";
       const dateFormatted = this.formatArticleDate(item.date, this.currentLang);
       const dateHtml = dateFormatted ? `<span>•</span><span>🕒 ${this.escapeHtml(dateFormatted)}</span>` : "";
 
