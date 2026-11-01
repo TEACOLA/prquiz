@@ -74,3 +74,4 @@ git push -u origin main
 1. Cloudflare Pages のプロジェクトダッシュボードで **「Custom domains」** タブを開く。
 2. **「Set up a custom domain」** をクリックし、`prquiz.com`（または `www.prquiz.com`）を入力。
 3. ドメインが同じ Cloudflare アカウントで契約されているため、DNSレコードの追加が自動的に行われ、数分で SSL証明書付きでアクセス可能になります。
+

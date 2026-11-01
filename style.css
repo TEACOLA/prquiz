@@ -138,7 +138,7 @@ body {
   max-width: 860px;
   width: 100%;
   margin: 0 auto;
-  padding: 24px 16px 40px;
+  padding: 24px 16px 100px; /* 画面下部に固定されるフッターと重ならないよう余白を確保 */
 }
 
 /* クイズカード */
@@ -587,14 +587,21 @@ body {
   background: #fecdd3;
 }
 
-/* フッター */
+/* フッター（画面下部へ常に追従・固定表示） */
 .site-footer {
-  margin-top: auto;
-  background: var(--card-bg);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 40;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid var(--border);
-  padding: 24px 20px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+  padding: 10px 16px;
   text-align: center;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
 }
 
@@ -602,12 +609,13 @@ body {
   display: flex;
   justify-content: center;
   gap: 16px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .footer-links a {
   color: var(--text-muted);
   text-decoration: none;
+  font-weight: 600;
 }
 
 .footer-links a:hover {
@@ -650,3 +658,4 @@ body {
     padding: 10px 14px;
   }
 }
+

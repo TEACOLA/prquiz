@@ -401,3 +401,4 @@ class PRQuizApp {
 document.addEventListener("DOMContentLoaded", () => {
   new PRQuizApp();
 });
+

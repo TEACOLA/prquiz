@@ -115,3 +115,4 @@ function cleanText(text) {
     .replace(/\s+/g, " ")
     .trim();
 }
+
