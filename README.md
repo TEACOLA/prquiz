@@ -18,11 +18,12 @@ prquiz/
 ├── functions/
 │   └── api/
 │       └── releases.js       # Cloudflare Pages Functions (RSS取得＆パースAPI)
-├── index.html                # クイズ画面 (3択・ヒント・正誤判定)
-├── sources.html              # ソース元一覧画面
-├── style.css                 # 共通スタイルシート
-├── app.js                    # クイズ画面ロジック (🍎伏字化, 3択生成, 判定)
-├── sources.js                # ソース元一覧ロジック
+├── public/                   # 静的アセット（ビルド出力ディレクトリ）
+│   ├── index.html            # クイズ画面 (3択・ヒント・正誤判定)
+│   ├── sources.html          # ソース元一覧画面
+│   ├── style.css             # 共通スタイルシート
+│   ├── app.js                # クイズ画面ロジック (🍎伏字化, 3択生成, 判定)
+│   └── sources.js            # ソース元一覧ロジック
 └── README.md
 ```
 
@@ -33,7 +34,7 @@ prquiz/
 Macのターミナルで本ディレクトリ（`prquiz`）に移動し、Pythonの簡易Webサーバーを起動します。
 
 ```bash
-python3 -m http.server 8080
+python3 -m http.server 8080 -d public
 ```
 
 ブラウザで `http://localhost:8080` を開きます。
@@ -65,7 +66,7 @@ git push -u origin main
    - **Production branch**: `main`
    - **Framework preset**: `None`
    - **Build command**: （空欄のままでOK）
-   - **Build output directory**: `/` （空欄またはルート）
+   - **Build output directory**: `public`
 5. **「Save and Deploy」** をクリック。
    - `functions/` ディレクトリ内のコードは Cloudflare Pages によって自動認識され、`/api/releases` エンドポイントとしてデプロイされます！
 
