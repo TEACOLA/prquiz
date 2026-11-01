@@ -3,26 +3,16 @@
 // ローカル検証やオフライン時用のフォールバックデータ（各記事への個別リンク）
 const FALLBACK_RELEASES = {
   ja: [
-    { title: "【新商品】老舗和菓子店が本気で作った極上生どら焼きが新登場！素材へのこだわりと職人技の結晶", link: "https://prtimes.jp/main/html/rd/p/000000018.000084512.html" },
-    { title: "次世代AIプラットフォーム『SmartAssist』正式リリース、業務効率化を劇的に推進", link: "https://prtimes.jp/main/html/rd/p/000000045.000052319.html" },
-    { title: "秋の味覚を満喫！旬の栗とシャインマスカットを贅沢に使った限定アフタヌーンティーを開催", link: "https://prtimes.jp/main/html/rd/p/000000112.000031890.html" },
-    { title: "環境負荷を最大70%削減する新型エコパッケージを開発、全国の主要コンビニで順次導入開始", link: "https://prtimes.jp/main/html/rd/p/000000029.000076123.html" },
-    { title: "国内最大規模のスタートアップカンファレンスが東京で開催決定！注目の登壇者50名を先行発表", link: "https://prtimes.jp/main/html/rd/p/000000088.000063450.html" },
-    { title: "創業100周年記念！幻の復刻ブレンドコーヒーが数量限定で全国の直営店舗にて販売開始", link: "https://prtimes.jp/main/html/rd/p/000000007.000091204.html" },
-    { title: "睡眠の質を可視化するスマート快眠デバイス『SleepFit』の先行予約販売を開始", link: "https://prtimes.jp/main/html/rd/p/000000034.000048911.html" },
-    { title: "日本の伝統工芸と現代デザインが融合した新しい陶器ブランド『美織』が誕生", link: "https://prtimes.jp/main/html/rd/p/000000015.000082341.html" },
-    { title: "大人気アニメとの特別コラボカフェが期間限定オープン！限定描き下ろしグッズも多数登場", link: "https://prtimes.jp/main/html/rd/p/000000056.000037192.html" },
-    { title: "全自動で窓掃除をこなす最新スマート家電ロボットが登場、クラウドファンディングで目標達成", link: "https://prtimes.jp/main/html/rd/p/000000023.000069418.html" },
-    { title: "全国10都市を巡る大型アートフェスティバルが開幕！光と音が織りなす没入型体験を提供", link: "https://prtimes.jp/main/html/rd/p/000000041.000055102.html" },
-    { title: "糖質80%オフでも本格派！罪悪感ゼロのクラフトチョコレートが新発売", link: "https://prtimes.jp/main/html/rd/p/000000019.000073820.html" },
-    { title: "クラウド型勤怠管理システムの新機能としてAIシフト自動作成ツールを提供開始", link: "https://prtimes.jp/main/html/rd/p/000000062.000044917.html" },
-    { title: "北海道産厳選ミルクを使用した濃厚プレミアムソフトクリーム専門店が原宿にオープン", link: "https://prtimes.jp/main/html/rd/p/000000008.000093651.html" },
-    { title: "企業の温室効果ガス排出量をリアルタイムで算定・可視化する新サービスを発表", link: "https://prtimes.jp/main/html/rd/p/000000037.000061280.html" },
-    { title: "自宅で本格的なピラティスを体験できるオンライン受講プログラムが今冬スタート", link: "https://prtimes.jp/main/html/rd/p/000000025.000088419.html" },
-    { title: "プロ仕様の音質を手のひらサイズで実現したワイヤレスイヤホン『SoundAir Pro』発売", link: "https://prtimes.jp/main/html/rd/p/000000073.000032904.html" },
-    { title: "地方創生プロジェクト！古民家を再生した一日一組限定のプライベートヴィラが開業", link: "https://prtimes.jp/main/html/rd/p/000000014.000077815.html" },
-    { title: "子どもの論理的思考力を楽しく育む知育プログラミングトイ『ロボキッズ』を新発売", link: "https://prtimes.jp/main/html/rd/p/000000031.000059124.html" },
-    { title: "日本全国の隠れた名酒を毎月お届けする日本酒サブスクリプションサービスが会員1万人突破", link: "https://prtimes.jp/main/html/rd/p/000000048.000066230.html" }
+    { title: "【新商品】老舗和菓子店が本気で作った極上生どら焼きが新登場！素材へのこだわりと職人技の結晶", link: "https://prtimes.jp/main/html/rd/p/000000018.000084512.html", source: "PR TIMES" },
+    { title: "「地上の太陽」目指し、ITER炉心の主要部品そろう 建設の節目", link: "https://scienceportal.jst.go.jp/newsflash/20261030_n01/", source: "サイエンスポータル" },
+    { title: "次世代AIプラットフォーム『SmartAssist』正式リリース、業務効率化を劇的に推進", link: "https://prtimes.jp/main/html/rd/p/000000045.000052319.html", source: "PR TIMES" },
+    { title: "千葉豪雨など今夏3件の大雨は温暖化が発生リスク高める WACが分析", link: "https://scienceportal.jst.go.jp/newsflash/20261029_n01/", source: "サイエンスポータル" },
+    { title: "秋の味覚を満喫！旬の栗とシャインマスカットを贅沢に使った限定アフタヌーンティーを開催", link: "https://prtimes.jp/main/html/rd/p/000000112.000031890.html", source: "PR TIMES" },
+    { title: "各種モビリティと人の「混在交通」 現在と未来を考える日米合同シンポ", link: "https://scienceportal.jst.go.jp/stories/20261028_s01/", source: "サイエンスポータル" },
+    { title: "環境負荷を最大70%削減する新型エコパッケージを開発、全国の主要コンビニで順次導入開始", link: "https://prtimes.jp/main/html/rd/p/000000029.000076123.html", source: "PR TIMES" },
+    { title: "「59分60秒、やめます」うるう秒廃止を決議 国際度量衡総会", link: "https://scienceportal.jst.go.jp/newsflash/20261027_n01/", source: "サイエンスポータル" },
+    { title: "国内最大規模のスタートアップカンファレンスが東京で開催決定！注目の登壇者50名を先行発表", link: "https://prtimes.jp/main/html/rd/p/000000088.000063450.html", source: "PR TIMES" },
+    { title: "火星衛星フォボスの試料回収へ旅立ち MMX打ち上げ成功 種子島", link: "https://scienceportal.jst.go.jp/newsflash/20261021_n01/", source: "サイエンスポータル" }
   ],
   en: [
     { title: "Global Tech Innovator Announces Revolutionary Clean Energy Storage Solution for Commercial Use", link: "https://www.newswire.com/news/global-tech-innovator-announces-clean-energy-storage-solution-2189401" },
@@ -242,15 +232,17 @@ class PRQuizApp {
 
     this.currentQuestion = {
       ...quizData,
-      link: item.link
+      link: item.link,
+      source: item.source
     };
 
     this.hasAnswered = false;
 
     // ソース元バッジ更新
     if (this.sourceBadgeEl) {
-      const sourceName = this.currentLang === "en" ? "Newswire" : "PR TIMES";
-      this.sourceBadgeEl.innerHTML = `📰 ${sourceName} (${this.currentIndex + 1}/${this.releases.length})`;
+      const itemSource = item.source || (this.currentLang === "en" ? "Newswire" : "PR TIMES");
+      const icon = itemSource.includes("サイエンス") ? "🔬" : (itemSource === "Newswire" ? "🌐" : "📰");
+      this.sourceBadgeEl.innerHTML = `${icon} ${itemSource} (${this.currentIndex + 1}/${this.releases.length})`;
     }
 
     // 問題文（🍎伏字）表示
@@ -425,9 +417,10 @@ class PRQuizApp {
 
     this.resultOriginalTitle.textContent = this.currentQuestion.originalTitle;
     this.resultLink.href = this.currentQuestion.link;
+    const itemSource = this.currentQuestion.source || (isEn ? "Newswire" : "PR TIMES");
     this.resultLink.innerHTML = isEn
-      ? "Read full press release on source site ↗"
-      : "プレスリリースの全文を元サイトで読む ↗";
+      ? `Read full article on ${itemSource} ↗`
+      : `記事の全文を元サイト（${itemSource}）で読む ↗`;
   }
 
   nextQuestion() {

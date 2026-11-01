@@ -3,26 +3,16 @@
 // ローカル検証やオフライン時用のフォールバックデータ（各記事への個別リンクと配信日時）
 const FALLBACK_RELEASES = {
   ja: [
-    { title: "【新商品】老舗和菓子店が本気で作った極上生どら焼きが新登場！素材へのこだわりと職人技の結晶", link: "https://prtimes.jp/main/html/rd/p/000000018.000084512.html", date: "2026-11-01T19:08:00+09:00" },
-    { title: "次世代AIプラットフォーム『SmartAssist』正式リリース、業務効率化を劇的に推進", link: "https://prtimes.jp/main/html/rd/p/000000045.000052319.html", date: "2026-11-01T18:55:00+09:00" },
-    { title: "秋の味覚を満喫！旬の栗とシャインマスカットを贅沢に使った限定アフタヌーンティーを開催", link: "https://prtimes.jp/main/html/rd/p/000000112.000031890.html", date: "2026-11-01T18:42:00+09:00" },
-    { title: "環境負荷を最大70%削減する新型エコパッケージを開発、全国の主要コンビニで順次導入開始", link: "https://prtimes.jp/main/html/rd/p/000000029.000076123.html", date: "2026-11-01T18:30:00+09:00" },
-    { title: "国内最大規模のスタートアップカンファレンスが東京で開催決定！注目の登壇者50名を先行発表", link: "https://prtimes.jp/main/html/rd/p/000000088.000063450.html", date: "2026-11-01T18:15:00+09:00" },
-    { title: "創業100周年記念！幻の復刻ブレンドコーヒーが数量限定で全国の直営店舗にて販売開始", link: "https://prtimes.jp/main/html/rd/p/000000007.000091204.html", date: "2026-11-01T17:58:00+09:00" },
-    { title: "睡眠の質を可視化するスマート快眠デバイス『SleepFit』の先行予約販売を開始", link: "https://prtimes.jp/main/html/rd/p/000000034.000048911.html", date: "2026-11-01T17:40:00+09:00" },
-    { title: "日本の伝統工芸と現代デザインが融合した新しい陶器ブランド『美織』が誕生", link: "https://prtimes.jp/main/html/rd/p/000000015.000082341.html", date: "2026-11-01T17:22:00+09:00" },
-    { title: "大人気アニメとの特別コラボカフェが期間限定オープン！限定描き下ろしグッズも多数登場", link: "https://prtimes.jp/main/html/rd/p/000000056.000037192.html", date: "2026-11-01T17:05:00+09:00" },
-    { title: "全自動で窓掃除をこなす最新スマート家電ロボットが登場、クラウドファンディングで目標達成", link: "https://prtimes.jp/main/html/rd/p/000000023.000069418.html", date: "2026-11-01T16:50:00+09:00" },
-    { title: "全国10都市を巡る大型アートフェスティバルが開幕！光と音が織りなす没入型体験を提供", link: "https://prtimes.jp/main/html/rd/p/000000041.000055102.html", date: "2026-11-01T16:35:00+09:00" },
-    { title: "糖質80%オフでも本格派！罪悪感ゼロのクラフトチョコレートが新発売", link: "https://prtimes.jp/main/html/rd/p/000000019.000073820.html", date: "2026-11-01T16:15:00+09:00" },
-    { title: "クラウド型勤怠管理システムの新機能としてAIシフト自動作成ツールを提供開始", link: "https://prtimes.jp/main/html/rd/p/000000062.000044917.html", date: "2026-11-01T15:58:00+09:00" },
-    { title: "北海道産厳選ミルクを使用した濃厚プレミアムソフトクリーム専門店が原宿にオープン", link: "https://prtimes.jp/main/html/rd/p/000000008.000093651.html", date: "2026-11-01T15:40:00+09:00" },
-    { title: "企業の温室効果ガス排出量をリアルタイムで算定・可視化する新サービスを発表", link: "https://prtimes.jp/main/html/rd/p/000000037.000061280.html", date: "2026-11-01T15:20:00+09:00" },
-    { title: "自宅で本格的なピラティスを体験できるオンライン受講プログラムが今冬スタート", link: "https://prtimes.jp/main/html/rd/p/000000025.000088419.html", date: "2026-11-01T15:00:00+09:00" },
-    { title: "プロ仕様の音質を手のひらサイズで実現したワイヤレスイヤホン『SoundAir Pro』発売", link: "https://prtimes.jp/main/html/rd/p/000000073.000032904.html", date: "2026-11-01T14:45:00+09:00" },
-    { title: "地方創生プロジェクト！古民家を再生した一日一組限定のプライベートヴィラが開業", link: "https://prtimes.jp/main/html/rd/p/000000014.000077815.html", date: "2026-11-01T14:30:00+09:00" },
-    { title: "子どもの論理的思考力を楽しく育む知育プログラミングトイ『ロボキッズ』を新発売", link: "https://prtimes.jp/main/html/rd/p/000000031.000059124.html", date: "2026-11-01T14:10:00+09:00" },
-    { title: "日本全国の隠れた名酒を毎月お届けする日本酒サブスクリプションサービスが会員1万人突破", link: "https://prtimes.jp/main/html/rd/p/000000048.000066230.html", date: "2026-11-01T13:50:00+09:00" }
+    { title: "【新商品】老舗和菓子店が本気で作った極上生どら焼きが新登場！素材へのこだわりと職人技の結晶", link: "https://prtimes.jp/main/html/rd/p/000000018.000084512.html", date: "2026-11-01T19:08:00+09:00", source: "PR TIMES" },
+    { title: "「地上の太陽」目指し、ITER炉心の主要部品そろう 建設の節目", link: "https://scienceportal.jst.go.jp/newsflash/20261030_n01/", date: "2026-10-30T14:55:22+09:00", source: "サイエンスポータル" },
+    { title: "次世代AIプラットフォーム『SmartAssist』正式リリース、業務効率化を劇的に推進", link: "https://prtimes.jp/main/html/rd/p/000000045.000052319.html", date: "2026-11-01T18:55:00+09:00", source: "PR TIMES" },
+    { title: "千葉豪雨など今夏3件の大雨は温暖化が発生リスク高める WACが分析", link: "https://scienceportal.jst.go.jp/newsflash/20261029_n01/", date: "2026-10-29T15:07:46+09:00", source: "サイエンスポータル" },
+    { title: "秋の味覚を満喫！旬の栗とシャインマスカットを贅沢に使った限定アフタヌーンティーを開催", link: "https://prtimes.jp/main/html/rd/p/000000112.000031890.html", date: "2026-11-01T18:42:00+09:00", source: "PR TIMES" },
+    { title: "各種モビリティと人の「混在交通」 現在と未来を考える日米合同シンポ", link: "https://scienceportal.jst.go.jp/stories/20261028_s01/", date: "2026-10-28T15:01:15+09:00", source: "サイエンスポータル" },
+    { title: "環境負荷を最大70%削減する新型エコパッケージを開発、全国の主要コンビニで順次導入開始", link: "https://prtimes.jp/main/html/rd/p/000000029.000076123.html", date: "2026-11-01T18:30:00+09:00", source: "PR TIMES" },
+    { title: "「59分60秒、やめます」うるう秒廃止を決議 国際度量衡総会", link: "https://scienceportal.jst.go.jp/newsflash/20261027_n01/", date: "2026-10-27T16:37:42+09:00", source: "サイエンスポータル" },
+    { title: "国内最大規模のスタートアップカンファレンスが東京で開催決定！注目の登壇者50名を先行発表", link: "https://prtimes.jp/main/html/rd/p/000000088.000063450.html", date: "2026-11-01T18:15:00+09:00", source: "PR TIMES" },
+    { title: "火星衛星フォボスの試料回収へ旅立ち MMX打ち上げ成功 種子島", link: "https://scienceportal.jst.go.jp/newsflash/20261021_n01/", date: "2026-10-21T15:35:05+09:00", source: "サイエンスポータル" }
   ],
   en: [
     { title: "Global Tech Innovator Announces Revolutionary Clean Energy Storage Solution for Commercial Use", link: "https://www.newswire.com/news/global-tech-innovator-announces-clean-energy-storage-solution-2189401", date: "2026-11-01T19:00:00+09:00" },
@@ -110,8 +100,8 @@ class PRSourcesApp {
       ? "📰 Press Release Sources"
       : "📰 プレスリリース ソース元一覧";
     this.pageDescEl.textContent = isEn
-      ? "Here is the list of recent press releases used in PR Quiz. Click any article to read the full story on Newswire."
-      : "PR Quizで出題されている最新のプレスリリース一覧です。気になるタイトルの記事は、元サイト（PR TIMES）で全文をお読みいただけます。";
+      ? "Here is the list of recent press releases and articles featured in PR Quiz. Click any article to read the full story on PR TIMES, Science Portal, or Newswire."
+      : "PR Quizで出題されている最新のプレスリリース一覧です。気になるタイトルの記事は、元サイト（PR TIMES / サイエンスポータル / Newswire）で全文をお読みいただけます。";
     if (this.footerSourcesLink) {
       this.footerSourcesLink.textContent = isEn ? "Press Release Sources List" : "プレスリリースのソース元サイト一覧";
     }
@@ -157,14 +147,13 @@ class PRSourcesApp {
     `;
 
     let items = [];
-    let sourceName = lang === "en" ? "Newswire" : "PR TIMES";
+    let sourceName = lang === "en" ? "Newswire" : "PR TIMES / サイエンスポータル";
 
     try {
       const res = await fetch(`/api/releases?lang=${lang}`);
       if (!res.ok) throw new Error("API response not ok");
       const data = await res.json();
       if (data.items && data.items.length > 0) {
-        // 1フィードにつき10件
         items = data.items.slice(0, 10);
         this.lastUpdatedAt = data.updatedAt || new Date().toISOString();
         if (data.source) sourceName = data.source;
@@ -193,6 +182,8 @@ class PRSourcesApp {
     this.sourcesListEl.innerHTML = items.map((item, index) => {
       const titleEscaped = this.escapeHtml(item.title);
       const linkEscaped = this.escapeHtml(item.link);
+      const itemSource = item.source || sourceName;
+      const sourceIcon = itemSource.includes("サイエンス") ? "🔬" : (itemSource === "Newswire" ? "🌐" : "📰");
       const dateFormatted = this.formatArticleDate(item.date, this.currentLang);
       const dateHtml = dateFormatted ? `<span>•</span><span>🕒 ${this.escapeHtml(dateFormatted)}</span>` : "";
 
@@ -203,7 +194,7 @@ class PRSourcesApp {
               ${titleEscaped}
             </a>
             <div class="source-item-meta">
-              <span>📰 ${sourceName}</span>
+              <span>${sourceIcon} ${this.escapeHtml(itemSource)}</span>
               ${dateHtml}
             </div>
           </div>

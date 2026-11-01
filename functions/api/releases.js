@@ -1,55 +1,49 @@
 // Cloudflare Pages Functions: /api/releases
-// PR TIMES (日本語) または Newswire (英語) の RSS をサーバー側で取得・パースして JSON を返す API
+// 日本語（PR TIMES・サイエンスポータル）または英語（Newswire）の RSS をサーバー側で取得・パースして JSON を返す API
 
 export async function onRequest(context) {
   const url = new URL(context.request.url);
   const lang = (url.searchParams.get("lang") || "ja").toLowerCase();
-
   const isEn = lang === "en";
-  const feedUrl = isEn
-    ? "https://www.newswire.com/newsroom/rss/all"
-    : "https://prtimes.jp/index.rdf";
-
-  const sourceName = isEn ? "Newswire" : "PR TIMES";
 
   try {
-    // 配信元へのリクエスト時はキャッシュを完全にバイパスし、その瞬間の最新フィードを取得
-    const response = await fetch(feedUrl, {
-      headers: {
-        "User-Agent": "Mozilla/5.0 (compatible; PRQuizBot/1.0; +https://prquiz.com)",
-        "Accept": "application/rss+xml, application/rdf+xml, application/xml, text/xml, */*",
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        "Pragma": "no-cache"
-      },
-      cf: {
-        cacheTtl: 0,
-        cacheEverything: false
-      }
-    });
+    let items = [];
+    let sourceName = "";
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch RSS: status ${response.status}`);
-    }
+    if (isEn) {
+      sourceName = "Newswire";
+      const nwItems = await fetchFeedItems("https://www.newswire.com/newsroom/rss/all", "Newswire");
+      items = nwItems.slice(0, 10);
+    } else {
+      sourceName = "PR TIMES / サイエンスポータル";
+      // 日本語フィードを並行取得（PR TIMES と サイエンスポータル）
+      const [prItems, spItems] = await Promise.all([
+        fetchFeedItems("https://prtimes.jp/index.rdf", "PR TIMES"),
+        fetchFeedItems("https://scienceportal.jst.go.jp/feed/rss.xml", "サイエンスポータル")
+      ]);
 
-    const xmlText = await response.text();
-    const allItems = parseRssItems(xmlText);
+      const prSlice = prItems.slice(0, 5);
+      const spSlice = spItems.slice(0, 5);
 
-    // 配信日時がある場合は最新順（降順）にソートを確実に保証
-    allItems.sort((a, b) => {
-      if (a.date && b.date) {
-        const timeA = new Date(a.date).getTime();
-        const timeB = new Date(b.date).getTime();
-        if (!isNaN(timeA) && !isNaN(timeB)) {
-          return timeB - timeA;
+      if (prSlice.length === 5 && spSlice.length === 5) {
+        // 交互にバランスよくインターリーブ
+        for (let i = 0; i < 5; i++) {
+          items.push(prSlice[i]);
+          items.push(spSlice[i]);
+        }
+      } else {
+        // 片方が不足している場合はあるだけ結合し、残りを補充
+        items = [...prSlice, ...spSlice];
+        if (items.length < 10 && prItems.length > prSlice.length) {
+          items = [...items, ...prItems.slice(5, 5 + (10 - items.length))];
+        }
+        if (items.length < 10 && spItems.length > spSlice.length) {
+          items = [...items, ...spItems.slice(5, 5 + (10 - items.length))];
         }
       }
-      return 0;
-    });
+    }
 
-    // 更新時点での最新10件を抽出
-    const items = allItems.slice(0, 10);
-
-    // 次の64分更新タイミングまでのキャッシュ秒数を算出（PRサイトへの負荷を最小限に抑制）
+    // 次の64分更新タイミングまでのキャッシュ秒数を算出（配信元への負荷を最小限に抑制）
     const ttlSeconds = getSecondsUntilNext64MinUpdate();
     const updatedAt = getLast64MinUpdate();
 
@@ -75,7 +69,7 @@ export async function onRequest(context) {
     return new Response(
       JSON.stringify({
         ok: false,
-        source: sourceName,
+        source: isEn ? "Newswire" : "PR TIMES / サイエンスポータル",
         error: error.message || "Unknown error",
         items: []
       }),
@@ -90,8 +84,49 @@ export async function onRequest(context) {
   }
 }
 
-// RSS / RDF の XML から <item> を抽出し、タイトルとリンクを取り出すパーサー
-function parseRssItems(xml) {
+// 配信元フィードをキャッシュバイパスでフェッチしてパース
+async function fetchFeedItems(feedUrl, defaultSource) {
+  try {
+    const response = await fetch(feedUrl, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; PRQuizBot/1.0; +https://prquiz.com)",
+        "Accept": "application/rss+xml, application/rdf+xml, application/xml, text/xml, */*",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache"
+      },
+      cf: {
+        cacheTtl: 0,
+        cacheEverything: false
+      }
+    });
+
+    if (!response.ok) {
+      return [];
+    }
+
+    const xmlText = await response.text();
+    const allItems = parseRssItems(xmlText, defaultSource);
+
+    // 配信日時がある場合は最新順（降順）にソート
+    allItems.sort((a, b) => {
+      if (a.date && b.date) {
+        const timeA = new Date(a.date).getTime();
+        const timeB = new Date(b.date).getTime();
+        if (!isNaN(timeA) && !isNaN(timeB)) {
+          return timeB - timeA;
+        }
+      }
+      return 0;
+    });
+
+    return allItems;
+  } catch (err) {
+    return [];
+  }
+}
+
+// RSS / RDF の XML から <item> を抽出し、タイトル・リンク・配信日時を取り出すパーサー
+function parseRssItems(xml, defaultSource = "") {
   const items = [];
   const itemRegex = /<item[\s\S]*?<\/item>/gi;
   let itemMatch;
@@ -129,7 +164,7 @@ function parseRssItems(xml) {
 
     // タイトルと記事個別リンクが両方取れた場合のみ追加
     if (title && link && link.startsWith("http")) {
-      items.push({ title, link, date });
+      items.push({ title, link, date, source: defaultSource });
     }
   }
 
@@ -170,4 +205,3 @@ function getLast64MinUpdate() {
   const lastBatchSec = currentBatch * INTERVAL_SECONDS;
   return new Date(lastBatchSec * 1000).toISOString();
 }
-

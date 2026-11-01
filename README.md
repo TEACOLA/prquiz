@@ -2,12 +2,12 @@
 
 プレスリリースのタイトルから1文字を **🍎（りんごの絵文字）** に伏字化し、その1文字を当てる3択クイズサイトです。
 
-- **日本語版**: [PR TIMES](https://prtimes.jp/) のRSSフィードから最新のプレスリリースを取得
+- **日本語版**: [PR TIMES](https://prtimes.jp/) および [サイエンスポータル](https://scienceportal.jst.go.jp/) のRSSフィードから最新記事を取得
 - **英語版**: [Newswire](https://www.newswire.com/newsroom/all) のRSSフィードから最新のプレスリリースを取得
 - **構成**:
   - `index.html`: クイズ出題・ヒント・回答判定（シングルページ）
-  - `sources.html`: クイズに使用されたプレスリリースの一覧（元記事への送客リンク集）
-  - `functions/api/releases.js`: Cloudflare Pages Functions によるサーバーサイドRSSプロキシ（CORS問題を解消し、5分間キャッシュ）
+  - `sources.html`: クイズに使用された記事の一覧（元記事への送客リンク集）
+  - `functions/api/releases.js`: Cloudflare Pages Functions によるサーバーサイドRSSプロキシ（CORS問題を解消し、64分間キャッシュ）
 
 ---
 
