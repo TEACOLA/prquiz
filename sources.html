@@ -19,14 +19,8 @@
       </a>
 
       <div class="header-actions">
-        <!-- 言語切り替え -->
-        <div class="lang-switch" role="group" aria-label="Language selection">
-          <button class="lang-btn active" data-lang="ja">🇯🇵 日本語</button>
-          <button class="lang-btn" data-lang="en">🇺🇸 English</button>
-        </div>
-
         <!-- クイズ画面へ戻るリンク -->
-        <a href="index.html" class="nav-link">
+        <a href="index.html" id="header-nav-link" class="nav-link">
           🍎 <span>クイズへ戻る</span>
         </a>
       </div>
@@ -51,16 +45,23 @@
     </div>
   </main>
 
-  <!-- フッター（スクロール追従 / 3行表示） -->
+  <!-- フッター -->
   <footer class="site-footer">
     <div class="footer-item">
       <a href="index.html" class="footer-link-main">prquiz.com</a>
     </div>
     <div class="footer-item">
+      <!-- 言語切り替え -->
+      <div class="lang-switch" role="group" aria-label="Language selection">
+        <button class="lang-btn active" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+    <div class="footer-item">
       <a href="sources.html" id="footer-sources-link" class="footer-link-sub">プレスリリースのソース元サイト一覧</a>
     </div>
     <div class="footer-item footer-score" id="footer-score">
-      正解数: 0 / 回答数: 0 (正解率: 0%)
+      正解数: 0 / 回答数: 0（正解率: 0%）
     </div>
   </footer>
 
