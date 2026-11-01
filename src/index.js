@@ -10,6 +10,12 @@ export default {
       return handleReleases(request);
     }
 
+    // /sources または /sources/ のURLルーティング（sources.html を配信）
+    if (url.pathname === "/sources" || url.pathname === "/sources/") {
+      const sourcesReq = new Request(new URL("/sources.html", request.url), request);
+      return env.ASSETS.fetch(sourcesReq);
+    }
+
     // 静的アセット（HTML, CSS, JS等）へのフォールバック
     if (env.ASSETS) {
       return env.ASSETS.fetch(request);

@@ -137,7 +137,6 @@ class PRSourcesApp {
       btn.classList.toggle("active", btn.dataset.lang === this.currentLang);
     });
 
-    const isEn = this.currentLang === "en";
     this.pageTitleEl.textContent = isEn
       ? "📰 Press Release Sources"
       : "📰 プレスリリース ソース元一覧";
