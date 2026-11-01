@@ -45,7 +45,7 @@ const FALLBACK_RELEASES = {
 
 class PRSourcesApp {
   constructor() {
-    this.currentLang = localStorage.getItem("prquiz_lang") || "ja";
+    this.currentLang = localStorage.getItem("prquiz_lang") || "en";
     this.langBtns = document.querySelectorAll(".lang-btn");
     this.sourcesListEl = document.getElementById("sources-list");
     this.pageTitleEl = document.getElementById("page-title");

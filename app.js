@@ -51,7 +51,7 @@ const DUMMY_KATAKANA = ["ア", "イ", "ウ", "エ", "オ", "カ", "キ", "ク", 
 
 class PRQuizApp {
   constructor() {
-    this.currentLang = localStorage.getItem("prquiz_lang") || "ja";
+    this.currentLang = localStorage.getItem("prquiz_lang") || "en";
     this.releases = [];
     this.currentIndex = 0;
     this.currentQuestion = null;

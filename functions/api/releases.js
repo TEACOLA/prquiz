@@ -3,7 +3,7 @@
 
 export async function onRequest(context) {
   const url = new URL(context.request.url);
-  const lang = (url.searchParams.get("lang") || "ja").toLowerCase();
+  const lang = (url.searchParams.get("lang") || "en").toLowerCase();
 
   const isEn = lang === "en";
   const feedUrl = isEn
