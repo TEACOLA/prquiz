@@ -22,7 +22,10 @@ const FALLBACK_RELEASES = {
     { title: "アミューズメント施設の届業務をもっと手軽に！「レイ変更け作成くん β」の提供を開始いたしました。", link: "https://prtimes.jp/main/html/rd/p/000000040.000015943.html", date: "2026-11-01T22:10:02+09:00", source: "PR TIMES" },
     { title: "この卵はプリンに？茶碗蒸しに？ 鶏の飼い方で味が変わる 農工大など", link: "https://scienceportal.jst.go.jp/stories/20261020_s01/", date: "2026-10-20T15:50:04+09:00", source: "サイエンスポータル" },
     { title: "VML & Ogilvy Japan、マーケティング効果を評価するアワード「APAC Effie Awards」にてブロンズを受賞", link: "https://prtimes.jp/main/html/rd/p/000000031.000107739.html", date: "2026-11-01T22:10:02+09:00", source: "PR TIMES" },
-    { title: "打ち上げ迫る「MMX」 火星衛星フォボスから、どんなお土産を？", link: "https://scienceportal.jst.go.jp/stories/20261019_s01/", date: "2026-10-19T14:50:09+09:00", source: "サイエンスポータル" }
+    { title: "打ち上げ迫る「MMX」 火星衛星フォボスから、どんなお土産を？", link: "https://scienceportal.jst.go.jp/stories/20261019_s01/", date: "2026-10-19T14:50:09+09:00", source: "サイエンスポータル" },
+    { title: "不正アクセスによる個人情報漏えい等の被害にあわれた方の相談受付強化について", link: "https://www.ipa.go.jp/pressrelease/2026/press20261102.html", date: "2026-11-02T00:00:00+09:00", source: "IPA プレス発表" },
+    { title: "更新：PHPの脆弱性対策について(CVE-2026-109618、CVE-2026-109619：PHP2shell)", link: "https://www.ipa.go.jp/security/security-alert/2026/alert20261022.html", date: "2026-11-02T00:00:00+09:00", source: "IPA セキュリティ" },
+    { title: "DX認定制度 認定事業者の公表（2026年11月1日認定適用）", link: "https://disclosure.dx-portal.ipa.go.jp/", date: "2026-11-02T00:00:00+09:00", source: "IPA お知らせ" }
   ],
   en: [
     { title: "A New Chapter in America's Lithium Story: Elektros (OTC:ELEK) Advances Its Review of a Northern New York Opportunity", link: "https://www.newswire.com/news/see-2277941", date: "Sun, 01 Nov 2026 00:12:00 +0000", source: "Newswire" },
@@ -262,6 +265,7 @@ class PRSourcesApp {
       let sourceIcon = "📰";
       if (itemSource.includes("サイエンス")) sourceIcon = "🔬";
       else if (itemSource.includes("NASA")) sourceIcon = "🚀";
+      else if (itemSource.includes("IPA")) sourceIcon = "🛡️";
       else if (itemSource === "Newswire") sourceIcon = "🌐";
       const dateFormatted = this.formatArticleDate(item.date, this.currentLang);
       const dateHtml = dateFormatted ? `<span>•</span><span>🕒 ${this.escapeHtml(dateFormatted)}</span>` : "";

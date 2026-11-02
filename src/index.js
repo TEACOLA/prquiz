@@ -58,21 +58,39 @@ async function handleReleases(request) {
         if (i < nasaSlice.length) items.push(nasaSlice[i]);
       }
     } else {
-      sourceName = "PR TIMES / サイエンスポータル";
-      // 日本語フィードを並行取得（各ソースから最新10件ずつ取得）
-      const [prItems, spItems] = await Promise.all([
+      sourceName = "PR TIMES / サイエンスポータル / IPA";
+      // 日本語フィードを並行取得（各ソースから最新記事を取得）
+      const [prItems, spItems, ipaAlertItems, ipaNewsItems, ipaPressItems] = await Promise.all([
         fetchFeedItems("https://prtimes.jp/index.rdf", "PR TIMES"),
-        fetchFeedItems("https://scienceportal.jst.go.jp/feed/rss.xml", "サイエンスポータル")
+        fetchFeedItems("https://scienceportal.jst.go.jp/feed/rss.xml", "サイエンスポータル"),
+        fetchFeedItems("https://www.ipa.go.jp/security/alert-rss.rdf", "IPA セキュリティ"),
+        fetchFeedItems("https://www.ipa.go.jp/about/newsonly-rss.rdf", "IPA お知らせ"),
+        fetchFeedItems("https://www.ipa.go.jp/about/press-rss.rdf", "IPA プレス発表")
       ]);
 
-      const prSlice = prItems.slice(0, 10);
-      const spSlice = spItems.slice(0, 10);
+      const allSlices = [
+        prItems.slice(0, 10),
+        spItems.slice(0, 10),
+        ipaPressItems.slice(0, 8),
+        ipaAlertItems.slice(0, 8),
+        ipaNewsItems.slice(0, 8)
+      ];
 
-      // 交互にバランスよくインターリーブして結合
-      const maxLen = Math.max(prSlice.length, spSlice.length);
+      const seenLinks = new Set();
+      const seenTitles = new Set();
+      const maxLen = Math.max(...allSlices.map(s => s.length));
+
       for (let i = 0; i < maxLen; i++) {
-        if (i < prSlice.length) items.push(prSlice[i]);
-        if (i < spSlice.length) items.push(spSlice[i]);
+        for (const slice of allSlices) {
+          if (i < slice.length) {
+            const item = slice[i];
+            if (item && !seenLinks.has(item.link) && !seenTitles.has(item.title)) {
+              seenLinks.add(item.link);
+              seenTitles.add(item.title);
+              items.push(item);
+            }
+          }
+        }
       }
     }
 
@@ -249,6 +267,9 @@ function cleanText(text) {
       // &amp; は他の参照を展開した後にデコード
       .replace(/&amp;/gi, "&");
   }
+
+  // IPAプレス発表等の定型接頭辞を削除してクイズのタイトルを自然にする
+  result = result.replace(/^プレス発表\s+/, "");
 
   return result.replace(/\s+/g, " ").trim();
 }
