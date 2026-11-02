@@ -479,9 +479,10 @@ class PRQuizApp {
 
     this.resultOriginalTitle.textContent = this.currentQuestion.originalTitle;
     this.resultLink.href = this.currentQuestion.link;
+    const sourceName = this.currentQuestion.source || (isEn ? "Newswire" : "PR TIMES");
     this.resultLink.innerHTML = isEn
-      ? "Read full article on original site ↗"
-      : "記事の全文を元サイトで読む ↗";
+      ? `Read full article on original site ↗ (${this.escapeHtml(sourceName)})`
+      : `記事の全文を元サイトで読む ↗ （${this.escapeHtml(sourceName)}）`;
 
     // 3択ボタンを押した後に result-box までスムーズにスクロール
     setTimeout(() => {
