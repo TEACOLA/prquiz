@@ -72,7 +72,8 @@ async function handleReleases(request) {
         npaItems,
         mhlwItems,
         egovListItems,
-        egovResultItems
+        egovResultItems,
+        caaItems
       ] = await Promise.all([
         fetchFeedItems("https://prtimes.jp/index.rdf", "PR TIMES"),
         fetchFeedItems("https://scienceportal.jst.go.jp/feed/rss.xml", "サイエンスポータル"),
@@ -85,7 +86,8 @@ async function handleReleases(request) {
         fetchFeedItems("https://www.npa.go.jp/newlyarrived/rss20.xml", "警察庁"),
         fetchFeedItems("https://www.mhlw.go.jp/stf/news.rdf", "厚生労働省"),
         fetchFeedItems("https://public-comment.e-gov.go.jp/rss/pcm_list.xml", "e-Gov パブコメ募集"),
-        fetchFeedItems("https://public-comment.e-gov.go.jp/rss/pcm_result.xml", "e-Gov パブコメ結果")
+        fetchFeedItems("https://public-comment.e-gov.go.jp/rss/pcm_result.xml", "e-Gov パブコメ結果"),
+        fetchFeedItems("https://www.caa.go.jp/news.rss", "消費者庁")
       ]);
 
       const allSlices = [
@@ -95,6 +97,7 @@ async function handleReleases(request) {
         govItems.slice(0, 6),
         digitalItems.slice(0, 6),
         mhlwItems.slice(0, 6),
+        caaItems.slice(0, 6),
         ipaPressItems.slice(0, 5),
         ipaAlertItems.slice(0, 5),
         ipaNewsItems.slice(0, 5),

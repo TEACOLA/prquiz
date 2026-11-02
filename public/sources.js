@@ -132,6 +132,13 @@ const OFFICIAL_FEEDS = {
       siteUrl: "https://scienceportal.jst.go.jp/"
     },
     {
+      name: "消費者庁",
+      category: "新着情報",
+      icon: "📢",
+      feedUrl: "https://www.caa.go.jp/news.rss",
+      siteUrl: "https://www.caa.go.jp/"
+    },
+    {
       name: "PR TIMES",
       category: "プレスリリース総合",
       icon: "📰",
@@ -434,6 +441,7 @@ class PRSourcesApp {
       else if (itemSource.includes("政府広報")) sourceIcon = "🏛️";
       else if (itemSource.includes("e-Gov")) sourceIcon = "📜";
       else if (itemSource.includes("IPA")) sourceIcon = "🛡️";
+      else if (itemSource.includes("消費者")) sourceIcon = "📢";
       else if (itemSource === "Newswire") sourceIcon = "🌐";
       const dateFormatted = this.formatArticleDate(item.date, this.currentLang);
       const dateHtml = dateFormatted ? `<span>•</span><span>🕒 ${this.escapeHtml(dateFormatted)}</span>` : "";
