@@ -255,10 +255,17 @@ class PRSourcesApp {
       return;
     }
 
+    // 下に行くほど古い記事になるように、配信日時の新しい順（降順）で並び替え
+    const sortedItems = [...items].sort((a, b) => {
+      const timeA = this.getTimestamp(a.date);
+      const timeB = this.getTimestamp(b.date);
+      return timeB - timeA;
+    });
+
     const isEn = this.currentLang === "en";
     const btnLabel = isEn ? "Read Article ↗" : "元記事を読む ↗";
 
-    this.sourcesListEl.innerHTML = items.map((item, index) => {
+    this.sourcesListEl.innerHTML = sortedItems.map((item, index) => {
       const titleEscaped = this.escapeHtml(item.title);
       const linkEscaped = this.escapeHtml(item.link);
       const itemSource = item.source || sourceName;
@@ -292,6 +299,17 @@ class PRSourcesApp {
         </article>
       `;
     }).join("");
+  }
+
+  getTimestamp(dateStr) {
+    if (!dateStr) return 0;
+    try {
+      const normalizedDate = typeof dateStr === "string" ? dateStr.replace(/\bJST\b/g, "+09:00") : dateStr;
+      const t = new Date(normalizedDate).getTime();
+      return isNaN(t) ? 0 : t;
+    } catch (e) {
+      return 0;
+    }
   }
 
   formatArticleDate(dateStr, lang) {
