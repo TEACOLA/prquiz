@@ -77,7 +77,14 @@ async function handleReleases(request) {
         jetroBizItems,
         jetroEventItems,
         metiItems,
-        metiJournalItems
+        metiJournalItems,
+        nintendoItems,
+        irasutoyaItems,
+        soumuItems,
+        esriItems,
+        aistItems,
+        nimsItems,
+        rikenItems
       ] = await Promise.all([
         fetchFeedItems("https://prtimes.jp/index.rdf", "PR TIMES"),
         fetchFeedItems("https://scienceportal.jst.go.jp/feed/rss.xml", "サイエンスポータル"),
@@ -95,27 +102,41 @@ async function handleReleases(request) {
         fetchFeedItems("https://www.jetro.go.jp/rss2/biznews.xml", "ジェトロ ビジネス短信"),
         fetchFeedItems("https://www.jetro.go.jp/rss/event.xml", "ジェトロ イベント情報"),
         fetchFeedItems("https://www.meti.go.jp/ml_index_release_atom.xml", "経済産業省"),
-        fetchFeedItems("https://journal.meti.go.jp/feed/", "METI Journal")
+        fetchFeedItems("https://journal.meti.go.jp/feed/", "METI Journal"),
+        fetchFeedItems("https://www.nintendo.co.jp/news/whatsnew.xml", "任天堂"),
+        fetchFeedItems("https://www.irasutoya.com/feeds/posts/default?alt=rss", "いらすとや"),
+        fetchFeedItems("https://www.soumu.go.jp/news.rdf", "総務省"),
+        fetchFeedItems("https://www.esri.cao.go.jp/rss-jp.xml", "内閣府 ESRI"),
+        fetchFeedItems("https://www.aist.go.jp/ctl/module/mid/27/tid/75/rss.php", "産総研"),
+        fetchFeedItems("https://www.nims.go.jp/news/newsall.xml", "NIMS"),
+        fetchFeedItems("https://www.riken.jp/feed/press_feed/", "理化学研究所")
       ]);
 
       const allSlices = [
         prItems.slice(0, 8),
+        nintendoItems.slice(0, 6),
+        irasutoyaItems.slice(0, 6),
         spItems.slice(0, 6),
         jaxaItems.slice(0, 6),
-        govItems.slice(0, 6),
-        digitalItems.slice(0, 6),
-        mhlwItems.slice(0, 6),
-        caaItems.slice(0, 6),
-        jetroBizItems.slice(0, 6),
-        jetroEventItems.slice(0, 6),
-        metiItems.slice(0, 6),
-        metiJournalItems.slice(0, 6),
-        ipaPressItems.slice(0, 5),
-        ipaAlertItems.slice(0, 5),
-        ipaNewsItems.slice(0, 5),
-        egovListItems.slice(0, 5),
-        egovResultItems.slice(0, 5),
-        npaItems.slice(0, 5)
+        rikenItems.slice(0, 6),
+        aistItems.slice(0, 5),
+        nimsItems.slice(0, 5),
+        govItems.slice(0, 5),
+        digitalItems.slice(0, 5),
+        soumuItems.slice(0, 5),
+        mhlwItems.slice(0, 5),
+        caaItems.slice(0, 5),
+        esriItems.slice(0, 5),
+        jetroBizItems.slice(0, 5),
+        jetroEventItems.slice(0, 5),
+        metiItems.slice(0, 5),
+        metiJournalItems.slice(0, 5),
+        ipaPressItems.slice(0, 4),
+        ipaAlertItems.slice(0, 4),
+        ipaNewsItems.slice(0, 4),
+        egovListItems.slice(0, 4),
+        egovResultItems.slice(0, 4),
+        npaItems.slice(0, 4)
       ];
 
       const seenLinks = new Set();
@@ -177,6 +198,50 @@ async function handleReleases(request) {
   }
 }
 
+// レスポンスのエンコーディング（UTF-8, Shift_JIS等）を自動判定してデコード
+async function decodeResponseBody(response) {
+  const buffer = await response.arrayBuffer();
+  const bytes = new Uint8Array(buffer);
+
+  // 1. Content-Type ヘッダーから charset 検出
+  const contentType = response.headers.get("content-type") || "";
+  const ctCharsetMatch = contentType.match(/charset=([^;]+)/i);
+  let charset = ctCharsetMatch ? ctCharsetMatch[1].trim().toLowerCase() : "";
+
+  // 2. 先頭の XML 宣言 (<?xml ... encoding="..."?>) から charset 検出
+  if (!charset) {
+    let headerStr = "";
+    const len = Math.min(bytes.length, 300);
+    for (let i = 0; i < len; i++) {
+      headerStr += String.fromCharCode(bytes[i]);
+    }
+    const xmlEncodingMatch = headerStr.match(/encoding=["']([^"']+)["']/i);
+    if (xmlEncodingMatch) {
+      charset = xmlEncodingMatch[1].trim().toLowerCase();
+    }
+  }
+
+  // デフォルトは utf-8
+  if (!charset) {
+    charset = "utf-8";
+  }
+
+  // shift_jis, sjis, x-sjis, windows-31j の正規化
+  if (charset.includes("shift") || charset.includes("sjis") || charset === "windows-31j") {
+    charset = "shift_jis";
+  } else if (charset.includes("euc")) {
+    charset = "euc-jp";
+  }
+
+  try {
+    const decoder = new TextDecoder(charset);
+    return decoder.decode(buffer);
+  } catch (err) {
+    const fallbackDecoder = new TextDecoder("utf-8");
+    return fallbackDecoder.decode(buffer);
+  }
+}
+
 // 配信元フィードをキャッシュバイパスでフェッチしてパース
 async function fetchFeedItems(feedUrl, defaultSource) {
   try {
@@ -197,7 +262,7 @@ async function fetchFeedItems(feedUrl, defaultSource) {
       return [];
     }
 
-    const xmlText = await response.text();
+    const xmlText = await decodeResponseBody(response);
     const allItems = parseRssItems(xmlText, defaultSource);
 
     // 配信日時がある場合は最新順（降順）にソート

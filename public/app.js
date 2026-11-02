@@ -297,6 +297,13 @@ class PRQuizApp {
       else if (itemSource.includes("消費者")) icon = "📢";
       else if (itemSource.includes("ジェトロ") || itemSource.includes("JETRO")) icon = "💼";
       else if (itemSource.includes("経済産業") || itemSource.includes("METI")) icon = "🏭";
+      else if (itemSource.includes("任天堂")) icon = "🎮";
+      else if (itemSource.includes("いらすとや")) icon = "🎨";
+      else if (itemSource.includes("総務")) icon = "📮";
+      else if (itemSource.includes("ESRI")) icon = "📊";
+      else if (itemSource.includes("産総研") || itemSource.includes("AIST")) icon = "🧪";
+      else if (itemSource.includes("NIMS") || itemSource.includes("物質")) icon = "💎";
+      else if (itemSource.includes("理研") || itemSource.includes("理化学") || itemSource.includes("RIKEN")) icon = "🧬";
       else if (itemSource === "Newswire") icon = "🌐";
       this.sourceBadgeEl.innerHTML = `${icon} ${itemSource} (${this.currentIndex + 1}/${this.releases.length})`;
     }

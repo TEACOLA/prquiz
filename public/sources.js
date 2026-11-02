@@ -167,6 +167,55 @@ const OFFICIAL_FEEDS = {
       siteUrl: "https://journal.meti.go.jp/"
     },
     {
+      name: "任天堂",
+      category: "ホームページ更新情報",
+      icon: "🎮",
+      feedUrl: "https://www.nintendo.co.jp/news/whatsnew.xml",
+      siteUrl: "https://www.nintendo.com/jp/"
+    },
+    {
+      name: "いらすとや",
+      category: "イラスト最新情報",
+      icon: "🎨",
+      feedUrl: "https://www.irasutoya.com/feeds/posts/default?alt=rss",
+      siteUrl: "https://www.irasutoya.com/"
+    },
+    {
+      name: "総務省",
+      category: "報道資料・新着情報",
+      icon: "📮",
+      feedUrl: "https://www.soumu.go.jp/news.rdf",
+      siteUrl: "https://www.soumu.go.jp/"
+    },
+    {
+      name: "内閣府 経済社会総合研究所 (ESRI)",
+      category: "経済統計・研究成果",
+      icon: "📊",
+      feedUrl: "https://www.esri.cao.go.jp/rss-jp.xml",
+      siteUrl: "https://www.esri.cao.go.jp/"
+    },
+    {
+      name: "産業技術総合研究所 (産総研)",
+      category: "研究成果・新着情報",
+      icon: "🧪",
+      feedUrl: "https://www.aist.go.jp/ctl/module/mid/27/tid/75/rss.php",
+      siteUrl: "https://www.aist.go.jp/"
+    },
+    {
+      name: "物質・材料研究機構 (NIMS)",
+      category: "研究成果・お知らせ",
+      icon: "💎",
+      feedUrl: "https://www.nims.go.jp/news/newsall.xml",
+      siteUrl: "https://www.nims.go.jp/"
+    },
+    {
+      name: "理化学研究所 (理研)",
+      category: "プレスリリース・研究成果",
+      icon: "🧬",
+      feedUrl: "https://www.riken.jp/feed/press_feed/",
+      siteUrl: "https://www.riken.jp/"
+    },
+    {
       name: "PR TIMES",
       category: "プレスリリース総合",
       icon: "📰",
@@ -474,6 +523,13 @@ class PRSourcesApp {
       else if (itemSource.includes("消費者")) sourceIcon = "📢";
       else if (itemSource.includes("ジェトロ") || itemSource.includes("JETRO")) sourceIcon = "💼";
       else if (itemSource.includes("経済産業") || itemSource.includes("METI")) sourceIcon = "🏭";
+      else if (itemSource.includes("任天堂")) sourceIcon = "🎮";
+      else if (itemSource.includes("いらすとや")) sourceIcon = "🎨";
+      else if (itemSource.includes("総務")) sourceIcon = "📮";
+      else if (itemSource.includes("ESRI")) sourceIcon = "📊";
+      else if (itemSource.includes("産総研") || itemSource.includes("AIST")) sourceIcon = "🧪";
+      else if (itemSource.includes("NIMS") || itemSource.includes("物質")) sourceIcon = "💎";
+      else if (itemSource.includes("理研") || itemSource.includes("理化学") || itemSource.includes("RIKEN")) sourceIcon = "🧬";
       else if (itemSource === "Newswire") sourceIcon = "🌐";
       const dateFormatted = this.formatArticleDate(item.date, this.currentLang);
       const dateHtml = dateFormatted ? `<span>•</span><span>🕒 ${this.escapeHtml(dateFormatted)}</span>` : "";
