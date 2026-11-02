@@ -51,6 +51,112 @@ const FALLBACK_RELEASES = {
   ]
 };
 
+// クイズ問題の生成に利用している公式RSS/RDFフィード一覧
+const OFFICIAL_FEEDS = {
+  ja: [
+    {
+      name: "JAXA 宇宙航空研究開発機構",
+      category: "プレスリリース",
+      icon: "🚀",
+      feedUrl: "https://www.jaxa.jp/rss/press_j.rdf",
+      siteUrl: "https://www.jaxa.jp/"
+    },
+    {
+      name: "内閣府 政府広報オンライン",
+      category: "新着記事",
+      icon: "🏛️",
+      feedUrl: "https://www.gov-online.go.jp/rss/index.rdf",
+      siteUrl: "https://www.gov-online.go.jp/"
+    },
+    {
+      name: "デジタル庁",
+      category: "ニュース・更新情報",
+      icon: "💻",
+      feedUrl: "https://www.digital.go.jp/rss/news.xml",
+      siteUrl: "https://www.digital.go.jp/"
+    },
+    {
+      name: "警察庁",
+      category: "新着情報",
+      icon: "🚔",
+      feedUrl: "https://www.npa.go.jp/newlyarrived/rss20.xml",
+      siteUrl: "https://www.npa.go.jp/"
+    },
+    {
+      name: "厚生労働省",
+      category: "報道発表・新着情報",
+      icon: "🏥",
+      feedUrl: "https://www.mhlw.go.jp/stf/news.rdf",
+      siteUrl: "https://www.mhlw.go.jp/"
+    },
+    {
+      name: "e-Gov パブリック・コメント",
+      category: "意見募集中案件",
+      icon: "📜",
+      feedUrl: "https://public-comment.e-gov.go.jp/rss/pcm_list.xml",
+      siteUrl: "https://public-comment.e-gov.go.jp/"
+    },
+    {
+      name: "e-Gov パブリック・コメント",
+      category: "結果公示案件",
+      icon: "📜",
+      feedUrl: "https://public-comment.e-gov.go.jp/rss/pcm_result.xml",
+      siteUrl: "https://public-comment.e-gov.go.jp/"
+    },
+    {
+      name: "IPA 独立行政法人 情報処理推進機構",
+      category: "セキュリティ注意喚起",
+      icon: "🛡️",
+      feedUrl: "https://www.ipa.go.jp/security/alert-rss.rdf",
+      siteUrl: "https://www.ipa.go.jp/"
+    },
+    {
+      name: "IPA 独立行政法人 情報処理推進機構",
+      category: "新着情報",
+      icon: "🛡️",
+      feedUrl: "https://www.ipa.go.jp/about/newsonly-rss.rdf",
+      siteUrl: "https://www.ipa.go.jp/"
+    },
+    {
+      name: "IPA 独立行政法人 情報処理推進機構",
+      category: "プレス発表",
+      icon: "🛡️",
+      feedUrl: "https://www.ipa.go.jp/about/press-rss.rdf",
+      siteUrl: "https://www.ipa.go.jp/"
+    },
+    {
+      name: "科学技術振興機構 (JST)",
+      category: "サイエンスポータル ニュース",
+      icon: "🔬",
+      feedUrl: "https://scienceportal.jst.go.jp/feed/rss.xml",
+      siteUrl: "https://scienceportal.jst.go.jp/"
+    },
+    {
+      name: "PR TIMES",
+      category: "プレスリリース総合",
+      icon: "📰",
+      feedUrl: "https://prtimes.jp/index.rdf",
+      siteUrl: "https://prtimes.jp/"
+    }
+  ],
+  en: [
+    {
+      name: "Newswire",
+      category: "Press Releases (All)",
+      icon: "🌐",
+      feedUrl: "https://www.newswire.com/newsroom/rss/all",
+      siteUrl: "https://www.newswire.com/"
+    },
+    {
+      name: "NASA",
+      category: "News Releases",
+      icon: "🚀",
+      feedUrl: "https://www.nasa.gov/news-release/feed/",
+      siteUrl: "https://www.nasa.gov/"
+    }
+  ]
+};
+
 // ブラウザの言語環境から初期表示言語を判定（日本語環境なら ja、それ以外なら en）
 function detectInitialLanguage() {
   // 1. URLパラメータ (?lang=ja または ?lang=en) が指定されていれば最優先
@@ -82,6 +188,9 @@ class PRSourcesApp {
     this.headerAccuracyEl = document.getElementById("header-accuracy");
     this.footerSourcesLink = document.getElementById("footer-sources-link");
     this.updateTimeTextEl = document.getElementById("update-time-text");
+    this.feedsGridEl = document.getElementById("feeds-grid");
+    this.feedsTitleEl = document.getElementById("feeds-title");
+    this.feedsDescEl = document.getElementById("feeds-desc");
     this.lastUpdatedAt = null;
 
     this.init();
@@ -180,6 +289,53 @@ class PRSourcesApp {
     }
     this.updateFooterScore();
     this.renderUpdateTime();
+    this.renderFeeds();
+  }
+
+  renderFeeds() {
+    if (!this.feedsGridEl) return;
+    const isEn = this.currentLang === "en";
+    const feeds = OFFICIAL_FEEDS[this.currentLang] || OFFICIAL_FEEDS.ja;
+
+    if (this.feedsTitleEl) {
+      this.feedsTitleEl.textContent = isEn
+        ? "📡 Official RSS / RDF Feeds"
+        : "📡 利用している公式RSS/RDFフィード一覧";
+    }
+
+    if (this.feedsDescEl) {
+      this.feedsDescEl.textContent = isEn
+        ? "PR Quiz fetches publicly available feeds from these official institutions and media sources to generate quiz questions."
+        : "PR Quiz では、各機関・メディアが一般公開している公式フィードを取得し、クイズの問題として活用させていただいています。";
+    }
+
+    this.feedsGridEl.innerHTML = feeds.map(feed => {
+      const nameEscaped = this.escapeHtml(feed.name);
+      const catEscaped = this.escapeHtml(feed.category);
+      const feedUrlEscaped = this.escapeHtml(feed.feedUrl);
+      const siteUrlEscaped = this.escapeHtml(feed.siteUrl);
+      const feedType = feed.feedUrl.endsWith(".rdf") ? "RDF" : "RSS";
+
+      return `
+        <div class="feed-item-card">
+          <div class="feed-item-header">
+            <span class="feed-item-icon" aria-hidden="true">${feed.icon}</span>
+            <div class="feed-item-titles">
+              <a href="${siteUrlEscaped}" target="_blank" rel="noopener noreferrer" class="feed-item-name">
+                ${nameEscaped}
+              </a>
+              <span class="feed-item-cat">${catEscaped}</span>
+            </div>
+          </div>
+          <div class="feed-item-body">
+            <span class="feed-type-badge">${feedType}</span>
+            <a href="${feedUrlEscaped}" target="_blank" rel="noopener noreferrer" class="feed-item-url" title="${feedUrlEscaped}">
+              ${feedUrlEscaped}
+            </a>
+          </div>
+        </div>
+      `;
+    }).join("");
   }
 
   renderUpdateTime() {
