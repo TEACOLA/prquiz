@@ -191,7 +191,7 @@ class PRSourcesApp {
       d = new Date(this.lastUpdatedAt);
     } else {
       const nowSec = Math.floor(Date.now() / 1000);
-      const batchSec = Math.floor(nowSec / (64 * 60)) * (64 * 60);
+      const batchSec = Math.floor(nowSec / (128 * 60)) * (128 * 60);
       d = new Date(batchSec * 1000);
     }
 

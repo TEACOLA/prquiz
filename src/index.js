@@ -94,9 +94,9 @@ async function handleReleases(request) {
       }
     }
 
-    // 次の64分更新タイミングまでのキャッシュ秒数を算出（配信元への負荷を最小限に抑制）
-    const ttlSeconds = getSecondsUntilNext64MinUpdate();
-    const updatedAt = getLast64MinUpdate();
+    // 次の128分更新タイミングまでのキャッシュ秒数を算出（配信元への負荷を最小限に抑制）
+    const ttlSeconds = getSecondsUntilNext128MinUpdate();
+    const updatedAt = getLast128MinUpdate();
 
     return new Response(
       JSON.stringify({
@@ -111,7 +111,7 @@ async function handleReleases(request) {
         headers: {
           "Content-Type": "application/json; charset=utf-8",
           "Access-Control-Allow-Origin": "*",
-          // 64分周期でエッジキャッシュ（配信元へのアクセスは64分に1回のみ）
+          // 128分周期でエッジキャッシュ（配信元へのアクセスは128分に1回のみ）
           "Cache-Control": `public, max-age=${ttlSeconds}, s-maxage=${ttlSeconds}`
         }
       }
@@ -274,10 +274,10 @@ function cleanText(text) {
   return result.replace(/\s+/g, " ").trim();
 }
 
-const INTERVAL_SECONDS = 64 * 60; // 64分周期（3,840秒）
+const INTERVAL_SECONDS = 128 * 60; // 128分周期（7,680秒）
 
-// 次の64分更新タイミングまでの残り秒数を算出
-function getSecondsUntilNext64MinUpdate() {
+// 次の128分更新タイミングまでの残り秒数を算出
+function getSecondsUntilNext128MinUpdate() {
   const nowSec = Math.floor(Date.now() / 1000);
   const currentBatch = Math.floor(nowSec / INTERVAL_SECONDS);
   const nextBatchSec = (currentBatch + 1) * INTERVAL_SECONDS;
@@ -285,8 +285,8 @@ function getSecondsUntilNext64MinUpdate() {
   return Math.max(60, remaining); // 最低60秒
 }
 
-// 直近の64分更新タイミングのISO日時文字列を取得
-function getLast64MinUpdate() {
+// 直近の128分更新タイミングのISO日時文字列を取得
+function getLast128MinUpdate() {
   const nowSec = Math.floor(Date.now() / 1000);
   const currentBatch = Math.floor(nowSec / INTERVAL_SECONDS);
   const lastBatchSec = currentBatch * INTERVAL_SECONDS;
