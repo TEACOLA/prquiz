@@ -277,7 +277,7 @@ class PRQuizApp {
     this.currentQuestion = {
       ...quizData,
       link: item.link,
-      source: item.source
+      source: item.source || (this.currentLang === "en" ? "Newswire" : "PR TIMES")
     };
 
     this.hasAnswered = false;
