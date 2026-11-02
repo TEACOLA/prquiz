@@ -123,6 +123,7 @@ class PRQuizApp {
     this.langBtns.forEach(btn => {
       btn.addEventListener("click", async (e) => {
         const selectedLang = e.currentTarget.dataset.lang;
+        this.scrollToTop();
         if (selectedLang !== this.currentLang) {
           this.currentLang = selectedLang;
           localStorage.setItem("prquiz_lang", this.currentLang);
@@ -481,14 +482,11 @@ class PRQuizApp {
     }, 60);
   }
 
-  nextQuestion() {
+  scrollToTop() {
     // ボタンのフォーカスを解除（ブラウザがボタン位置にスクロールを留めようとするのを防ぐ）
     if (document.activeElement && typeof document.activeElement.blur === "function") {
       document.activeElement.blur();
     }
-
-    this.currentIndex = (this.currentIndex + 1) % this.releases.length;
-    this.showQuestion();
 
     // ページ最上部（ヘッダー）へスクロール
     const header = document.querySelector(".site-header");
@@ -502,7 +500,7 @@ class PRQuizApp {
       window.scrollTo(0, 0);
     }
 
-    // レイアウト変更（結果表示エリアの非表示）直後にスクロールが中断された場合のフォールバック
+    // レイアウト変更直後にスクロールが中断された場合のフォールバック
     requestAnimationFrame(() => {
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       setTimeout(() => {
@@ -513,6 +511,12 @@ class PRQuizApp {
         }
       }, 150);
     });
+  }
+
+  nextQuestion() {
+    this.currentIndex = (this.currentIndex + 1) % this.releases.length;
+    this.showQuestion();
+    this.scrollToTop();
   }
 
   // 右上の正解率バッジを2秒間輝かせる演出

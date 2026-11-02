@@ -114,6 +114,7 @@ class PRSourcesApp {
     this.langBtns.forEach(btn => {
       btn.addEventListener("click", (e) => {
         const lang = e.currentTarget.dataset.lang;
+        this.scrollToTop();
         if (lang !== this.currentLang) {
           this.currentLang = lang;
           localStorage.setItem("prquiz_lang", this.currentLang);
@@ -121,6 +122,34 @@ class PRSourcesApp {
           this.loadSources(this.currentLang);
         }
       });
+    });
+  }
+
+  scrollToTop() {
+    if (document.activeElement && typeof document.activeElement.blur === "function") {
+      document.activeElement.blur();
+    }
+
+    const header = document.querySelector(".site-header");
+    if (header && typeof header.scrollIntoView === "function") {
+      header.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    try {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    } catch (e) {
+      window.scrollTo(0, 0);
+    }
+
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      setTimeout(() => {
+        if (window.scrollY > 10) {
+          window.scrollTo(0, 0);
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+        }
+      }, 150);
     });
   }
 
