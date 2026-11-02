@@ -58,22 +58,49 @@ async function handleReleases(request) {
         if (i < nasaSlice.length) items.push(nasaSlice[i]);
       }
     } else {
-      sourceName = "PR TIMES / サイエンスポータル / IPA";
+      sourceName = "PR TIMES / JAXA / 官公庁 / IPA / サイエンスポータル";
       // 日本語フィードを並行取得（各ソースから最新記事を取得）
-      const [prItems, spItems, ipaAlertItems, ipaNewsItems, ipaPressItems] = await Promise.all([
+      const [
+        prItems,
+        spItems,
+        ipaAlertItems,
+        ipaNewsItems,
+        ipaPressItems,
+        jaxaItems,
+        govItems,
+        digitalItems,
+        npaItems,
+        mhlwItems,
+        egovListItems,
+        egovResultItems
+      ] = await Promise.all([
         fetchFeedItems("https://prtimes.jp/index.rdf", "PR TIMES"),
         fetchFeedItems("https://scienceportal.jst.go.jp/feed/rss.xml", "サイエンスポータル"),
         fetchFeedItems("https://www.ipa.go.jp/security/alert-rss.rdf", "IPA セキュリティ"),
         fetchFeedItems("https://www.ipa.go.jp/about/newsonly-rss.rdf", "IPA お知らせ"),
-        fetchFeedItems("https://www.ipa.go.jp/about/press-rss.rdf", "IPA プレス発表")
+        fetchFeedItems("https://www.ipa.go.jp/about/press-rss.rdf", "IPA プレス発表"),
+        fetchFeedItems("https://www.jaxa.jp/rss/press_j.rdf", "JAXA"),
+        fetchFeedItems("https://www.gov-online.go.jp/rss/index.rdf", "政府広報"),
+        fetchFeedItems("https://www.digital.go.jp/rss/news.xml", "デジタル庁"),
+        fetchFeedItems("https://www.npa.go.jp/newlyarrived/rss20.xml", "警察庁"),
+        fetchFeedItems("https://www.mhlw.go.jp/stf/news.rdf", "厚生労働省"),
+        fetchFeedItems("https://public-comment.e-gov.go.jp/rss/pcm_list.xml", "e-Gov パブコメ募集"),
+        fetchFeedItems("https://public-comment.e-gov.go.jp/rss/pcm_result.xml", "e-Gov パブコメ結果")
       ]);
 
       const allSlices = [
-        prItems.slice(0, 10),
-        spItems.slice(0, 10),
-        ipaPressItems.slice(0, 8),
-        ipaAlertItems.slice(0, 8),
-        ipaNewsItems.slice(0, 8)
+        prItems.slice(0, 8),
+        spItems.slice(0, 6),
+        jaxaItems.slice(0, 6),
+        govItems.slice(0, 6),
+        digitalItems.slice(0, 6),
+        mhlwItems.slice(0, 6),
+        ipaPressItems.slice(0, 5),
+        ipaAlertItems.slice(0, 5),
+        ipaNewsItems.slice(0, 5),
+        egovListItems.slice(0, 5),
+        egovResultItems.slice(0, 5),
+        npaItems.slice(0, 5)
       ];
 
       const seenLinks = new Set();
@@ -268,8 +295,10 @@ function cleanText(text) {
       .replace(/&amp;/gi, "&");
   }
 
-  // IPAプレス発表等の定型接頭辞を削除してクイズのタイトルを自然にする
-  result = result.replace(/^プレス発表\s+/, "");
+  // IPA・JAXA等の定型接頭辞を削除してクイズのタイトルを自然にする
+  result = result
+    .replace(/^プレス発表\s+/, "")
+    .replace(/^\[プレスリリース(?:・[^\]]*)?\]\s*/, "");
 
   return result.replace(/\s+/g, " ").trim();
 }

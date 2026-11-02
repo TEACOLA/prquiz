@@ -287,7 +287,12 @@ class PRQuizApp {
       const itemSource = item.source || (this.currentLang === "en" ? "Newswire" : "PR TIMES");
       let icon = "📰";
       if (itemSource.includes("サイエンス")) icon = "🔬";
-      else if (itemSource.includes("NASA")) icon = "🚀";
+      else if (itemSource.includes("NASA") || itemSource.includes("JAXA")) icon = "🚀";
+      else if (itemSource.includes("デジタル")) icon = "💻";
+      else if (itemSource.includes("警察")) icon = "🚔";
+      else if (itemSource.includes("厚生労働")) icon = "🏥";
+      else if (itemSource.includes("政府広報")) icon = "🏛️";
+      else if (itemSource.includes("e-Gov")) icon = "📜";
       else if (itemSource.includes("IPA")) icon = "🛡️";
       else if (itemSource === "Newswire") icon = "🌐";
       this.sourceBadgeEl.innerHTML = `${icon} ${itemSource} (${this.currentIndex + 1}/${this.releases.length})`;

@@ -264,7 +264,12 @@ class PRSourcesApp {
       const itemSource = item.source || sourceName;
       let sourceIcon = "📰";
       if (itemSource.includes("サイエンス")) sourceIcon = "🔬";
-      else if (itemSource.includes("NASA")) sourceIcon = "🚀";
+      else if (itemSource.includes("NASA") || itemSource.includes("JAXA")) sourceIcon = "🚀";
+      else if (itemSource.includes("デジタル")) sourceIcon = "💻";
+      else if (itemSource.includes("警察")) sourceIcon = "🚔";
+      else if (itemSource.includes("厚生労働")) sourceIcon = "🏥";
+      else if (itemSource.includes("政府広報")) sourceIcon = "🏛️";
+      else if (itemSource.includes("e-Gov")) sourceIcon = "📜";
       else if (itemSource.includes("IPA")) sourceIcon = "🛡️";
       else if (itemSource === "Newswire") sourceIcon = "🌐";
       const dateFormatted = this.formatArticleDate(item.date, this.currentLang);
@@ -292,7 +297,8 @@ class PRSourcesApp {
   formatArticleDate(dateStr, lang) {
     if (!dateStr) return "";
     try {
-      const d = new Date(dateStr);
+      const normalizedDate = typeof dateStr === "string" ? dateStr.replace(/\bJST\b/g, "+09:00") : dateStr;
+      const d = new Date(normalizedDate);
       if (isNaN(d.getTime())) return dateStr;
 
       // JST (+9時間)
