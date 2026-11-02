@@ -139,6 +139,34 @@ const OFFICIAL_FEEDS = {
       siteUrl: "https://www.caa.go.jp/"
     },
     {
+      name: "ジェトロ (JETRO)",
+      category: "ビジネス短信（世界ニュース）",
+      icon: "💼",
+      feedUrl: "https://www.jetro.go.jp/rss2/biznews.xml",
+      siteUrl: "https://www.jetro.go.jp/biznews/"
+    },
+    {
+      name: "ジェトロ (JETRO)",
+      category: "イベント最新情報",
+      icon: "💼",
+      feedUrl: "https://www.jetro.go.jp/rss/event.xml",
+      siteUrl: "https://www.jetro.go.jp/events.html"
+    },
+    {
+      name: "経済産業省",
+      category: "ニュースリリース・新着情報",
+      icon: "🏭",
+      feedUrl: "https://www.meti.go.jp/ml_index_release_atom.xml",
+      siteUrl: "https://www.meti.go.jp/"
+    },
+    {
+      name: "経済産業省 METI Journal",
+      category: "政策特集・オンラインマガジン",
+      icon: "🏭",
+      feedUrl: "https://journal.meti.go.jp/feed/",
+      siteUrl: "https://journal.meti.go.jp/"
+    },
+    {
       name: "PR TIMES",
       category: "プレスリリース総合",
       icon: "📰",
@@ -321,7 +349,9 @@ class PRSourcesApp {
       const catEscaped = this.escapeHtml(feed.category);
       const feedUrlEscaped = this.escapeHtml(feed.feedUrl);
       const siteUrlEscaped = this.escapeHtml(feed.siteUrl);
-      const feedType = feed.feedUrl.endsWith(".rdf") ? "RDF" : "RSS";
+      let feedType = "RSS";
+      if (feed.feedUrl.endsWith(".rdf")) feedType = "RDF";
+      else if (feed.feedUrl.includes("atom")) feedType = "Atom";
 
       return `
         <div class="feed-item-card">
@@ -442,6 +472,8 @@ class PRSourcesApp {
       else if (itemSource.includes("e-Gov")) sourceIcon = "📜";
       else if (itemSource.includes("IPA")) sourceIcon = "🛡️";
       else if (itemSource.includes("消費者")) sourceIcon = "📢";
+      else if (itemSource.includes("ジェトロ") || itemSource.includes("JETRO")) sourceIcon = "💼";
+      else if (itemSource.includes("経済産業") || itemSource.includes("METI")) sourceIcon = "🏭";
       else if (itemSource === "Newswire") sourceIcon = "🌐";
       const dateFormatted = this.formatArticleDate(item.date, this.currentLang);
       const dateHtml = dateFormatted ? `<span>•</span><span>🕒 ${this.escapeHtml(dateFormatted)}</span>` : "";

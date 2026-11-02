@@ -73,7 +73,11 @@ async function handleReleases(request) {
         mhlwItems,
         egovListItems,
         egovResultItems,
-        caaItems
+        caaItems,
+        jetroBizItems,
+        jetroEventItems,
+        metiItems,
+        metiJournalItems
       ] = await Promise.all([
         fetchFeedItems("https://prtimes.jp/index.rdf", "PR TIMES"),
         fetchFeedItems("https://scienceportal.jst.go.jp/feed/rss.xml", "サイエンスポータル"),
@@ -87,7 +91,11 @@ async function handleReleases(request) {
         fetchFeedItems("https://www.mhlw.go.jp/stf/news.rdf", "厚生労働省"),
         fetchFeedItems("https://public-comment.e-gov.go.jp/rss/pcm_list.xml", "e-Gov パブコメ募集"),
         fetchFeedItems("https://public-comment.e-gov.go.jp/rss/pcm_result.xml", "e-Gov パブコメ結果"),
-        fetchFeedItems("https://www.caa.go.jp/news.rss", "消費者庁")
+        fetchFeedItems("https://www.caa.go.jp/news.rss", "消費者庁"),
+        fetchFeedItems("https://www.jetro.go.jp/rss2/biznews.xml", "ジェトロ ビジネス短信"),
+        fetchFeedItems("https://www.jetro.go.jp/rss/event.xml", "ジェトロ イベント情報"),
+        fetchFeedItems("https://www.meti.go.jp/ml_index_release_atom.xml", "経済産業省"),
+        fetchFeedItems("https://journal.meti.go.jp/feed/", "METI Journal")
       ]);
 
       const allSlices = [
@@ -98,6 +106,10 @@ async function handleReleases(request) {
         digitalItems.slice(0, 6),
         mhlwItems.slice(0, 6),
         caaItems.slice(0, 6),
+        jetroBizItems.slice(0, 6),
+        jetroEventItems.slice(0, 6),
+        metiItems.slice(0, 6),
+        metiJournalItems.slice(0, 6),
         ipaPressItems.slice(0, 5),
         ipaAlertItems.slice(0, 5),
         ipaNewsItems.slice(0, 5),
@@ -206,39 +218,49 @@ async function fetchFeedItems(feedUrl, defaultSource) {
   }
 }
 
-// RSS / RDF の XML から <item> を抽出し、タイトル・リンク・配信日時を取り出すパーサー
+// RSS / RDF / Atom の XML から <item> または <entry> を抽出し、タイトル・リンク・配信日時を取り出すパーサー
 function parseRssItems(xml, defaultSource = "") {
   const items = [];
-  const itemRegex = /<item[\s\S]*?<\/item>/gi;
-  let itemMatch;
+  const entryRegex = /<(?:item|entry)[\s\S]*?<\/(?:item|entry)>/gi;
+  let match;
 
-  while ((itemMatch = itemRegex.exec(xml)) !== null) {
-    const itemBlock = itemMatch[0];
+  while ((match = entryRegex.exec(xml)) !== null) {
+    const block = match[0];
 
     // タイトル抽出
     let title = "";
-    const titleMatch = itemBlock.match(/<title(?:\s[^>]*)?>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/i);
+    const titleMatch = block.match(/<title(?:\s[^>]*)?>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/i);
     if (titleMatch && titleMatch[1]) {
       title = cleanText(titleMatch[1]);
     }
 
-    // リンク抽出 (個別記事URL: rdf:about 属性または <link> タグ)
+    // リンク抽出
     let link = "";
-    const rdfAboutMatch = itemBlock.match(/<item\s+[^>]*rdf:about=["']([^"']+)["']/i);
-    if (rdfAboutMatch && rdfAboutMatch[1] && rdfAboutMatch[1].startsWith("http")) {
-      link = cleanText(rdfAboutMatch[1]);
+    // 1. Atom: <link ... href="..." ... />
+    const atomLinkMatch = block.match(/<link\s+[^>]*href=["']([^"']+)["']/i);
+    if (atomLinkMatch && atomLinkMatch[1] && atomLinkMatch[1].startsWith("http")) {
+      link = cleanText(atomLinkMatch[1]);
     }
 
+    // 2. RDF: rdf:about="..."
     if (!link) {
-      const linkMatch = itemBlock.match(/<link(?:\s[^>]*)?>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/i);
+      const rdfAboutMatch = block.match(/<(?:item|entry)\s+[^>]*rdf:about=["']([^"']+)["']/i);
+      if (rdfAboutMatch && rdfAboutMatch[1] && rdfAboutMatch[1].startsWith("http")) {
+        link = cleanText(rdfAboutMatch[1]);
+      }
+    }
+
+    // 3. RSS: <link>...</link>
+    if (!link) {
+      const linkMatch = block.match(/<link(?:\s[^>]*)?>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/i);
       if (linkMatch && linkMatch[1]) {
         link = cleanText(linkMatch[1]);
       }
     }
 
-    // 配信日時抽出 (<dc:date> または <pubDate>)
+    // 配信日時抽出 (<dc:date>, <pubDate>, <published>, <updated>)
     let date = "";
-    const dateMatch = itemBlock.match(/<(?:dc:date|pubDate)(?:\s[^>]*)?>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/(?:dc:date|pubDate)>/i);
+    const dateMatch = block.match(/<(?:dc:date|pubDate|published|updated)(?:\s[^>]*)?>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/(?:dc:date|pubDate|published|updated)>/i);
     if (dateMatch && dateMatch[1]) {
       date = cleanText(dateMatch[1]);
     }

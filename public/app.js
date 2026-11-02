@@ -295,6 +295,8 @@ class PRQuizApp {
       else if (itemSource.includes("e-Gov")) icon = "📜";
       else if (itemSource.includes("IPA")) icon = "🛡️";
       else if (itemSource.includes("消費者")) icon = "📢";
+      else if (itemSource.includes("ジェトロ") || itemSource.includes("JETRO")) icon = "💼";
+      else if (itemSource.includes("経済産業") || itemSource.includes("METI")) icon = "🏭";
       else if (itemSource === "Newswire") icon = "🌐";
       this.sourceBadgeEl.innerHTML = `${icon} ${itemSource} (${this.currentIndex + 1}/${this.releases.length})`;
     }
