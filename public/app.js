@@ -3,50 +3,36 @@
 // ローカル検証やオフライン時用のフォールバックデータ（各記事への個別リンク）
 const FALLBACK_RELEASES = {
   ja: [
-    { title: "【2026年11月号】モデルとして活躍する鈴木ゆうかさんが『PLACOLE＆DRESSY』のカバーモデルとして登場！", link: "https://prtimes.jp/main/html/rd/p/000001178.000021126.html", source: "PR TIMES" },
+    { title: "『ピクミン4 Nintendo Switch 2 Edition + だれでもチャレンジ! ダンドリ検定』の体験版が配信開始", link: "https://www.nintendo.com/jp/topics/article/8a0fad53-c589-4304-98b2-f86bd3d5764f", source: "任天堂" },
     { title: "「地上の太陽」目指し、ITER炉心の主要部品そろう 建設の節目", link: "https://scienceportal.jst.go.jp/newsflash/20261030_n01/", source: "サイエンスポータル" },
-    { title: "【新店舗】いーふらん、福岡県直方市に「高価買取おたからや 直方本店」を出店！｜2026年11月2日（月）オープン！｜金・腕時計・ブランドバッグなどの査定・買取は「高価買取おたからや」にお任せください！", link: "https://prtimes.jp/main/html/rd/p/000000472.000080252.html", source: "PR TIMES" },
+    { title: "生きた細胞内の成分を三次元動画で捉える顕微鏡を開発", link: "https://www.riken.jp/press/2026/20261102_1/index.html", source: "理化学研究所" },
     { title: "千葉豪雨など今夏3件の大雨は温暖化が発生リスク高める WACが分析", link: "https://scienceportal.jst.go.jp/newsflash/20261029_n01/", source: "サイエンスポータル" },
-    { title: "買取専科 11月に全国4エリアに新店舗を順次オープン決定！(東京都・埼玉県・京都府・大阪府）", link: "https://prtimes.jp/main/html/rd/p/000000102.000143963.html", source: "PR TIMES" },
+    { title: "フレネミーのイラスト（女性）", link: "https://www.irasutoya.com/2026/08/frenemywoman.html", source: "いらすとや" },
     { title: "各種モビリティと人の「混在交通」 現在と未来を考える日米合同シンポ", link: "https://scienceportal.jst.go.jp/stories/20261028_s01/", source: "サイエンスポータル" },
-    { title: "群馬・みなかみの新拠点「BUB RESORT Minakami」、11月1日（日）より予約受付を開始。12月24日（木）プレオープン", link: "https://prtimes.jp/main/html/rd/p/000000191.000043533.html", source: "PR TIMES" },
     { title: "「59分60秒、やめます」うるう秒廃止を決議 国際度量衡総会", link: "https://scienceportal.jst.go.jp/newsflash/20261027_n01/", source: "サイエンスポータル" },
-    { title: "祝！塩田武士『存在のすべてを』が『読者が選ぶ文庫本「本の日」大賞』大賞受賞！", link: "https://prtimes.jp/main/html/rd/p/000002478.000004702.html", source: "PR TIMES" },
     { title: "プログラミング言語「PHP」に重大欠陥 ネット社会のもろさ浮き彫り", link: "https://scienceportal.jst.go.jp/stories/20261026_s01/", source: "サイエンスポータル" },
-    { title: "ショート映画配信サービス「SAMANSA」月額利用料金改定のお知らせ", link: "https://prtimes.jp/main/html/rd/p/000000194.000082116.html", source: "PR TIMES" },
     { title: "「多文化共生」のため、科学技術どう活用？ サイエンスアゴラin前橋", link: "https://scienceportal.jst.go.jp/stories/20261023_s01/", source: "サイエンスポータル" },
-    { title: "「FiT24 春日井店」が11月1日（日）オープン！ワンフロアに充実のマシンと大型駐車場を完備～オープン記念キャンペーン開催！月会費が最大3ヶ月0円～", link: "https://prtimes.jp/main/html/rd/p/000000166.000075275.html", source: "PR TIMES" },
     { title: "火星衛星フォボスの試料回収へ旅立ち MMX打ち上げ成功 種子島", link: "https://scienceportal.jst.go.jp/newsflash/20261021_n01/", source: "サイエンスポータル" },
-    { title: "三ツ境駅前スマイル歯科 院長・樋田秀一が「歯周病菌リアルタイムPCR検査導入セミナー」に講師として登壇", link: "https://prtimes.jp/main/html/rd/p/000000053.000136443.html", source: "PR TIMES" },
-    { title: "日本の伝統工芸と現代デザインが融合した新しい陶器ブランド『美織』が誕生", link: "https://prtimes.jp/main/html/rd/p/000000015.000082341.html", source: "PR TIMES" },
-    { title: "アミューズメント施設の届業務をもっと手軽に！「レイ変更け作成くん β」の提供を開始いたしました。", link: "https://prtimes.jp/main/html/rd/p/000000040.000015943.html", source: "PR TIMES" },
     { title: "この卵はプリンに？茶碗蒸しに？ 鶏の飼い方で味が変わる 農工大など", link: "https://scienceportal.jst.go.jp/stories/20261020_s01/", source: "サイエンスポータル" },
-    { title: "VML & Ogilvy Japan、マーケティング効果を評価するアワード「APAC Effie Awards」にてブロンズを受賞", link: "https://prtimes.jp/main/html/rd/p/000000031.000107739.html", source: "PR TIMES" },
     { title: "打ち上げ迫る「MMX」 火星衛星フォボスから、どんなお土産を？", link: "https://scienceportal.jst.go.jp/stories/20261019_s01/", source: "サイエンスポータル" },
     { title: "不正アクセスによる個人情報漏えい等の被害にあわれた方の相談受付強化について", link: "https://www.ipa.go.jp/pressrelease/2026/press20261102.html", source: "IPA プレス発表" },
     { title: "更新：PHPの脆弱性対策について(CVE-2026-109618、CVE-2026-109619：PHP2shell)", link: "https://www.ipa.go.jp/security/security-alert/2026/alert20261022.html", source: "IPA セキュリティ" },
     { title: "DX認定制度 認定事業者の公表（2026年11月1日認定適用）", link: "https://disclosure.dx-portal.ipa.go.jp/", source: "IPA お知らせ" }
   ],
   en: [
-    { title: "A New Chapter in America's Lithium Story: Elektros (OTC:ELEK) Advances Its Review of a Northern New York Opportunity", link: "https://www.newswire.com/news/see-2277941", source: "Newswire" },
+    { title: "New research shows how Guided Learning supports students", link: "https://blog.google/products-and-platforms/products/education/guided-learning-uk-japan/", source: "Google" },
+    { title: "Accelerating engineering for the physical world", link: "https://openai.com/index/accelerating-engineering-for-the-physical-world", source: "OpenAI" },
     { title: "APOD: 2026 November 1 – Colors of the Moon", link: "https://science.nasa.gov/image-article/apod-2026-november-1-colors-of-the-moon/", source: "NASA" },
-    { title: "Positioning for America's Next Lithium Opportunity: Elektros (OTC:ELEK) Evaluates Northern New York Potential", link: "https://www.newswire.com/news/see-1194908", source: "Newswire" },
+    { title: "We’re providing funding for organizations building AI for teachers.", link: "https://blog.google/products-and-platforms/products/education/google-org-funding-ai-education/", source: "Google" },
+    { title: "How Cisco defends at machine speed with OpenAI", link: "https://openai.com/index/cisco-cyber", source: "OpenAI" },
     { title: "APOD: 2026 October 31 – Night on a Spooky Planet", link: "https://science.nasa.gov/image-article/apod-2026-october-31-night-on-a-spooky-planet/", source: "NASA" },
-    { title: "The Domestic Lithium Landscape Is Evolving: Elektros (OTC:ELEK) Studies a Northern New York Possibility", link: "https://www.newswire.com/news/see-3262995", source: "Newswire" },
     { title: "NASA Releases MAX POWER Key Events for Media, Participants", link: "https://www.nasa.gov/news-release/nasa-releases-max-power-key-events-for-media-participants/", source: "NASA" },
-    { title: "Glioblastoma Foundation's Genomic Testing & Research Laboratory Now Accepting Patient Samples for Genomic Testing", link: "https://www.newswire.com/news/glioblastoma-foundation-s-genomic-testing-research-laboratory-now-22880316", source: "Newswire" },
     { title: "NASA’s James Webb Space Telescope Captures Eerie Cat’s Head", link: "https://www.nasa.gov/image-article/nasas-james-webb-space-telescope-captures-eerie-cats-head/", source: "NASA" },
-    { title: "From Global Private Credit to Programmable Securities: New to The Street Show #778 Premieres Tonight on Bloomberg Television", link: "https://www.newswire.com/news/from-global-private-credit-to-programmable-securities-new-to-the-street-show", source: "Newswire" },
     { title: "NASA Explores Potential Commercial Servicing for Hubble Telescope", link: "https://science.nasa.gov/missions/hubble/nasa-explores-potential-commercial-servicing-for-hubble-telescope/", source: "NASA" },
-    { title: "Commercial Cleaning Business Funding: How Established Cleaning Companies Can Take On Bigger Contracts Before the First Invoice Pays", link: "https://www.newswire.com/news/commercial-cleaning-business-funding-how-established-cleaning-22878435", source: "Newswire" },
     { title: "November’s Night Sky Notes: Light-Day Away", link: "https://science.nasa.gov/solar-system/skywatching/night-sky-network/novembers-night-sky-notes-light-day-away/", source: "NASA" },
-    { title: "How to Repurpose Old Furniture into New Treasures", link: "https://www.newswire.com/news/how-to-repurpose-old-furniture-into-new-treasures", source: "Newswire" },
     { title: "APOD: 2026 October 30 – Haunting the Cepheus Flare", link: "https://science.nasa.gov/image-article/apod-2026-october-30-haunting-the-cepheus-flare/", source: "NASA" },
-    { title: "Villora Reviews and Complaints 2026: No Scoops, No Mixing-Is This Your Next Daily Gut Routine?", link: "https://www.newswire.com/news/villora-reviews-and-complaints-2026-no-scoops-no-mixing-is-this-your-next-daily", source: "Newswire" },
     { title: "Vega Island Frozen in Fright", link: "https://science.nasa.gov/earth/earth-observatory/vega-island-frozen-in-fright/", source: "NASA" },
-    { title: "Oilume Customer Reviews and Complaints 2026: The 80% Hair-Removal Oil Pitch-What to Know Before Ordering", link: "https://www.newswire.com/news/oilume-customer-reviews-and-complaints-2026-the-80-hair-removal-oil-pitch-what", source: "Newswire" },
     { title: "Map Showing Potential Origins of Martian Meteorite Teghaza 001", link: "https://science.nasa.gov/photojournal/map-showing-potential-origins-of-martian-meteorite-teghaza-001/", source: "NASA" },
-    { title: "KensaiChef Titanium Cutting Board Reviews & Complaints 2026: Two Prep Surfaces, Built-In Tools-Your Next Kitchen Upgrade?", link: "https://www.newswire.com/news/kensaichef-titanium-cutting-board-reviews-complaints-2026-two-prep-surfaces", source: "Newswire" },
     { title: "Slice of Martian Meteorite Teghaza 001", link: "https://science.nasa.gov/photojournal/slice-of-martian-meteorite-teghaza-001/", source: "NASA" }
   ]
 };
@@ -277,14 +263,14 @@ class PRQuizApp {
     this.currentQuestion = {
       ...quizData,
       link: item.link,
-      source: item.source || (this.currentLang === "en" ? "Newswire" : "PR TIMES")
+      source: item.source || (this.currentLang === "en" ? "Google" : "任天堂")
     };
 
     this.hasAnswered = false;
 
     // ソース元バッジ更新
     if (this.sourceBadgeEl) {
-      const itemSource = item.source || (this.currentLang === "en" ? "Newswire" : "PR TIMES");
+      const itemSource = item.source || (this.currentLang === "en" ? "Google" : "任天堂");
       let icon = "📰";
       if (itemSource.includes("サイエンス")) icon = "🔬";
       else if (itemSource.includes("NASA") || itemSource.includes("JAXA")) icon = "🚀";
@@ -304,6 +290,9 @@ class PRQuizApp {
       else if (itemSource.includes("産総研") || itemSource.includes("AIST")) icon = "🧪";
       else if (itemSource.includes("NIMS") || itemSource.includes("物質")) icon = "💎";
       else if (itemSource.includes("理研") || itemSource.includes("理化学") || itemSource.includes("RIKEN")) icon = "🧬";
+      else if (itemSource.includes("Google")) icon = "🔍";
+      else if (itemSource.includes("OpenAI")) icon = "🤖";
+      else if (itemSource.includes("Nasdaq")) icon = "📈";
       else if (itemSource === "Newswire") icon = "🌐";
       this.sourceBadgeEl.innerHTML = `${icon} ${itemSource} (${this.currentIndex + 1}/${this.releases.length})`;
     }

@@ -41,27 +41,41 @@ async function handleReleases(request) {
     let sourceName = "";
 
     if (isEn) {
-      sourceName = "Newswire / NASA";
-      // 英語フィードを並行取得（各ソースから最新10件ずつ取得）
-      const [nwItems, nasaItems] = await Promise.all([
-        fetchFeedItems("https://www.newswire.com/newsroom/rss/all", "Newswire"),
-        fetchFeedItems("https://www.nasa.gov/news-release/feed/", "NASA")
+      sourceName = "Google / OpenAI / NASA / Nasdaq";
+      // 英語フィードを並行取得（各ソースから最新記事を取得）
+      const [googleItems, openaiItems, nasaItems, nasdaqItems] = await Promise.all([
+        fetchFeedItems("https://blog.google/rss/", "Google"),
+        fetchFeedItems("https://openai.com/news/rss.xml", "OpenAI"),
+        fetchFeedItems("https://www.nasa.gov/news-release/feed/", "NASA"),
+        fetchFeedItems("https://ir.nasdaq.com/rss/news-releases.xml", "Nasdaq")
       ]);
 
-      const nwSlice = nwItems.slice(0, 10);
-      const nasaSlice = nasaItems.slice(0, 10);
+      const enSlices = [
+        googleItems.slice(0, 10),
+        openaiItems.slice(0, 10),
+        nasaItems.slice(0, 10),
+        nasdaqItems.slice(0, 10)
+      ];
 
-      // 交互にバランスよくインターリーブして結合
-      const maxLen = Math.max(nwSlice.length, nasaSlice.length);
+      const seenLinks = new Set();
+      const seenTitles = new Set();
+      const maxLen = Math.max(...enSlices.map(s => s.length));
       for (let i = 0; i < maxLen; i++) {
-        if (i < nwSlice.length) items.push(nwSlice[i]);
-        if (i < nasaSlice.length) items.push(nasaSlice[i]);
+        for (const slice of enSlices) {
+          if (i < slice.length) {
+            const item = slice[i];
+            if (item && !seenLinks.has(item.link) && !seenTitles.has(item.title)) {
+              seenLinks.add(item.link);
+              seenTitles.add(item.title);
+              items.push(item);
+            }
+          }
+        }
       }
     } else {
-      sourceName = "PR TIMES / JAXA / 官公庁 / IPA / サイエンスポータル";
+      sourceName = "任天堂 / JAXA / 官公庁 / 理研 / サイエンスポータル";
       // 日本語フィードを並行取得（各ソースから最新記事を取得）
       const [
-        prItems,
         spItems,
         ipaAlertItems,
         ipaNewsItems,
@@ -86,7 +100,6 @@ async function handleReleases(request) {
         nimsItems,
         rikenItems
       ] = await Promise.all([
-        fetchFeedItems("https://prtimes.jp/index.rdf", "PR TIMES"),
         fetchFeedItems("https://scienceportal.jst.go.jp/feed/rss.xml", "サイエンスポータル"),
         fetchFeedItems("https://www.ipa.go.jp/security/alert-rss.rdf", "IPA セキュリティ"),
         fetchFeedItems("https://www.ipa.go.jp/about/newsonly-rss.rdf", "IPA お知らせ"),
@@ -113,9 +126,8 @@ async function handleReleases(request) {
       ]);
 
       const allSlices = [
-        prItems.slice(0, 8),
-        nintendoItems.slice(0, 6),
-        irasutoyaItems.slice(0, 6),
+        nintendoItems.slice(0, 7),
+        irasutoyaItems.slice(0, 7),
         spItems.slice(0, 6),
         jaxaItems.slice(0, 6),
         rikenItems.slice(0, 6),
@@ -183,7 +195,7 @@ async function handleReleases(request) {
     return new Response(
       JSON.stringify({
         ok: false,
-        source: isEn ? "Newswire / NASA" : "PR TIMES / サイエンスポータル",
+        source: isEn ? "Google / OpenAI / NASA" : "任天堂 / JAXA / 官公庁 / 理研",
         error: error.message || "Unknown error",
         items: []
       }),

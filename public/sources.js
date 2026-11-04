@@ -3,50 +3,36 @@
 // ローカル検証やオフライン時用のフォールバックデータ（各記事への個別リンクと配信日時）
 const FALLBACK_RELEASES = {
   ja: [
-    { title: "【2026年11月号】モデルとして活躍する鈴木ゆうかさんが『PLACOLE＆DRESSY』のカバーモデルとして登場！", link: "https://prtimes.jp/main/html/rd/p/000001178.000021126.html", date: "2026-11-01T22:10:02+09:00", source: "PR TIMES" },
+    { title: "『ピクミン4 Nintendo Switch 2 Edition + だれでもチャレンジ! ダンドリ検定』の体験版が配信開始", link: "https://www.nintendo.com/jp/topics/article/8a0fad53-c589-4304-98b2-f86bd3d5764f", date: "2026-11-02T11:42:30+09:00", source: "任天堂" },
     { title: "「地上の太陽」目指し、ITER炉心の主要部品そろう 建設の節目", link: "https://scienceportal.jst.go.jp/newsflash/20261030_n01/", date: "2026-10-30T14:55:22+09:00", source: "サイエンスポータル" },
-    { title: "【新店舗】いーふらん、福岡県直方市に「高価買取おたからや 直方本店」を出店！｜2026年11月2日（月）オープン！｜金・腕時計・ブランドバッグなどの査定・買取は「高価買取おたからや」にお任せください！", link: "https://prtimes.jp/main/html/rd/p/000000472.000080252.html", date: "2026-11-01T22:10:02+09:00", source: "PR TIMES" },
+    { title: "生きた細胞内の成分を三次元動画で捉える顕微鏡を開発", link: "https://www.riken.jp/press/2026/20261102_1/index.html", date: "2026-11-02T00:00:00+09:00", source: "理化学研究所" },
     { title: "千葉豪雨など今夏3件の大雨は温暖化が発生リスク高める WACが分析", link: "https://scienceportal.jst.go.jp/newsflash/20261029_n01/", date: "2026-10-29T15:07:46+09:00", source: "サイエンスポータル" },
-    { title: "買取専科 11月に全国4エリアに新店舗を順次オープン決定！(東京都・埼玉県・京都府・大阪府）", link: "https://prtimes.jp/main/html/rd/p/000000102.000143963.html", date: "2026-11-01T22:10:02+09:00", source: "PR TIMES" },
+    { title: "フレネミーのイラスト（女性）", link: "https://www.irasutoya.com/2026/08/frenemywoman.html", date: "2026-08-31T04:14:00+00:00", source: "いらすとや" },
     { title: "各種モビリティと人の「混在交通」 現在と未来を考える日米合同シンポ", link: "https://scienceportal.jst.go.jp/stories/20261028_s01/", date: "2026-10-28T15:01:15+09:00", source: "サイエンスポータル" },
-    { title: "群馬・みなかみの新拠点「BUB RESORT Minakami」、11月1日（日）より予約受付を開始。12月24日（木）プレオープン", link: "https://prtimes.jp/main/html/rd/p/000000191.000043533.html", date: "2026-11-01T22:10:02+09:00", source: "PR TIMES" },
     { title: "「59分60秒、やめます」うるう秒廃止を決議 国際度量衡総会", link: "https://scienceportal.jst.go.jp/newsflash/20261027_n01/", date: "2026-10-27T16:37:42+09:00", source: "サイエンスポータル" },
-    { title: "祝！塩田武士『存在のすべてを』が『読者が選ぶ文庫本「本の日」大賞』大賞受賞！", link: "https://prtimes.jp/main/html/rd/p/000002478.000004702.html", date: "2026-11-01T22:10:02+09:00", source: "PR TIMES" },
     { title: "プログラミング言語「PHP」に重大欠陥 ネット社会のもろさ浮き彫り", link: "https://scienceportal.jst.go.jp/stories/20261026_s01/", date: "2026-10-26T16:02:07+09:00", source: "サイエンスポータル" },
-    { title: "ショート映画配信サービス「SAMANSA」月額利用料金改定のお知らせ", link: "https://prtimes.jp/main/html/rd/p/000000194.000082116.html", date: "2026-11-01T22:10:02+09:00", source: "PR TIMES" },
     { title: "「多文化共生」のため、科学技術どう活用？ サイエンスアゴラin前橋", link: "https://scienceportal.jst.go.jp/stories/20261023_s01/", date: "2026-10-23T14:20:54+09:00", source: "サイエンスポータル" },
-    { title: "「FiT24 春日井店」が11月1日（日）オープン！ワンフロアに充実のマシンと大型駐車場を完備～オープン記念キャンペーン開催！月会費が最大3ヶ月0円～", link: "https://prtimes.jp/main/html/rd/p/000000166.000075275.html", date: "2026-11-01T22:10:02+09:00", source: "PR TIMES" },
     { title: "火星衛星フォボスの試料回収へ旅立ち MMX打ち上げ成功 種子島", link: "https://scienceportal.jst.go.jp/newsflash/20261021_n01/", date: "2026-10-21T15:35:05+09:00", source: "サイエンスポータル" },
-    { title: "三ツ境駅前スマイル歯科 院長・樋田秀一が「歯周病菌リアルタイムPCR検査導入セミナー」に講師として登壇", link: "https://prtimes.jp/main/html/rd/p/000000053.000136443.html", date: "2026-11-01T22:10:02+09:00", source: "PR TIMES" },
-    { title: "日本の伝統工芸と現代デザインが融合した新しい陶器ブランド『美織』が誕生", link: "https://prtimes.jp/main/html/rd/p/000000015.000082341.html", date: "2026-11-01T17:22:00+09:00", source: "PR TIMES" },
-    { title: "アミューズメント施設の届業務をもっと手軽に！「レイ変更け作成くん β」の提供を開始いたしました。", link: "https://prtimes.jp/main/html/rd/p/000000040.000015943.html", date: "2026-11-01T22:10:02+09:00", source: "PR TIMES" },
     { title: "この卵はプリンに？茶碗蒸しに？ 鶏の飼い方で味が変わる 農工大など", link: "https://scienceportal.jst.go.jp/stories/20261020_s01/", date: "2026-10-20T15:50:04+09:00", source: "サイエンスポータル" },
-    { title: "VML & Ogilvy Japan、マーケティング効果を評価するアワード「APAC Effie Awards」にてブロンズを受賞", link: "https://prtimes.jp/main/html/rd/p/000000031.000107739.html", date: "2026-11-01T22:10:02+09:00", source: "PR TIMES" },
     { title: "打ち上げ迫る「MMX」 火星衛星フォボスから、どんなお土産を？", link: "https://scienceportal.jst.go.jp/stories/20261019_s01/", date: "2026-10-19T14:50:09+09:00", source: "サイエンスポータル" },
     { title: "不正アクセスによる個人情報漏えい等の被害にあわれた方の相談受付強化について", link: "https://www.ipa.go.jp/pressrelease/2026/press20261102.html", date: "2026-11-02T00:00:00+09:00", source: "IPA プレス発表" },
     { title: "更新：PHPの脆弱性対策について(CVE-2026-109618、CVE-2026-109619：PHP2shell)", link: "https://www.ipa.go.jp/security/security-alert/2026/alert20261022.html", date: "2026-11-02T00:00:00+09:00", source: "IPA セキュリティ" },
     { title: "DX認定制度 認定事業者の公表（2026年11月1日認定適用）", link: "https://disclosure.dx-portal.ipa.go.jp/", date: "2026-11-02T00:00:00+09:00", source: "IPA お知らせ" }
   ],
   en: [
-    { title: "A New Chapter in America's Lithium Story: Elektros (OTC:ELEK) Advances Its Review of a Northern New York Opportunity", link: "https://www.newswire.com/news/see-2277941", date: "Sun, 01 Nov 2026 00:12:00 +0000", source: "Newswire" },
+    { title: "New research shows how Guided Learning supports students", link: "https://blog.google/products-and-platforms/products/education/guided-learning-uk-japan/", date: "Tue, 03 Nov 2026 14:00:00 +0000", source: "Google" },
+    { title: "Accelerating engineering for the physical world", link: "https://openai.com/index/accelerating-engineering-for-the-physical-world", date: "Tue, 03 Nov 2026 12:00:00 GMT", source: "OpenAI" },
     { title: "APOD: 2026 November 1 – Colors of the Moon", link: "https://science.nasa.gov/image-article/apod-2026-november-1-colors-of-the-moon/", date: "Sun, 01 Nov 2026 04:05:00 +0000", source: "NASA" },
-    { title: "Positioning for America's Next Lithium Opportunity: Elektros (OTC:ELEK) Evaluates Northern New York Potential", link: "https://www.newswire.com/news/see-1194908", date: "Sun, 01 Nov 2026 00:00:00 +0000", source: "Newswire" },
+    { title: "We’re providing funding for organizations building AI for teachers.", link: "https://blog.google/products-and-platforms/products/education/google-org-funding-ai-education/", date: "Tue, 03 Nov 2026 14:00:00 +0000", source: "Google" },
+    { title: "How Cisco defends at machine speed with OpenAI", link: "https://openai.com/index/cisco-cyber", date: "Tue, 03 Nov 2026 08:00:00 GMT", source: "OpenAI" },
     { title: "APOD: 2026 October 31 – Night on a Spooky Planet", link: "https://science.nasa.gov/image-article/apod-2026-october-31-night-on-a-spooky-planet/", date: "Sat, 31 Oct 2026 04:05:00 +0000", source: "NASA" },
-    { title: "The Domestic Lithium Landscape Is Evolving: Elektros (OTC:ELEK) Studies a Northern New York Possibility", link: "https://www.newswire.com/news/see-3262995", date: "Sat, 31 Oct 2026 23:47:00 +0000", source: "Newswire" },
     { title: "NASA Releases MAX POWER Key Events for Media, Participants", link: "https://www.nasa.gov/news-release/nasa-releases-max-power-key-events-for-media-participants/", date: "Fri, 30 Oct 2026 19:31:02 +0000", source: "NASA" },
-    { title: "Glioblastoma Foundation's Genomic Testing & Research Laboratory Now Accepting Patient Samples for Genomic Testing", link: "https://www.newswire.com/news/glioblastoma-foundation-s-genomic-testing-research-laboratory-now-22880316", date: "Sat, 31 Oct 2026 15:55:00 +0000", source: "Newswire" },
     { title: "NASA’s James Webb Space Telescope Captures Eerie Cat’s Head", link: "https://www.nasa.gov/image-article/nasas-james-webb-space-telescope-captures-eerie-cats-head/", date: "Fri, 30 Oct 2026 15:56:26 +0000", source: "NASA" },
-    { title: "From Global Private Credit to Programmable Securities: New to The Street Show #778 Premieres Tonight on Bloomberg Television", link: "https://www.newswire.com/news/from-global-private-credit-to-programmable-securities-new-to-the-street-show", date: "Sat, 31 Oct 2026 15:00:00 +0000", source: "Newswire" },
     { title: "NASA Explores Potential Commercial Servicing for Hubble Telescope", link: "https://science.nasa.gov/missions/hubble/nasa-explores-potential-commercial-servicing-for-hubble-telescope/", date: "Fri, 30 Oct 2026 14:51:21 +0000", source: "NASA" },
-    { title: "Commercial Cleaning Business Funding: How Established Cleaning Companies Can Take On Bigger Contracts Before the First Invoice Pays", link: "https://www.newswire.com/news/commercial-cleaning-business-funding-how-established-cleaning-22878435", date: "Sat, 31 Oct 2026 13:00:00 +0000", source: "Newswire" },
     { title: "November’s Night Sky Notes: Light-Day Away", link: "https://science.nasa.gov/solar-system/skywatching/night-sky-network/novembers-night-sky-notes-light-day-away/", date: "Fri, 30 Oct 2026 10:00:00 +0000", source: "NASA" },
-    { title: "How to Repurpose Old Furniture into New Treasures", link: "https://www.newswire.com/news/how-to-repurpose-old-furniture-into-new-treasures", date: "Sat, 31 Oct 2026 04:00:00 +0000", source: "Newswire" },
     { title: "APOD: 2026 October 30 – Haunting the Cepheus Flare", link: "https://science.nasa.gov/image-article/apod-2026-october-30-haunting-the-cepheus-flare/", date: "Fri, 30 Oct 2026 04:05:00 +0000", source: "NASA" },
-    { title: "Villora Reviews and Complaints 2026: No Scoops, No Mixing-Is This Your Next Daily Gut Routine?", link: "https://www.newswire.com/news/villora-reviews-and-complaints-2026-no-scoops-no-mixing-is-this-your-next-daily", date: "Sat, 31 Oct 2026 01:05:00 +0000", source: "Newswire" },
     { title: "Vega Island Frozen in Fright", link: "https://science.nasa.gov/earth/earth-observatory/vega-island-frozen-in-fright/", date: "Fri, 30 Oct 2026 04:01:00 +0000", source: "NASA" },
-    { title: "Oilume Customer Reviews and Complaints 2026: The 80% Hair-Removal Oil Pitch-What to Know Before Ordering", link: "https://www.newswire.com/news/oilume-customer-reviews-and-complaints-2026-the-80-hair-removal-oil-pitch-what", date: "Sat, 31 Oct 2026 00:30:00 +0000", source: "Newswire" },
     { title: "Map Showing Potential Origins of Martian Meteorite Teghaza 001", link: "https://science.nasa.gov/photojournal/map-showing-potential-origins-of-martian-meteorite-teghaza-001/", date: "Fri, 30 Oct 2026 00:07:39 +0000", source: "NASA" },
-    { title: "KensaiChef Titanium Cutting Board Reviews & Complaints 2026: Two Prep Surfaces, Built-In Tools-Your Next Kitchen Upgrade?", link: "https://www.newswire.com/news/kensaichef-titanium-cutting-board-reviews-complaints-2026-two-prep-surfaces", date: "Sat, 31 Oct 2026 00:30:00 +0000", source: "Newswire" },
     { title: "Slice of Martian Meteorite Teghaza 001", link: "https://science.nasa.gov/photojournal/slice-of-martian-meteorite-teghaza-001/", date: "Thu, 29 Oct 2026 23:32:35 +0000", source: "NASA" }
   ]
 };
@@ -214,22 +200,22 @@ const OFFICIAL_FEEDS = {
       icon: "🧬",
       feedUrl: "https://www.riken.jp/feed/press_feed/",
       siteUrl: "https://www.riken.jp/"
-    },
-    {
-      name: "PR TIMES",
-      category: "プレスリリース総合",
-      icon: "📰",
-      feedUrl: "https://prtimes.jp/index.rdf",
-      siteUrl: "https://prtimes.jp/"
     }
   ],
   en: [
     {
-      name: "Newswire",
-      category: "Press Releases (All)",
-      icon: "🌐",
-      feedUrl: "https://www.newswire.com/newsroom/rss/all",
-      siteUrl: "https://www.newswire.com/"
+      name: "Google (The Keyword)",
+      category: "Official Blog & Announcements",
+      icon: "🔍",
+      feedUrl: "https://blog.google/rss/",
+      siteUrl: "https://blog.google/"
+    },
+    {
+      name: "OpenAI",
+      category: "News & Research Updates",
+      icon: "🤖",
+      feedUrl: "https://openai.com/news/rss.xml",
+      siteUrl: "https://openai.com/news/"
     },
     {
       name: "NASA",
@@ -237,6 +223,13 @@ const OFFICIAL_FEEDS = {
       icon: "🚀",
       feedUrl: "https://www.nasa.gov/news-release/feed/",
       siteUrl: "https://www.nasa.gov/"
+    },
+    {
+      name: "Nasdaq",
+      category: "Investor Relations & News Releases",
+      icon: "📈",
+      feedUrl: "https://ir.nasdaq.com/rss/news-releases.xml",
+      siteUrl: "https://ir.nasdaq.com/"
     }
   ]
 };
@@ -462,7 +455,7 @@ class PRSourcesApp {
     `;
 
     let items = [];
-    let sourceName = lang === "en" ? "Newswire / NASA" : "PR TIMES / サイエンスポータル";
+    let sourceName = lang === "en" ? "Google / OpenAI / NASA" : "任天堂 / JAXA / 官公庁 / 理研";
 
     try {
       const res = await fetch(`/api/releases?lang=${lang}`);
@@ -530,6 +523,9 @@ class PRSourcesApp {
       else if (itemSource.includes("産総研") || itemSource.includes("AIST")) sourceIcon = "🧪";
       else if (itemSource.includes("NIMS") || itemSource.includes("物質")) sourceIcon = "💎";
       else if (itemSource.includes("理研") || itemSource.includes("理化学") || itemSource.includes("RIKEN")) sourceIcon = "🧬";
+      else if (itemSource.includes("Google")) sourceIcon = "🔍";
+      else if (itemSource.includes("OpenAI")) sourceIcon = "🤖";
+      else if (itemSource.includes("Nasdaq")) sourceIcon = "📈";
       else if (itemSource === "Newswire") sourceIcon = "🌐";
       const dateFormatted = this.formatArticleDate(item.date, this.currentLang);
       const dateHtml = dateFormatted ? `<span>•</span><span>🕒 ${this.escapeHtml(dateFormatted)}</span>` : "";
