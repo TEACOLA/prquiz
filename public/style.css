@@ -707,10 +707,26 @@ body {
   background: #fecdd3;
 }
 
+/* 説明文内のフィード一覧へのアンカーリンク */
+.desc-feed-link {
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.desc-feed-link:hover {
+  color: var(--primary-hover);
+  text-decoration: none;
+}
+
 /* 配信元公式RSS/RDFフィード一覧 */
 .feeds-section {
   margin-top: 56px;
   margin-bottom: 24px;
+  scroll-margin-top: 80px;
 }
 
 .feeds-card {

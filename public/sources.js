@@ -312,6 +312,18 @@ class PRSourcesApp {
         }
       });
     });
+
+    // 「元サイト」リンクをクリックした際に「配信元RSS/RDFフィード一覧」までスムーズスクロール
+    document.addEventListener("click", (e) => {
+      const link = e.target.closest('a[href="#feeds-section"]');
+      if (link) {
+        e.preventDefault();
+        const target = document.getElementById("feeds-section");
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    });
   }
 
   scrollToTop() {
@@ -358,9 +370,9 @@ class PRSourcesApp {
     this.pageTitleEl.textContent = isEn
       ? "📰 Press Release Sources"
       : "📰 プレスリリース ソース元一覧";
-    this.pageDescEl.textContent = isEn
-      ? "Here is the list of recent press releases and articles featured in PR Quiz. Click any article to read the full story on the original site."
-      : "PR Quizで出題されている最新のプレスリリース一覧です。気になるタイトルの記事は、元サイトで全文をお読みいただけます。";
+    this.pageDescEl.innerHTML = isEn
+      ? 'Here is the list of recent press releases and articles featured in PR Quiz. Click any article to read the full story on the <a href="#feeds-section" class="desc-feed-link">original site</a>.'
+      : 'PR Quizで出題されている最新のプレスリリース一覧です。気になるタイトルの記事は、<a href="#feeds-section" class="desc-feed-link">元サイト</a>で全文をお読みいただけます。';
     if (this.footerSourcesLink) {
       this.footerSourcesLink.textContent = isEn ? "Press Release Sources List" : "プレスリリースのソース元サイト一覧";
     }
