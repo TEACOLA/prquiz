@@ -290,6 +290,9 @@ class PRQuizApp {
       else if (itemSource.includes("産総研") || itemSource.includes("AIST")) icon = "🧪";
       else if (itemSource.includes("NIMS") || itemSource.includes("物質")) icon = "💎";
       else if (itemSource.includes("理研") || itemSource.includes("理化学") || itemSource.includes("RIKEN")) icon = "🧬";
+      else if (itemSource.includes("ニッセイ")) icon = "💡";
+      else if (itemSource.includes("デイリーポータル") || itemSource.includes("DPZ")) icon = "👓";
+      else if (itemSource.includes("マルちゃん") || itemSource.includes("東洋水産")) icon = "🍜";
       else if (itemSource.includes("Google")) icon = "🔍";
       else if (itemSource.includes("OpenAI")) icon = "🤖";
       else if (itemSource.includes("Nasdaq")) icon = "📈";

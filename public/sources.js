@@ -200,6 +200,27 @@ const OFFICIAL_FEEDS = {
       icon: "🧬",
       feedUrl: "https://www.riken.jp/feed/press_feed/",
       siteUrl: "https://www.riken.jp/"
+    },
+    {
+      name: "ニッセイ基礎研究所",
+      category: "調査研究レポート・コラム",
+      icon: "💡",
+      feedUrl: "https://www.nli-research.co.jp/RSS.rdf",
+      siteUrl: "https://www.nli-research.co.jp/"
+    },
+    {
+      name: "デイリーポータルZ",
+      category: "ヘッドライン・特集記事",
+      icon: "👓",
+      feedUrl: "https://dailyportalz.jp/feed/headline",
+      siteUrl: "https://dailyportalz.jp/kiji/"
+    },
+    {
+      name: "マルちゃん (東洋水産)",
+      category: "ニュースリリース・新商品情報",
+      icon: "🍜",
+      feedUrl: "https://www.maruchan.co.jp/news_topics/news.xml",
+      siteUrl: "https://www.maruchan.co.jp/"
     }
   ],
   en: [
@@ -535,6 +556,9 @@ class PRSourcesApp {
       else if (itemSource.includes("産総研") || itemSource.includes("AIST")) sourceIcon = "🧪";
       else if (itemSource.includes("NIMS") || itemSource.includes("物質")) sourceIcon = "💎";
       else if (itemSource.includes("理研") || itemSource.includes("理化学") || itemSource.includes("RIKEN")) sourceIcon = "🧬";
+      else if (itemSource.includes("ニッセイ")) sourceIcon = "💡";
+      else if (itemSource.includes("デイリーポータル") || itemSource.includes("DPZ")) sourceIcon = "👓";
+      else if (itemSource.includes("マルちゃん") || itemSource.includes("東洋水産")) sourceIcon = "🍜";
       else if (itemSource.includes("Google")) sourceIcon = "🔍";
       else if (itemSource.includes("OpenAI")) sourceIcon = "🤖";
       else if (itemSource.includes("Nasdaq")) sourceIcon = "📈";

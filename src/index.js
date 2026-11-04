@@ -73,7 +73,7 @@ async function handleReleases(request) {
         }
       }
     } else {
-      sourceName = "任天堂 / JAXA / 官公庁 / 理研 / サイエンスポータル";
+      sourceName = "任天堂 / いらすとや / マルちゃん / DPZ / JAXA / 官公庁 / 理研";
       // 日本語フィードを並行取得（各ソースから最新記事を取得）
       const [
         spItems,
@@ -98,7 +98,10 @@ async function handleReleases(request) {
         esriItems,
         aistItems,
         nimsItems,
-        rikenItems
+        rikenItems,
+        nliItems,
+        dpzItems,
+        maruchanItems
       ] = await Promise.all([
         fetchFeedItems("https://scienceportal.jst.go.jp/feed/rss.xml", "サイエンスポータル"),
         fetchFeedItems("https://www.ipa.go.jp/security/alert-rss.rdf", "IPA セキュリティ"),
@@ -122,15 +125,21 @@ async function handleReleases(request) {
         fetchFeedItems("https://www.esri.cao.go.jp/rss-jp.xml", "内閣府 ESRI"),
         fetchFeedItems("https://www.aist.go.jp/ctl/module/mid/27/tid/75/rss.php", "産総研"),
         fetchFeedItems("https://www.nims.go.jp/news/newsall.xml", "NIMS"),
-        fetchFeedItems("https://www.riken.jp/feed/press_feed/", "理化学研究所")
+        fetchFeedItems("https://www.riken.jp/feed/press_feed/", "理化学研究所"),
+        fetchFeedItems("https://www.nli-research.co.jp/RSS.rdf", "ニッセイ基礎研究所"),
+        fetchFeedItems("https://dailyportalz.jp/feed/headline", "デイリーポータルZ"),
+        fetchFeedItems("https://www.maruchan.co.jp/news_topics/news.xml", "マルちゃん (東洋水産)")
       ]);
 
       const allSlices = [
-        nintendoItems.slice(0, 7),
-        irasutoyaItems.slice(0, 7),
-        spItems.slice(0, 6),
-        jaxaItems.slice(0, 6),
-        rikenItems.slice(0, 6),
+        nintendoItems.slice(0, 6),
+        irasutoyaItems.slice(0, 6),
+        dpzItems.slice(0, 6),
+        maruchanItems.slice(0, 6),
+        spItems.slice(0, 5),
+        jaxaItems.slice(0, 5),
+        rikenItems.slice(0, 5),
+        nliItems.slice(0, 5),
         aistItems.slice(0, 5),
         nimsItems.slice(0, 5),
         govItems.slice(0, 5),
