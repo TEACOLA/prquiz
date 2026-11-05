@@ -165,6 +165,10 @@ class PRQuizApp {
     if (originalLabel) {
       originalLabel.textContent = isEn ? "▼ Original Title:" : "▼ 元のタイトル:";
     }
+    const adLabel = document.getElementById("ad-label");
+    if (adLabel) {
+      adLabel.textContent = isEn ? "Sponsored Links" : "スポンサーリンク";
+    }
     this.updateScoreUI();
     this.renderUpdateTime();
   }
