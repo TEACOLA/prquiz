@@ -587,6 +587,24 @@ body {
   transform: none;
 }
 
+/* アドセンス広告エリア */
+.ad-area {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border);
+  text-align: center;
+  min-height: 100px;
+  overflow: hidden;
+}
+
+.ad-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
 /* ローディング & エラー表示 */
 .loading-indicator {
   text-align: center;
