@@ -33,7 +33,10 @@ const FALLBACK_RELEASES = {
     { title: "APOD: 2026 October 30 – Haunting the Cepheus Flare", link: "https://science.nasa.gov/image-article/apod-2026-october-30-haunting-the-cepheus-flare/", source: "NASA" },
     { title: "Vega Island Frozen in Fright", link: "https://science.nasa.gov/earth/earth-observatory/vega-island-frozen-in-fright/", source: "NASA" },
     { title: "Map Showing Potential Origins of Martian Meteorite Teghaza 001", link: "https://science.nasa.gov/photojournal/map-showing-potential-origins-of-martian-meteorite-teghaza-001/", source: "NASA" },
-    { title: "Slice of Martian Meteorite Teghaza 001", link: "https://science.nasa.gov/photojournal/slice-of-martian-meteorite-teghaza-001/", source: "NASA" }
+    { title: "Slice of Martian Meteorite Teghaza 001", link: "https://science.nasa.gov/photojournal/slice-of-martian-meteorite-teghaza-001/", source: "NASA" },
+    { title: "National Native American Heritage Month: November 2026", link: "https://www.census.gov/newsroom/press-releases/by-year.html", source: "U.S. Census Bureau" },
+    { title: "Major Economic Indicators Latest Numbers", link: "https://www.bls.gov/bls/", source: "U.S. Bureau of Labor Statistics" },
+    { title: "USDA NASS pilots text and email invitations for secure online survey reporting", link: "https://www.nass.usda.gov/newsroom/2026/usda-nass-pilots-text-and-email-invitations-secure-online-survey-reporting", source: "USDA NASS" }
   ]
 };
 
@@ -300,6 +303,9 @@ class PRQuizApp {
       else if (itemSource.includes("Google")) icon = "🔍";
       else if (itemSource.includes("OpenAI")) icon = "🤖";
       else if (itemSource.includes("Nasdaq")) icon = "📈";
+      else if (itemSource.includes("Census")) icon = "📊";
+      else if (itemSource.includes("Labor") || itemSource.includes("BLS")) icon = "💼";
+      else if (itemSource.includes("USDA") || itemSource.includes("NASS") || itemSource.includes("Agricultural")) icon = "🌾";
       else if (itemSource === "Newswire") icon = "🌐";
       this.sourceBadgeEl.innerHTML = `${icon} ${itemSource} (${this.currentIndex + 1}/${this.releases.length})`;
     }

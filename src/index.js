@@ -41,20 +41,34 @@ async function handleReleases(request) {
     let sourceName = "";
 
     if (isEn) {
-      sourceName = "Google / OpenAI / NASA / Nasdaq";
+      sourceName = "Google / OpenAI / NASA / Nasdaq / Census / BLS / USDA";
       // 英語フィードを並行取得（各ソースから最新記事を取得）
-      const [googleItems, openaiItems, nasaItems, nasdaqItems] = await Promise.all([
+      const [
+        googleItems,
+        openaiItems,
+        nasaItems,
+        nasdaqItems,
+        censusItems,
+        blsItems,
+        usdaItems
+      ] = await Promise.all([
         fetchFeedItems("https://blog.google/rss/", "Google"),
         fetchFeedItems("https://openai.com/news/rss.xml", "OpenAI"),
         fetchFeedItems("https://www.nasa.gov/news-release/feed/", "NASA"),
-        fetchFeedItems("https://ir.nasdaq.com/rss/news-releases.xml", "Nasdaq")
+        fetchFeedItems("https://ir.nasdaq.com/rss/news-releases.xml", "Nasdaq"),
+        fetchFeedItems("https://www.census.gov/newsroom/press-releases/by-year.xml", "U.S. Census Bureau"),
+        fetchFeedItems("https://www.bls.gov/feed/bls_latest.rss", "U.S. Bureau of Labor Statistics"),
+        fetchFeedItems("https://www.nass.usda.gov/rss/news.xml", "USDA NASS")
       ]);
 
       const enSlices = [
-        googleItems.slice(0, 10),
-        openaiItems.slice(0, 10),
-        nasaItems.slice(0, 10),
-        nasdaqItems.slice(0, 10)
+        googleItems.slice(0, 8),
+        openaiItems.slice(0, 8),
+        nasaItems.slice(0, 8),
+        censusItems.slice(0, 8),
+        usdaItems.slice(0, 8),
+        blsItems.slice(0, 5),
+        nasdaqItems.slice(0, 5)
       ];
 
       const seenLinks = new Set();
@@ -307,6 +321,18 @@ async function fetchFeedItems(feedUrl, defaultSource) {
 // RSS / RDF / Atom の XML から <item> または <entry> を抽出し、タイトル・リンク・配信日時を取り出すパーサー
 function parseRssItems(xml, defaultSource = "") {
   const items = [];
+
+  // channel link 抽出 (itemのリンクが空の場合のフォールバック用)
+  let channelLink = "";
+  const channelMatch = xml.match(/<channel[\s\S]*?>([\s\S]*?)<\/channel>/i);
+  if (channelMatch) {
+    const chLinkMatch = channelMatch[1].match(/<link(?:\s[^>]*)?>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/i);
+    if (chLinkMatch && chLinkMatch[1]) {
+      const cl = cleanText(chLinkMatch[1]);
+      if (cl.startsWith("http")) channelLink = cl;
+    }
+  }
+
   const entryRegex = /<(?:item|entry)[\s\S]*?<\/(?:item|entry)>/gi;
   let match;
 
@@ -342,6 +368,16 @@ function parseRssItems(xml, defaultSource = "") {
       if (linkMatch && linkMatch[1]) {
         link = cleanText(linkMatch[1]);
       }
+    }
+
+    // 4. itemのリンクが空の場合（Census等）はchannelLinkとタイトルからURL補完
+    if (!link && channelLink && title) {
+      link = `${channelLink}#${encodeURIComponent(title.slice(0, 60))}`;
+    }
+
+    // 内部配信オリジンドメインの正規化（USDA NASS等）
+    if (link && link.includes("www-origin.nass.usda.gov")) {
+      link = link.replace("http://www-origin.nass.usda.gov", "https://www.nass.usda.gov");
     }
 
     // 配信日時抽出 (<dc:date>, <pubDate>, <published>, <updated>)

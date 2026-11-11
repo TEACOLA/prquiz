@@ -33,7 +33,10 @@ const FALLBACK_RELEASES = {
     { title: "APOD: 2026 October 30 – Haunting the Cepheus Flare", link: "https://science.nasa.gov/image-article/apod-2026-october-30-haunting-the-cepheus-flare/", date: "Fri, 30 Oct 2026 04:05:00 +0000", source: "NASA" },
     { title: "Vega Island Frozen in Fright", link: "https://science.nasa.gov/earth/earth-observatory/vega-island-frozen-in-fright/", date: "Fri, 30 Oct 2026 04:01:00 +0000", source: "NASA" },
     { title: "Map Showing Potential Origins of Martian Meteorite Teghaza 001", link: "https://science.nasa.gov/photojournal/map-showing-potential-origins-of-martian-meteorite-teghaza-001/", date: "Fri, 30 Oct 2026 00:07:39 +0000", source: "NASA" },
-    { title: "Slice of Martian Meteorite Teghaza 001", link: "https://science.nasa.gov/photojournal/slice-of-martian-meteorite-teghaza-001/", date: "Thu, 29 Oct 2026 23:32:35 +0000", source: "NASA" }
+    { title: "Slice of Martian Meteorite Teghaza 001", link: "https://science.nasa.gov/photojournal/slice-of-martian-meteorite-teghaza-001/", date: "Thu, 29 Oct 2026 23:32:35 +0000", source: "NASA" },
+    { title: "National Native American Heritage Month: November 2026", link: "https://www.census.gov/newsroom/press-releases/by-year.html", date: "Tue, 10 Nov 2026 10:25:59 -0500", source: "U.S. Census Bureau" },
+    { title: "Major Economic Indicators Latest Numbers", link: "https://www.bls.gov/bls/", date: "Tue, 10 Nov 2026 08:30:23 -0500", source: "U.S. Bureau of Labor Statistics" },
+    { title: "USDA NASS pilots text and email invitations for secure online survey reporting", link: "https://www.nass.usda.gov/newsroom/2026/usda-nass-pilots-text-and-email-invitations-secure-online-survey-reporting", date: "Mon, 09 Nov 2026 00:00:00 -0500", source: "USDA NASS" }
   ]
 };
 
@@ -251,6 +254,27 @@ const OFFICIAL_FEEDS = {
       icon: "📈",
       feedUrl: "https://ir.nasdaq.com/rss/news-releases.xml",
       siteUrl: "https://ir.nasdaq.com/"
+    },
+    {
+      name: "U.S. Census Bureau",
+      category: "Newsroom & Press Releases",
+      icon: "📊",
+      feedUrl: "https://www.census.gov/newsroom/press-releases/by-year.xml",
+      siteUrl: "https://www.census.gov/newsroom/press-releases/by-year.html"
+    },
+    {
+      name: "U.S. Bureau of Labor Statistics (BLS)",
+      category: "Principal Federal Economic Indicators",
+      icon: "💼",
+      feedUrl: "https://www.bls.gov/feed/bls_latest.rss",
+      siteUrl: "https://www.bls.gov/"
+    },
+    {
+      name: "USDA NASS",
+      category: "Agricultural Statistics & News Releases",
+      icon: "🌾",
+      feedUrl: "https://www.nass.usda.gov/rss/news.xml",
+      siteUrl: "https://www.nass.usda.gov/"
     }
   ]
 };
@@ -562,6 +586,9 @@ class PRSourcesApp {
       else if (itemSource.includes("Google")) sourceIcon = "🔍";
       else if (itemSource.includes("OpenAI")) sourceIcon = "🤖";
       else if (itemSource.includes("Nasdaq")) sourceIcon = "📈";
+      else if (itemSource.includes("Census")) sourceIcon = "📊";
+      else if (itemSource.includes("Labor") || itemSource.includes("BLS")) sourceIcon = "💼";
+      else if (itemSource.includes("USDA") || itemSource.includes("NASS") || itemSource.includes("Agricultural")) sourceIcon = "🌾";
       else if (itemSource === "Newswire") sourceIcon = "🌐";
       const dateFormatted = this.formatArticleDate(item.date, this.currentLang);
       const dateHtml = dateFormatted ? `<span>•</span><span>🕒 ${this.escapeHtml(dateFormatted)}</span>` : "";
